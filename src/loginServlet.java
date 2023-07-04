@@ -45,7 +45,7 @@ public class loginServlet extends HttpServlet{
                     boolean m2 = rs_2.next();
                     if (m1 == true) {         //判断用户id是否正确
                         if (m2 == true) {
-                            success(request, response, logid, password);
+                            success(request, response, logid);
                             RequestDispatcher dispatcher =
                                     request.getRequestDispatcher("teacher.jsp");//转发
                             dispatcher.forward(request, response);
@@ -81,7 +81,7 @@ public class loginServlet extends HttpServlet{
     }
     public void success(HttpServletRequest request,
                         HttpServletResponse response,
-                        String logid,String password) {
+                        String logid) {
         Login loginBean=null;
         HttpSession session=request.getSession(true);
         try{  loginBean=(Login)session.getAttribute("loginBean");
