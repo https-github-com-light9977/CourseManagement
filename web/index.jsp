@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.sql.*" %><%--
   Created by IntelliJ IDEA.
   User: yanyan
   Date: 2023/7/3
@@ -11,6 +11,7 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <h2 style="color: red;">test</h2>
+
   </body>
 </html>
