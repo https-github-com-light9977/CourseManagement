@@ -1,3 +1,5 @@
+package bean;
+
 import java.sql.ResultSet;
 
 public class TCourse {

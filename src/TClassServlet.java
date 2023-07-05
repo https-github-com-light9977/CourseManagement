@@ -1,4 +1,5 @@
-import Bean.Login;
+import bean.Login;
+import bean.TClass;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServlet;
