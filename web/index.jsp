@@ -79,4 +79,5 @@
     登录反馈信息:<br>
     <jsp:getProperty name="loginBean" property="backNews"/>
     <jsp:getProperty name="loginBean" property="logid"/>
+    <jsp:getProperty name="loginBean" property="name"/>
 </html>
