@@ -1,3 +1,5 @@
+package unsolved;
+
 public class Encrypt {
     static String encrypt(String sourceString,String password) {
         char [] p= password.toCharArray();

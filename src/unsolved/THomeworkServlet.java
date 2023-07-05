@@ -1,5 +1,7 @@
-import bean.TClass;
-import bean.THomework;
+package unsolved;
+
+import unsolved.TClass;
+import unsolved.THomework;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServlet;

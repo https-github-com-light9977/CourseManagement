@@ -1,4 +1,7 @@
-import bean.TCourse;
+package unsolved;
+
+import unsolved.TCourse;
+import util.JdbcUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,11 +28,12 @@ public class TCourseServlet extends HttpServlet {
         teacher_id = request.getParameter("teacher_id");
 //        teacher_name = request.getParameter("teacher_name");
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://rm-cn-pe33aabsn000o2io.rwlb.cn-chengdu.rds.aliyuncs.com:3306/course_management-2023";
-            String user = "course_management2023";
-            String db_password = "210470727czyCZY";
-            con = DriverManager.getConnection(url, user, db_password);
+//            Class.forName("com.mysql.jdbc.Driver");
+//            String url = "jdbc:mysql://rm-cn-pe33aabsn000o2io.rwlb.cn-chengdu.rds.aliyuncs.com:3306/course_management-2023";
+//            String user = "course_management2023";
+//            String db_password = "210470727czyCZY";
+//            con = DriverManager.getConnection(url, user, db_password);
+            con = JdbcUtil.getConnection();
             statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
             String sql = "select Course_name,time from course where Teacher_id= '" +

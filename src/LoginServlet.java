@@ -12,20 +12,6 @@ public class LoginServlet extends HttpServlet{
     public void init(ServletConfig config) throws ServletException{
         super.init(config);
     }
-    public void test(HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE HTML>");
-        out.println("<HTML>");
-        out.println("  <HEAD><TITLE>login</TITLE></HEAD>");
-        out.println("  <BODY>");
-        out.print("    this is login page");
-        out.println("  </BODY>");
-        out.println("</HTML>");
-        out.flush();
-        out.close();
-    }
-
     public void service(HttpServletRequest request,
                         HttpServletResponse response)
             throws ServletException,IOException{
@@ -40,11 +26,6 @@ public class LoginServlet extends HttpServlet{
 
         boolean boo=(logid.length()>0)&&(password.length()>0);
         try{
-//            Context  context = new InitialContext();
-//            Context  contextNeeded=(Context)context.lookup("java:comp/env");
-//            DataSource ds=
-//                    (DataSource)contextNeeded.lookup("mobileConn");//获得连接池。
-//            con= ds.getConnection();//使用连接池中的连接。
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://rm-cn-pe33aabsn000o2io.rwlb.cn-chengdu.rds.aliyuncs.com:3306/course_management-2023";
             String user = "course_management2023";
@@ -186,10 +167,6 @@ public class LoginServlet extends HttpServlet{
         }
         catch(Exception ee){
             // 报错处理
-//            loginBean=new Bean.Login();
-//            session.setAttribute("loginBean",loginBean);
-//            loginBean.setBackNews(ee.toString());
-//            loginBean.setLogid(logid);
         }
     }
 
@@ -237,10 +214,6 @@ public class LoginServlet extends HttpServlet{
         }
         catch(Exception ee){
             // 报错处理
-//            loginBean=new Bean.Login();
-//            session.setAttribute("loginBean",loginBean);
-//            loginBean.setBackNews(ee.toString());
-//            loginBean.setLogid(logid);
         }
     }
 

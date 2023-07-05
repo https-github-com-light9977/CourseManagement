@@ -1,4 +1,4 @@
-package bean;
+package unsolved;
 
 import java.sql.ResultSet;
 
