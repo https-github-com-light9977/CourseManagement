@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class T_courseServlet extends HttpServlet {
+public class TCourseServlet extends HttpServlet {
     String teacher_id;
 //    String teacher_name;
 
@@ -36,14 +36,14 @@ public class T_courseServlet extends HttpServlet {
 
             // 处理courseRes数据，生成列表
             // 存入courseBean,发送至courseList.jsp
-            T_Course courseBean=null;
+            TCourse courseBean=null;
             HttpSession session=request.getSession(true);
             try {
-                courseBean = (T_Course) session.getAttribute("courseBean");
+                courseBean = (TCourse) session.getAttribute("courseBean");
                 if (courseBean == null) {
-                    courseBean = new T_Course();  //创建新的数据模型 。
+                    courseBean = new TCourse();  //创建新的数据模型 。
                     session.setAttribute("loginBean", courseBean);
-                    courseBean = (T_Course) session.getAttribute("courseBean");
+                    courseBean = (TCourse) session.getAttribute("courseBean");
                 }
                 //在bean中放入resultSet
                 courseBean.setCourseRes(courseRes);

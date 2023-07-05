@@ -1,3 +1,5 @@
+package Bean;
+
 public class Login {
     String logid="",
             name ="",

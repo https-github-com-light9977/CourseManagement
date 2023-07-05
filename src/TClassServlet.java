@@ -1,3 +1,5 @@
+import Bean.Login;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -6,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.*;
 
-public class T_classServlet extends HttpServlet {
+public class TClassServlet extends HttpServlet {
     String teacher_id;
     String class_id;
 
@@ -32,14 +34,14 @@ public class T_classServlet extends HttpServlet {
                 String classname = classRes.getString(2);
                 String classtime = classRes.getString(3);
                 String location = classRes.getString(4);
-                T_Class classBean=null;
+                TClass classBean=null;
                 HttpSession session=request.getSession(true);
                 try {
-                    classBean = (T_Class) session.getAttribute("courseBean");
+                    classBean = (TClass) session.getAttribute("courseBean");
                     if (classBean == null) {
-                        classBean = new T_Class();  //创建新的数据模型 。
+                        classBean = new TClass();  //创建新的数据模型 。
                         session.setAttribute("classBean", classBean);
-                        classBean = (T_Class) session.getAttribute("classBean");
+                        classBean = (TClass) session.getAttribute("classBean");
                     }
                     //在bean中放入resultSet
                     classBean.setClassid(class_id);

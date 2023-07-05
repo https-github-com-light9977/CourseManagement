@@ -1,3 +1,5 @@
+import Bean.Login;
+
 import java.sql.*;
 import java.io.*;
 import javax.servlet.*;
@@ -6,7 +8,7 @@ import javax.servlet.http.*;
 //import javax.naming.Context;
 //import javax.naming.InitialContext;
 //import javax.naming.NamingException;
-public class loginServlet extends HttpServlet{
+public class LoginServlet extends HttpServlet{
     public void init(ServletConfig config) throws ServletException{
         super.init(config);
     }
@@ -20,7 +22,7 @@ public class loginServlet extends HttpServlet{
         String identity = request.getParameter("role"); // 身份变量
         String logid=request.getParameter("userid").trim(), //登录id
                 password=request.getParameter("password").trim(); //密码
-        password = Encrypt.encrypt(password,"javajsp");//给用户密码加密。
+//        password = Encrypt.encrypt(password,"javajsp");//给用户密码加密。
         boolean boo=(logid.length()>0)&&(password.length()>0);
         try{
 //            Context  context = new InitialContext();
@@ -33,9 +35,9 @@ public class loginServlet extends HttpServlet{
             String user = "course_management2023";
             String db_password = "210470727czyCZY";
             con = DriverManager.getConnection(url, user, db_password);
-            if(identity.equals("教师")) {
+            if(identity.equals("teacher")) {
                 String condition_1 = "select * from teacher where Teacher_id = '" + logid + "'";  //判断用户id是否存在
-                String condition_2 = "select * from user where logname = '"+logid+
+                String condition_2 = "select * from teacher where Teacher_id = '"+logid+
                         "' and password ='"+password+"'";
                 sql = con.createStatement();
                 if (boo) {
@@ -64,12 +66,15 @@ public class loginServlet extends HttpServlet{
                     //调用登录失败的方法:
                     fail(request, response, backNews);
                 }
-                con.close();//连接返回连接池。
+                con.close();
+                sql.close();
+                //连接返回连接池。
             }
         }
         catch(SQLException exp){
-            String backNews=""+exp;
-            fail(request,response,backNews);
+            exp.printStackTrace();
+//            String backNews=""+exp;
+//            fail(request,response,backNews);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally{
@@ -119,7 +124,7 @@ public class loginServlet extends HttpServlet{
         }
         catch(Exception ee){
             // 报错处理
-//            loginBean=new Login();
+//            loginBean=new Bean.Login();
 //            session.setAttribute("loginBean",loginBean);
 //            loginBean.setBackNews(ee.toString());
 //            loginBean.setLogid(logid);

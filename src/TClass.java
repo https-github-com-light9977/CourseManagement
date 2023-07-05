@@ -1,4 +1,4 @@
-public class T_Class {
+public class TClass {
     String classid="",
             classname ="",
             classtime="",

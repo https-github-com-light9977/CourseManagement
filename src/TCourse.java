@@ -1,6 +1,6 @@
 import java.sql.ResultSet;
 
-public class T_Course {
+public class TCourse {
     ResultSet courseRes = null;
     public void setCourseRes( ResultSet resultSet){
         this.courseRes = courseRes;

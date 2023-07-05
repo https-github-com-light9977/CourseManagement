@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="loginBean" class="Bean.Login" scope="session"/>
 <html>
 <head>
     <title>欢迎使用课程活动管理系统</title>
@@ -53,8 +54,9 @@
 <div class="container">
     <div class="login-box">
         <div style="text-align: center;"><h2>登录</h2></div>
-        <form action="login" method="post">
-            <label for="userid">账号:</label>
+
+        <form action="loginServlet" method="post">
+            <%--@declare id="role"--%><label for="userid">账号:</label>
             <input type="text" id="userid" name="userid" placeholder="请输入..." required><br>
             <label for="password">密码:</label>
             <input type="password" id="password" name="password" placeholder="请输入..." required><br><br>
@@ -69,8 +71,11 @@
     </div>
 </div>
 </body>
-<% String msg = (String)request.getAttribute("msg");
-    if (msg != null) { %>
-<script>alert("<%=msg%>")</script>
-<% } %>
+<%--<% String msg = (String)request.getAttribute("msg");--%>
+<%--    if (msg != null) { %>--%>
+<%--<script>alert("<%=msg%>")</script>--%>
+<%--<% } %>--%>
+<div align="center" >
+    登录反馈信息:<br>
+<%--    <jsp:getProperty name="loginBean" property="backNews"/>--%>
 </html>

@@ -5,12 +5,12 @@
          version="4.0">
 
     <servlet>
-        <servlet-name>JspWeb</servlet-name>
+        <servlet-name>login</servlet-name>
         <servlet-class>testServelet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>JspWeb</servlet-name>
-        <url-pattern>/Login</url-pattern>
+        <servlet-name>login</servlet-name>
+        <url-pattern>/Bean.Login</url-pattern>
     </servlet-mapping>
 
 </web-app>

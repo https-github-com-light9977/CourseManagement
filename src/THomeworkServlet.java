@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.*;
 
-public class T_homeworkServlet extends HttpServlet {
+public class THomeworkServlet extends HttpServlet {
     String class_id;
     public void service(HttpServletRequest request,
                         HttpServletResponse response)
@@ -14,7 +14,7 @@ public class T_homeworkServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         Connection con = null;
         Statement statement;
-        class_id = new T_Class().getClassid();
+        class_id = new TClass().getClassid();
         try {
 //          //连接数据库
             Class.forName("com.mysql.jdbc.Driver");
@@ -30,14 +30,14 @@ public class T_homeworkServlet extends HttpServlet {
             ResultSet hwRes = statement.executeQuery(sql);
             // hwRes，生成列表
             // 存入hwBean,发送至hwList.jsp
-            T_Homework hwBean=null;
+            THomework hwBean=null;
             HttpSession session=request.getSession(true);
             try {
-                hwBean = (T_Homework) session.getAttribute("courseBean");
+                hwBean = (THomework) session.getAttribute("courseBean");
                 if (hwBean == null) {
-                    hwBean = new T_Homework();  //创建新的数据模型 。
+                    hwBean = new THomework();  //创建新的数据模型 。
                     session.setAttribute("loginBean", hwBean);
-                    hwBean = (T_Homework) session.getAttribute("courseBean");
+                    hwBean = (THomework) session.getAttribute("courseBean");
                 }
                 //在bean中放入resultSet
                 hwBean.setHwRes(hwRes);
