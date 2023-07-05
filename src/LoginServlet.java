@@ -39,7 +39,6 @@ public class LoginServlet extends HttpServlet{
 //        password = Encrypt.encrypt(password,"javajsp");//给用户密码加密。
 
         boolean boo=(logid.length()>0)&&(password.length()>0);
-        System.out.println(boo);
         try{
 //            Context  context = new InitialContext();
 //            Context  contextNeeded=(Context)context.lookup("java:comp/env");
@@ -65,11 +64,10 @@ public class LoginServlet extends HttpServlet{
                         rs_1.close();
                         ResultSet rs_2 = sql.executeQuery(condition_2);
                         boolean m2 = rs_2.next();
-                        System.out.println("test");
                         if (m2 == true) { //判断密码是否正确
-                            success(request, response, logid);
+                            success1(request, response, logid,password);
                             RequestDispatcher dispatcher =
-                                    request.getRequestDispatcher("index.jsp");//转发
+                                    request.getRequestDispatcher("Teacher.jsp");//转发
                             dispatcher.forward(request, response);
                         }else{
                             String backNews = "您输入的密码不正确,请重新输入";
@@ -89,6 +87,44 @@ public class LoginServlet extends HttpServlet{
                 con.close();
                 //连接返回连接池。
             }
+            else{
+                String condition_1 = "select * from student where Student_id = '" + logid + "'";  //判断用户id是否存在
+                String condition_2 = "select * from student where Student_id = '"+logid+
+                        "' and Student_password ='"+password+"'";
+                sql = con.createStatement();
+
+                if (boo) {
+                    ResultSet rs_1 = sql.executeQuery(condition_1);
+                    boolean m1 = rs_1.next();
+                    if (m1 == true) {//判断用户id是否正确
+                        rs_1.close();
+                        ResultSet rs_2 = sql.executeQuery(condition_2);
+                        boolean m2 = rs_2.next();
+                        System.out.println("test");
+                        if (m2 == true) { //判断密码是否正确
+                            success2(request, response, logid,password);
+                            RequestDispatcher dispatcher =
+                                    request.getRequestDispatcher("Student.jsp");//转发
+                            dispatcher.forward(request, response);
+                        }else{
+                            String backNews = "您输入的密码不正确,请重新输入";
+                            //调用登录失败的方法:
+                            fail(request, response, backNews);
+                        }
+                    } else {
+                        String backNews = "您输入的Id不正确,请重新输入";
+                        //调用登录失败的方法:
+                        fail(request, response,backNews);
+                    }
+                } else {
+                    String backNews = "请输入用户名和密码";
+                    //调用登录失败的方法:
+                    fail(request, response, backNews);
+                }
+                con.close();
+                //连接返回连接池。
+
+            }
         }
         catch(SQLException exp){
             exp.printStackTrace();
@@ -105,9 +141,61 @@ public class LoginServlet extends HttpServlet{
     }
 
 
-    public void success(HttpServletRequest request,
+    public void success1(HttpServletRequest request,
                         HttpServletResponse response,
-                        String logid) {
+                        String logid,String password) {
+        Login loginBean=null;
+        HttpSession session=request.getSession(true);
+        try{  loginBean=(Login)session.getAttribute("loginBean");
+            if(loginBean==null){
+                loginBean=new Login();  //创建新的数据模型 。
+                session.setAttribute("loginBean",loginBean);
+                loginBean=(Login)session.getAttribute("loginBean");
+            }
+
+            String id =loginBean.getLogid();
+            if(id.equals(logid)) {
+                loginBean.setLogid(logid);
+            }
+            else {  //数据模型存储新的登录用户:
+                loginBean.setLogid(logid);
+            }
+
+            // 根据用户id从数据库查找姓名，并保存在loginBean中
+            loginBean.setBackNews("登录成功");
+            Class.forName("com.mysql.jdbc.Driver");
+            String url = "jdbc:mysql://rm-cn-pe33aabsn000o2io.rwlb.cn-chengdu.rds.aliyuncs.com:3306/course_management-2023";
+            String user = "course_management2023";
+            String db_password = "210470727czyCZY";
+            Connection connection = DriverManager.getConnection(url, user, db_password);
+            Statement statement = null;
+            statement = connection.createStatement();
+            String findName = "select Teacher_name from teacher where Teacher_id = '" + logid + "'";
+            ResultSet nameSet = statement.executeQuery(findName);
+            boolean n = nameSet.next();
+            if(n){
+                String name = nameSet.getString("Teacher_name");
+                loginBean.setName(name);
+            }else{
+                //报错处理
+            }
+            connection.close();
+            statement.close();
+            nameSet.close();
+
+        }
+        catch(Exception ee){
+            // 报错处理
+//            loginBean=new Bean.Login();
+//            session.setAttribute("loginBean",loginBean);
+//            loginBean.setBackNews(ee.toString());
+//            loginBean.setLogid(logid);
+        }
+    }
+
+    public void success2(HttpServletRequest request,
+                         HttpServletResponse response,
+                         String logid,String password) {
         Login loginBean=null;
         HttpSession session=request.getSession(true);
         try{  loginBean=(Login)session.getAttribute("loginBean");
@@ -133,15 +221,18 @@ public class LoginServlet extends HttpServlet{
             Connection connection = DriverManager.getConnection(url, user, db_password);
             Statement statement = null;
             statement = connection.createStatement();
-            String findName = "select Teacher_name from teacher where Teacher_id = '" + logid + "'";
+            String findName = "select Student_name from student where Student_id = '" + logid + "'";
             ResultSet nameSet = statement.executeQuery(findName);
             boolean n = nameSet.next();
             if(n){
-                String name = nameSet.getString("Teacher_name");
+                String name = nameSet.getString("Student_name");
                 loginBean.setName(name);
             }else{
                 //报错处理
             }
+            connection.close();
+            statement.close();
+            nameSet.close();
 
         }
         catch(Exception ee){
@@ -152,18 +243,29 @@ public class LoginServlet extends HttpServlet{
 //            loginBean.setLogid(logid);
         }
     }
+
     public void fail(HttpServletRequest request,
                      HttpServletResponse response,String backNews) {
         response.setContentType("text/html;charset=utf-8");
         try {
+            Login loginBean = null;
+            HttpSession session = request.getSession(true);
+            try {
+                loginBean = (Login) session.getAttribute("loginBean");
+                if (loginBean == null) {
+                    loginBean = new Login();  //创建新的数据模型 。
+                    session.setAttribute("loginBean", loginBean);
+                    loginBean = (Login) session.getAttribute("loginBean");
+                }
 
-            //失败操作
-            //清空所有输入数据并返回报错结果
-            PrintWriter out=response.getWriter();
-            out.println("<html><body>");
-            out.println("<h2>"+""+backNews+"</h2>") ;
-            out.println("</body></html>");
+                loginBean.setBackNews(backNews);
+                RequestDispatcher dispatcher =
+                        request.getRequestDispatcher("index.jsp");//转发
+                dispatcher.forward(request, response);
+
+            }catch (Exception e){}
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch(IOException exp){}
     }
 }

@@ -66,6 +66,9 @@
             <input type="radio" id="student" name="role" value="student" checked>
             <label for="student">学生</label><br><br>
             </select><br>
+                <jsp:getProperty name="loginBean" property="backNews"/><br>
+                <jsp:getProperty name="loginBean" property="logid"/><br
+                <jsp:getProperty name="loginBean" property="name"/><br>
             <input type="submit" value="登录" >
         </form>
     </div>
@@ -75,9 +78,6 @@
 <%--    if (msg != null) { %>--%>
 <%--<script>alert("<%=msg%>")</script>--%>
 <%--<% } %>--%>
-<div align="center" >
-    登录反馈信息:<br>
-    <jsp:getProperty name="loginBean" property="backNews"/>
-    <jsp:getProperty name="loginBean" property="logid"/>
-    <jsp:getProperty name="loginBean" property="name"/>
+
+
 </html>

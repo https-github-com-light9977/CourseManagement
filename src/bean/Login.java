@@ -2,8 +2,9 @@ package bean;
 
 public class Login {
     String logid="",
+            password = "",
             name ="",
-            backNews="登录失败";
+            backNews="";
     public Login(){}
     public void setLogid(String logid){
         this.logid = logid;
@@ -24,5 +25,11 @@ public class Login {
     public String getBackNews(){
         return backNews;
     }
+
+    public void setPassword(String password) { this.password = password;}
+    public String getPassword(){
+        return password;
+    }
+
 }
 
