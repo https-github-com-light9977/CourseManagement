@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet{
         String identity = request.getParameter("role"); // 身份变量
         String logid=request.getParameter("userid").trim(), //登录id
                 password=request.getParameter("password").trim(); //密码
-//        password = Encrypt.encrypt(password,"javajsp");//给用户密码加密。
+//        password = unsolved.Encrypt.encrypt(password,"javajsp");//给用户密码加密。
 
         boolean boo=(logid.length()>0)&&(password.length()>0);
         try{
@@ -152,7 +152,7 @@ public class LoginServlet extends HttpServlet{
                 session.setAttribute("loginBean",loginBean);
                 loginBean=(Login)session.getAttribute("loginBean");
             }
-
+            loginBean.setBackNews(" ");
             String id =loginBean.getLogid();
             if(id.equals(logid)) {
                 loginBean.setLogid(logid);
@@ -204,7 +204,7 @@ public class LoginServlet extends HttpServlet{
                 session.setAttribute("loginBean",loginBean);
                 loginBean=(Login)session.getAttribute("loginBean");
             }
-
+            loginBean.setBackNews(" ");
             String id =loginBean.getLogid();
             if(id.equals(logid)) {
                 loginBean.setLogid(logid);
