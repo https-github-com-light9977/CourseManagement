@@ -1,7 +1,6 @@
 package unsolved;
 
-import bean.Login;
-import unsolved.TClass;
+import bean.Teacher;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +20,7 @@ public class TClassServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         Connection con = null;
         Statement statement;
-        teacher_id = new Login().getLogid();
+        teacher_id = new Teacher().getLogid();
         class_id = request.getParameter("class_id");
         try {
 //          //连接数据库

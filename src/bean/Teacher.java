@@ -1,11 +1,15 @@
 package bean;
 
-public class Login {
+import java.sql.ResultSet;
+
+public class Teacher {
     String logid="",
             password = "",
             name ="",
             backNews="";
-    public Login(){}
+    ResultSet courseRes = null;
+
+    public Teacher(){}
     public void setLogid(String logid){
         this.logid = logid;
     }
@@ -30,6 +34,13 @@ public class Login {
     public String getPassword(){
         return password;
     }
+    public void setCourseRes( ResultSet resultSet){
+        this.courseRes = courseRes;
+    }
+    public ResultSet getCourseRes(){
+        return courseRes;
+    }
+
 
 }
 

@@ -24,6 +24,7 @@ public class JdbcUtil {
 
             // 0.加载驱动
             Class.forName(driver);
+            System.out.println("jdbcDriver");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,11 +36,10 @@ public class JdbcUtil {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url, username, password);
-            System.out.println("jdbc");
+            System.out.println("conn");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return conn;
     }
 

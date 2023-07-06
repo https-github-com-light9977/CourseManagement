@@ -1,5 +1,3 @@
-package unsolved;
-
 import unsolved.TCourse;
 import util.JdbcUtil;
 
@@ -25,14 +23,11 @@ public class TCourseServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         Connection con =null;
         Statement statement;
+        //获取请求
+
         teacher_id = request.getParameter("teacher_id");
 //        teacher_name = request.getParameter("teacher_name");
         try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            String url = "jdbc:mysql://rm-cn-pe33aabsn000o2io.rwlb.cn-chengdu.rds.aliyuncs.com:3306/course_management-2023";
-//            String user = "course_management2023";
-//            String db_password = "210470727czyCZY";
-//            con = DriverManager.getConnection(url, user, db_password);
             con = JdbcUtil.getConnection();
             statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
@@ -48,14 +43,14 @@ public class TCourseServlet extends HttpServlet {
                 courseBean = (TCourse) session.getAttribute("courseBean");
                 if (courseBean == null) {
                     courseBean = new TCourse();  //创建新的数据模型 。
-                    session.setAttribute("loginBean", courseBean);
+                    session.setAttribute("coureBean", courseBean);
                     courseBean = (TCourse) session.getAttribute("courseBean");
                 }
                 //在bean中放入resultSet
                 courseBean.setCourseRes(courseRes);
                 //转发
                 RequestDispatcher dispatcher =
-                        request.getRequestDispatcher("courseList.jsp");//转发
+                        request.getRequestDispatcher("TeacherCourse.jsp");//转发
                 dispatcher.forward(request, response);
                 con.close();
                 statement.close();

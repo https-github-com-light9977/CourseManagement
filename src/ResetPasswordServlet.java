@@ -1,11 +1,8 @@
-import bean.Login;
-import com.mysql.cj.jdbc.JdbcConnection;
-import util.JdbcUtil;
+import bean.Teacher;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,9 +22,9 @@ public class ResetPasswordServlet extends HttpServlet {
         public void service(HttpServletRequest request,
                             HttpServletResponse response)
                 throws ServletException, IOException {
-            Login loginBean = null;
+            Teacher loginBean = null;
             HttpSession session = request.getSession(true);
-            loginBean = (Login) session.getAttribute("loginBean");
+            loginBean = (Teacher) session.getAttribute("loginBean");
 
             String id = loginBean.getLogid();
             String old_password = request.getParameter("old_password");
@@ -77,6 +74,7 @@ public class ResetPasswordServlet extends HttpServlet {
                                 // 测试修改
                                 backnews = "修改成功";
                                 success = 1;
+                                conn.close();
                             }
                         }else {
                             backnews = "两次输入不相同";
@@ -98,18 +96,13 @@ public class ResetPasswordServlet extends HttpServlet {
 
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    request.setAttribute("back", backnews);
-                    RequestDispatcher view = request.getRequestDispatcher("Teacher.jsp");
-                    view.forward(request, response);
                 }
             } else{
                 backnews ="请输入新密码";
                 request.setAttribute("back", backnews);
                 RequestDispatcher view = request.getRequestDispatcher("Teacher.jsp");
                 view.forward(request, response);
-
     }
-
     }
     }
 
