@@ -161,7 +161,7 @@
     }
 
     a:hover {
-      color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
+      color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
     }
   </style>
 </head>
@@ -191,7 +191,7 @@
             <jsp:getProperty name="loginBean" property="logid"/>
           </p>
         </div>
-        <a href="TeacherChooseClass.jsp" class="a">课程活动>></a>
+        <a href="TeacherChooseclass.jsp" class="a">课程活动>></a>
         <a href="Teacher.jsp" class="a">个人信息>></a>
       </div>
     </div>
@@ -204,9 +204,9 @@
       <div class="content">
         <!-- 个人信息界面 -->
         <div id="personal-info">
-          <a href="#" onclick="showPersonalInfo()" class="a">个人信息>></a>
-          <div id="personal-info-content" style="display: block;">
-            <br><br>
+          <a label>个人信息>></a>
+          <div id="personal-info-content" >
+            <br><br><br><br>
             <p id="user-id">账号：<jsp:getProperty name="loginBean" property="logid"/>
 <%--              <jsp:setProperty name="loginBean" property="logid"/>--%>
             </p>
@@ -218,9 +218,9 @@
         <br><br>
         <div id="password-form">
           <form action="resetPassword" method="post">
-          <a href="#" onclick="showPasswordForm()" class="a">修改密码>></a>
-          <br>
-          <div id="password-form-content" style="display: none;">
+          <a label  >修改密码>></a>
+          <br><br>
+          <div id="password-form-content" >
             <div class="form-container">
               <label for="old-password">旧密码:</label><input type="password" id="old-password" name="old_password">
               <br>
@@ -228,7 +228,7 @@
               <br>
               <label for="confirm-password">确认新密码:</label><input type="password" id="confirm-password" name="confirm_password">
               <br>
-              <input type="submit" id="submit-button" value="提交">
+              <input type="submit" id="submit-button" class="logout-button" value="提交">
               <%
                 String backnews = (String) request.getAttribute("back");
                 if (backnews != null){
@@ -243,39 +243,6 @@
     </div>
   </div>
 </div>
-<script>
-  function showPersonalInfo() {
-    var personalInfoContent = document.getElementById("personal-info-content");
-    var passwordFormContent = document.getElementById("password-form-content");
-    personalInfoContent.style.display = "block";
-    passwordFormContent.style.display = "none";
-  }
 
-  function showPasswordForm() {
-    var personalInfoContent = document.getElementById("personal-info-content");
-    var passwordFormContent = document.getElementById("password-form-content");
-    personalInfoContent.style.display = "none";
-    passwordFormContent.style.display = "block";
-  }
-</script>
-<script>
-  // 通过后端数据获取用户信息
-  // fetch('/api/user')
-  //         .then(response => response.json())
-  //         .then(data => {
-  //           document.getElementById('profile-name').textContent = data.name;
-  //           document.getElementById('profile-id').textContent = 'ID: ' + data.id;
-  //           document.getElementById('user-id').textContent = '用户ID: ' + data.id;
-  //           var changePasswordButton = document.getElementById('change-password-button');
-  //           var changePasswordCheckbox = document.getElementById('change-password');
-  //           changePasswordButton.addEventListener("click", function() {
-  //             if (changePasswordCheckbox.checked) {
-  //               alert("修改密码");
-  //             } else {
-  //               alert("密码未修改");
-  //             }
-  //           });
-  //         });
-</script>
 </body>
 </html>
