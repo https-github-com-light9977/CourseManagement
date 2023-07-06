@@ -1,3 +1,5 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -227,8 +229,15 @@
                 <button class="logout-button">退出空间</button>
             </div>
             <div class="content">
+                <%
+                    List classinfo=(List)request.getAttribute("classinfo");
+                %>
+                <%for(int i=0;i<classinfo.size();i++){%>
+                    <td><%=classinfo.get(i)%></td>
+                <%}%>
+
                 <div class="choiceheader">
-                    <a class="choice" href="#" onclick="showContent('choice1')">作业</a>
+                    <a class="choice" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
                     <a class="choice" href="#" onclick="showContent('choice2')">签到</a>
                     <a class="choice" href="#" onclick="showContent('choice3')">通知</a>
                     <a class="choice" href="#" onclick="showContent('choice4')">学生管理</a>

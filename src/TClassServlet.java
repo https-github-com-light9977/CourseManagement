@@ -23,17 +23,7 @@ public class TClassServlet extends HttpServlet {
         Connection con = null;
         Statement statement;
 
-        //获取请求
-//        TCourse courseBean = null;
-//        HttpSession session = request.getSession(true);
-//        courseBean = (TCourse) session.getAttribute("courseBean");
-//        if (courseBean == null) {
-//            courseBean = new TCourse();  //创建新的数据模型 。
-//            session.setAttribute("courseBean", courseBean);
-//            courseBean = (TCourse) session.getAttribute("courseBean");
-//        }
-//        teacher_id = new Teacher().getLogid();
-        class_id = (String) request.getAttribute("classid");
+        class_id = request.getParameter("classid");
         System.out.println(class_id);
         try {
 //          //连接数据库
@@ -45,23 +35,26 @@ public class TClassServlet extends HttpServlet {
             statement = con.createStatement();
             String sql = "select Class_id,Class_name,Course_time,Location from course where Class_id='"+ class_id+"'";   //返回(班级id,班级名称,上课时间,地点)查询语句
             ResultSet classRes = statement.executeQuery(sql);
+
+            //解析ResultSet
             if( classRes.next()){
+                System.out.println("test");
                 String classname = classRes.getString(2);
                 String classtime = classRes.getString(3);
                 String location = classRes.getString(4);
-                TClass classBean=null;
+//                TClass classBean=null;
                 try {
-                    //在bean中放入resultSet
-                    List<String> classlist = new ArrayList<>();
-                    classBean.setClassid(class_id);
-                    classBean.setClassname(classname);
-                    classBean.setClasstime(classtime);
-                    classBean.setLocation(location);
-                    classlist.add(class_id);
-                    classlist.add(classname);
-                    classlist.add(classtime);
-                    classlist.add(location);
-                    request.setAttribute("classlist",classlist);
+                    //将结果打包成list传入前端
+                    List<String> classinfo = new ArrayList<>();
+//                    classBean.setClassid(class_id);
+//                    classBean.setClassname(classname);
+//                    classBean.setClasstime(classtime);
+//                    classBean.setLocation(location);
+                    classinfo.add(class_id);
+                    classinfo.add(classname);
+                    classinfo.add(classtime);
+                    classinfo.add(location);
+                    request.setAttribute("classinfo",classinfo);
                     //转发
                     RequestDispatcher dispatcher =
                             request.getRequestDispatcher("TClass.jsp");//转发

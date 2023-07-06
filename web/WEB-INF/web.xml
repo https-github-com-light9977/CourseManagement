@@ -40,5 +40,15 @@
         <url-pattern>/class</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>homework</servlet-name>
+        <servlet-class>THomeworkServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>homework</servlet-name>
+        <url-pattern>/homework</url-pattern>
+    </servlet-mapping>
+
+
 
 </web-app>

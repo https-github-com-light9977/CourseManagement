@@ -65,7 +65,7 @@ public class TCourseServlet extends HttpServlet {
                     System.out.println(courselist);
                     request.setAttribute("courselist",courselist);
                     //在bean中放入resultSet
-                    teacherBean.setCourseRes(courseRes);
+//                    teacherBean.setCourseRes(courseRes);
                     //转发
                     RequestDispatcher dispatcher =
                             request.getRequestDispatcher("TeacherCourse.jsp");//转发

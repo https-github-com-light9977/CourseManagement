@@ -222,7 +222,7 @@
                             <th>上课时间</th>
                             <th>操作</th>
                         </tr>
-                        <form action="class" method="get">
+<%--                        <form action="class" method="get">--%>
                             <%for(int i=0;i<courselist.size();i++){
                             TCourse tcourse=(TCourse) courselist.get(i);%>
                         <tr><td><%=tcourse.getCourseName() %></td>
@@ -230,8 +230,8 @@
                             <td><%=classid %></td>
                             <td><%=tcourse.getCourseTime() %></td>
                             <td>
-                                <a href="/CourseManagement_war_exploded/class?classid="+<%=classid%> >
-                                <input type="submit" class="submit-button" value="进入班级"></input>
+                                <a href="/CourseManagement_war_exploded/class?classid=<%=tcourse.getClasseId()%>">
+                                <botton type="submit" class="submit-button" value="进入班级">进入班级</botton>
                                 </a>
                             </td>
                         </tr>
