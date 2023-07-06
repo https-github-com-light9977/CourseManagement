@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 public class TCourse {
     String courseName;
     String courseTime;
-    String classeId;
+    String classId;
 
     //    ResultSet courseRes = null;
     public void setCourseName( String courseName){
@@ -21,10 +21,10 @@ public class TCourse {
         return courseTime;
     }
     public void setClassid( String classeId){
-        this.classeId = classeId;
+        this.classId = classeId;
     }
     public String getClasseId(){
-        return classeId;
+        return classId;
     }
 }
 

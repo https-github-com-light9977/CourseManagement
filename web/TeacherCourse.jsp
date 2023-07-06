@@ -198,7 +198,7 @@
                     <br>
                     <%
                         ArrayList courselist=(ArrayList)request.getAttribute("courselist");
-                    %>**
+                    %>
                     <h2 align="center">课程列表</h2>
                     <table align="center">
                         <tr>
