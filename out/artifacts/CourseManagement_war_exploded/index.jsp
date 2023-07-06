@@ -79,8 +79,16 @@
             </select><br>
             <input type="submit" value="登录" >
         </form>
-        <div id="error-message" class="error-message">
-            <jsp:getProperty name="userBean" property="backNews"/>
+        <div
+<%--                id="error-message" class="error-message"--%>
+        >
+            <%String backnews = (String)request.getAttribute("backnews");
+                System.out.println(backnews);
+                if (backnews != null){
+                out.println(backnews);
+
+                }
+            %>
         </div>
     </div>
 </div>

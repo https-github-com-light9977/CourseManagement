@@ -41,24 +41,28 @@ public class LoginServlet extends HttpServlet{
                 if (boo) {
                     ResultSet rs_1 = sql.executeQuery(condition_1);
                     boolean m1 = rs_1.next();
+                    System.out.println(m1);
                     if (m1 == true) {//判断用户id是否正确
                         rs_1.close();
                         ResultSet rs_2 = sql.executeQuery(condition_2);
                         boolean m2 = rs_2.next();
                         if (m2 == true) { //判断密码是否正确
                             success1(request, response, logid,password);
+                            rs_2.close();
                             RequestDispatcher dispatcher =
                                     request.getRequestDispatcher("Teacher.jsp");//转发
                             dispatcher.forward(request, response);
                         }else{
                             String backNews = "您输入的密码不正确,请重新输入";
+                            System.out.println(backNews);
                             //调用登录失败的方法:
                             fail(request, response, backNews);
                         }
                     } else {
                         String backNews = "您输入的Id不正确,请重新输入";
+                        System.out.println(backNews);
                         //调用登录失败的方法:
-                        fail(request, response,backNews);
+                        fail(request,response,backNews);
                     }
                 } else {
                     String backNews = "请输入用户名和密码";
@@ -66,12 +70,13 @@ public class LoginServlet extends HttpServlet{
                     fail(request, response, backNews);
                 }
                 con.close();
+                sql.close();
                 //连接返回连接池。
             }
             else{
                 String condition_1 = "select * from student where Student_id = '" + logid + "'";  //判断用户id是否存在
                 String condition_2 = "select * from student where Student_id = '"+logid+
-                        "' and Student_password ='"+password+"'";
+                        "' and Student_password ='"+password+"'";//判断密码是否正确
                 sql = con.createStatement();
 
                 if (boo) {
@@ -103,14 +108,13 @@ public class LoginServlet extends HttpServlet{
                     fail(request, response, backNews);
                 }
                 con.close();
+                sql.close();
                 //连接返回连接池。
 
             }
         }
         catch(SQLException exp){
             exp.printStackTrace();
-//            String backNews=""+exp;
-//            fail(request,response,backNews);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally{
@@ -135,7 +139,6 @@ public class LoginServlet extends HttpServlet{
                 loginBean = (Teacher) session.getAttribute("userBean");
             }
             loginBean.setBackNews("登录成功");
-            System.out.println("test");
             System.out.println(loginBean.getBackNews());
             String id =loginBean.getLogid();
             if(id.equals(logid)) {
@@ -223,22 +226,23 @@ public class LoginServlet extends HttpServlet{
                      HttpServletResponse response,String backNews) {
         response.setContentType("text/html;charset=utf-8");
         try {
-            Teacher loginBean = null;
-            HttpSession session = request.getSession(true);
-            try {
-                loginBean = (Teacher) session.getAttribute("userBean");
-                if (loginBean == null) {
-                    loginBean = new Teacher();  //创建新的数据模型 。
-                    session.setAttribute("userBean", loginBean);
-                    loginBean = (Teacher) session.getAttribute("userBean");
-                }
-                loginBean.setBackNews(backNews);
-                System.out.println(loginBean.getBackNews());
+//            Teacher loginBean = null;
+//            HttpSession session = request.getSession(true);
+//            try {
+//                loginBean = (Teacher) session.getAttribute("userBean");
+//                if (loginBean == null) {
+//                    loginBean = new Teacher();  //创建新的数据模型 。
+//                    session.setAttribute("userBean", loginBean);
+//                    loginBean = (Teacher) session.getAttribute("userBean");
+//                }
+//                loginBean.setBackNews(backNews);
+//                System.out.println(loginBean.getBackNews());
+                request.setAttribute("backnews",backNews);
+                System.out.println(backNews);
                 RequestDispatcher dispatcher =
                         request.getRequestDispatcher("index.jsp");//转发
                 dispatcher.forward(request, response);
 
-            }catch (Exception e){}
         } catch (Exception e) {
             e.printStackTrace();
         }
