@@ -128,11 +128,11 @@ public class LoginServlet extends HttpServlet{
         Teacher loginBean=null;
         HttpSession session=request.getSession(true);
         try{
-            loginBean=(Teacher)session.getAttribute("loginBean");
+            loginBean=(Teacher)session.getAttribute("userBean");
             if(loginBean==null) {
                 loginBean = new Teacher();  //创建新的数据模型 。
-                session.setAttribute("loginBean", loginBean);
-                loginBean = (Teacher) session.getAttribute("loginBean");
+                session.setAttribute("userBean", loginBean);
+                loginBean = (Teacher) session.getAttribute("userBean");
             }
             loginBean.setBackNews("登录成功");
             System.out.println("test");
@@ -177,11 +177,11 @@ public class LoginServlet extends HttpServlet{
                          String logid,String password) {
         Teacher loginBean=null;
         HttpSession session=request.getSession(true);
-        try{  loginBean=(Teacher)session.getAttribute("loginBean");
+        try{  loginBean=(Teacher)session.getAttribute("userBean");
             if(loginBean==null){
                 loginBean=new Teacher();  //创建新的数据模型 。
-                session.setAttribute("loginBean",loginBean);
-                loginBean=(Teacher)session.getAttribute("loginBean");
+                session.setAttribute("userBean",loginBean);
+                loginBean=(Teacher)session.getAttribute("userBean");
             }
             loginBean.setBackNews(" ");
             String id =loginBean.getLogid();
@@ -226,11 +226,11 @@ public class LoginServlet extends HttpServlet{
             Teacher loginBean = null;
             HttpSession session = request.getSession(true);
             try {
-                loginBean = (Teacher) session.getAttribute("loginBean");
+                loginBean = (Teacher) session.getAttribute("userBean");
                 if (loginBean == null) {
                     loginBean = new Teacher();  //创建新的数据模型 。
-                    session.setAttribute("loginBean", loginBean);
-                    loginBean = (Teacher) session.getAttribute("loginBean");
+                    session.setAttribute("userBean", loginBean);
+                    loginBean = (Teacher) session.getAttribute("userBean");
                 }
                 loginBean.setBackNews(backNews);
                 System.out.println(loginBean.getBackNews());

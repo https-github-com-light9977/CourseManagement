@@ -177,7 +177,7 @@
     personalInfo.style.display = "block";
   });
 </script>
-<jsp:useBean id="loginBean" class="bean.Login" scope="session"/>
+<jsp:useBean id="userBean" class="bean.Teacher" scope="session"/>
 <div class="container">
   <div class="left">
     <div class="horizontal-menu">
@@ -185,14 +185,16 @@
         <div class="avatar"></div>
         <div class="profile-info">
           <h3 class="profile-name" id="profile-name">
-            <jsp:getProperty name="loginBean" property="name"/>
+            <jsp:getProperty name="userBean" property="name"/>
           </h3>
           <p class="profile-id" id="profile-id">
-            <jsp:getProperty name="loginBean" property="logid"/>
+            <jsp:getProperty name="userBean" property="logid"/>
           </p>
         </div>
-        <a href="TeacherChooseClass.jsp" class="a">课程活动>></a>
-        <a href="Teacher.jsp" class="a">个人信息>></a>
+        <form action="course" method="get">
+          <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
+          <a href="Teacher.jsp" class="a">个人信息>></a>
+        </form>
       </div>
     </div>
   </div>
@@ -207,41 +209,41 @@
           <a href="#" onclick="showPersonalInfo()" class="a">个人信息>></a>
           <div id="personal-info-content" style="display: block;">
             <br><br>
-            <p id="user-id">账号：<jsp:getProperty name="loginBean" property="logid"/>
-<%--              <jsp:setProperty name="loginBean" property="logid"/>--%>
+            <p id="user-id">账号：<jsp:getProperty name="userBean" property="logid"/>
+              <%--              <jsp:setProperty name="loginBean" property="logid"/>--%>
             </p>
-            <p id="userpassword">姓名：<jsp:getProperty name="loginBean" property="name"/>
-<%--              <jsp:setProperty name="loginBean" property="name"/>--%>
+            <p id="userpassword">姓名：<jsp:getProperty name="userBean" property="name"/>
+              <%--              <jsp:setProperty name="loginBean" property="name"/>--%>
             </p>
           </div>
         </div>
         <br><br>
         <div id="password-form">
           <form action="resetPassword" method="post">
-          <a href="#" onclick="showPasswordForm()" class="a">修改密码>></a>
-          <br>
-          <div id="password-form-content" style="display: none;">
-            <div class="form-container">
-              <label for="old-password">旧密码:</label><input type="password" id="old-password" name="old_password">
-              <br>
-              <label for="new-password">新密码:</label><input type="password" id="new-password" name="new_password">
-              <br>
-              <label for="confirm-password">确认新密码:</label><input type="password" id="confirm-password" name="confirm_password">
-              <br>
-              <input type="submit" id="submit-button" value="提交">
-              <%
+            <a href="#" onclick="showPasswordForm()" class="a">修改密码>></a>
+            <br>
+            <div id="password-form-content" style="display: none;">
+              <div class="form-container">
+                <label for="old-password">旧密码:</label><input type="password" id="old-password" name="old_password">
+                <br>
+                <label for="new-password">新密码:</label><input type="password" id="new-password" name="new_password">
+                <br>
+                <label for="confirm-password">确认新密码:</label><input type="password" id="confirm-password" name="confirm_password">
+                <br>
+                <input type="submit" id="submit-button" value="提交">
+                  <%
                 String backnews = (String) request.getAttribute("back");
                 if (backnews != null){
                   System.out.println(backnews);
                   out.println(backnews);
                 }
               %>
-            </form>
-          </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 <script>
   function showPersonalInfo() {

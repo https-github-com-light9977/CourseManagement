@@ -22,5 +22,14 @@
         <url-pattern>/resetPassword</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>course</servlet-name>
+        <servlet-class>TCourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>course</servlet-name>
+        <url-pattern>/course</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>
