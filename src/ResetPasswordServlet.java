@@ -25,7 +25,7 @@ public class ResetPasswordServlet extends HttpServlet {
             throws ServletException, IOException {
         Teacher loginBean = null;
         HttpSession session = request.getSession(true);
-        loginBean = (Teacher) session.getAttribute("loginBean");
+        loginBean = (Teacher) session.getAttribute("userBean");
 
         String id = loginBean.getLogid();
         String old_password = request.getParameter("old_password");
