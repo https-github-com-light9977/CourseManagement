@@ -226,13 +226,14 @@
                             <%for(int i=0;i<courselist.size();i++){
                             TCourse tcourse=(TCourse) courselist.get(i);%>
                         <tr><td><%=tcourse.getCourseName() %></td>
-                            <td><%=tcourse.getClasseId() %></td>
-                            <%request.setAttribute("classid",tcourse.getClasseId());
-                                request.getRequestDispatcher("TClass.jsp");%>
+                            <% String classid = tcourse.getClasseId();%>
+                            <td><%=classid %></td>
                             <td><%=tcourse.getCourseTime() %></td>
                             <td>
+                                <a href="/CourseManagement_war_exploded/class?classid="+<%=classid%> >
                                 <input type="submit" class="submit-button" value="进入班级"></input>
-                        </td>
+                                </a>
+                            </td>
                         </tr>
                              </td>
                             </form>

@@ -1,5 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="unsolved.TCourse" %>
+<%@ page import="bean.TCourse" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -222,14 +222,23 @@
                             <th>上课时间</th>
                             <th>操作</th>
                         </tr>
+                        <form action="class" method="get">
                             <%for(int i=0;i<courselist.size();i++){
                             TCourse tcourse=(TCourse) courselist.get(i);%>
                         <tr><td><%=tcourse.getCourseName() %></td>
-                            <td><%=tcourse.getClasseId() %></td>
+                            <% String classid = tcourse.getClasseId();%>
+                            <td><%=classid %></td>
                             <td><%=tcourse.getCourseTime() %></td>
-                            <td><button class="submit-button">提交</button></td>
+                            <td>
+                                <a href="/CourseManagement_war_exploded/class?classid="+<%=classid%> >
+                                <input type="submit" class="submit-button" value="进入班级"></input>
+                                </a>
+                            </td>
                         </tr>
-                            <% } %>
+                             </td>
+                            </form>
+
+                    <% } %>
                         <br>
                         <br>
                 </div>
