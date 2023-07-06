@@ -161,7 +161,7 @@
     }
 
     a:hover {
-      color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
+      color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
     }
   </style>
 </head>
@@ -191,10 +191,8 @@
             <jsp:getProperty name="userBean" property="logid"/>
           </p>
         </div>
-        <form action="course" method="get">
-          <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
-          <a href="Teacher.jsp" class="a">个人信息>></a>
-        </form>
+        <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
+        <a href="Teacher.jsp" class="a">个人信息>></a>
       </div>
     </div>
   </div>
@@ -210,10 +208,10 @@
           <div id="personal-info-content" >
             <br><br><br><br>
             <p id="user-id">账号：<jsp:getProperty name="userBean" property="logid"/>
-<%--              <jsp:setProperty name="loginBean" property="logid"/>--%>
+<%--              <jsp:setProperty name="userBean" property="logid"/>--%>
             </p>
             <p id="userpassword">姓名：<jsp:getProperty name="userBean" property="name"/>
-<%--              <jsp:setProperty name="loginBean" property="name"/>--%>
+<%--              <jsp:setProperty name="userBean" property="name"/>--%>
             </p>
           </div>
         </div>
@@ -245,39 +243,6 @@
     </div>
   </div>
 </div>
-<script>
-  function showPersonalInfo() {
-    var personalInfoContent = document.getElementById("personal-info-content");
-    var passwordFormContent = document.getElementById("password-form-content");
-    personalInfoContent.style.display = "block";
-    passwordFormContent.style.display = "none";
-  }
 
-  function showPasswordForm() {
-    var personalInfoContent = document.getElementById("personal-info-content");
-    var passwordFormContent = document.getElementById("password-form-content");
-    personalInfoContent.style.display = "none";
-    passwordFormContent.style.display = "block";
-  }
-</script>
-<script>
-  // 通过后端数据获取用户信息
-  // fetch('/api/user')
-  //         .then(response => response.json())
-  //         .then(data => {
-  //           document.getElementById('profile-name').textContent = data.name;
-  //           document.getElementById('profile-id').textContent = 'ID: ' + data.id;
-  //           document.getElementById('user-id').textContent = '用户ID: ' + data.id;
-  //           var changePasswordButton = document.getElementById('change-password-button');
-  //           var changePasswordCheckbox = document.getElementById('change-password');
-  //           changePasswordButton.addEventListener("click", function() {
-  //             if (changePasswordCheckbox.checked) {
-  //               alert("修改密码");
-  //             } else {
-  //               alert("密码未修改");
-  //             }
-  //           });
-  //         });
-</script>
 </body>
 </html>

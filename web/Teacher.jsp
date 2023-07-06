@@ -177,7 +177,7 @@
     personalInfo.style.display = "block";
   });
 </script>
-<jsp:useBean id="loginBean" class="bean.Teacher" scope="session"/>
+<jsp:useBean id="userBean" class="bean.Teacher" scope="session"/>
 <div class="container">
   <div class="left">
     <div class="horizontal-menu">
@@ -185,13 +185,13 @@
         <div class="avatar"></div>
         <div class="profile-info">
           <h3 class="profile-name" id="profile-name">
-            <jsp:getProperty name="loginBean" property="name"/>
+            <jsp:getProperty name="userBean" property="name"/>
           </h3>
           <p class="profile-id" id="profile-id">
-            <jsp:getProperty name="loginBean" property="logid"/>
+            <jsp:getProperty name="userBean" property="logid"/>
           </p>
         </div>
-        <a href="TeacherChooseclass.jsp" class="a">课程活动>></a>
+        <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
         <a href="Teacher.jsp" class="a">个人信息>></a>
       </div>
     </div>
@@ -207,11 +207,11 @@
           <a label>个人信息>></a>
           <div id="personal-info-content" >
             <br><br><br><br>
-            <p id="user-id">账号：<jsp:getProperty name="loginBean" property="logid"/>
-<%--              <jsp:setProperty name="loginBean" property="logid"/>--%>
+            <p id="user-id">账号：<jsp:getProperty name="userBean" property="logid"/>
+<%--              <jsp:setProperty name="userBean" property="logid"/>--%>
             </p>
-            <p id="userpassword">姓名：<jsp:getProperty name="loginBean" property="name"/>
-<%--              <jsp:setProperty name="loginBean" property="name"/>--%>
+            <p id="userpassword">姓名：<jsp:getProperty name="userBean" property="name"/>
+<%--              <jsp:setProperty name="userBean" property="name"/>--%>
             </p>
           </div>
         </div>
