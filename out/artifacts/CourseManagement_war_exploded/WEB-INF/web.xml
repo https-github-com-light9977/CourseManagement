@@ -31,5 +31,14 @@
         <url-pattern>/course</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>class</servlet-name>
+        <servlet-class>TClassServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>class</servlet-name>
+        <url-pattern>/class</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

@@ -1,5 +1,4 @@
 import bean.Teacher;
-import unsolved.TCourse;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -10,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ResetPasswordServlet extends HttpServlet {
     Connection conn;

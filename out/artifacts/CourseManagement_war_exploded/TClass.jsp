@@ -1,9 +1,7 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="bean.TCourse" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>选择进入教学班级</title>
+    <title>选择教学课程班级进入管理</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -108,11 +106,6 @@
             padding: 20px;
             background-color: white;
         }
-        .label {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
 
         .table-container table {
             width: 100%;
@@ -121,13 +114,6 @@
         .table-container th, .table-container td {
             padding: 10px;
             border: 1px solid cornflowerblue;
-        }
-        .form-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
         .form-container label {
             margin-bottom: 5px;
@@ -165,23 +151,57 @@
         a:hover {
             color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
         }
-        .course-table {
-            margin: 0 auto;
-            border-collapse: collapse;
+        .choiceheader {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        .choice {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #000;
+            background-color: white;
+            position: relative;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .choice:after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 80%;
-            text-align: center;
+            height: 4px;
+
+            display: none;
         }
 
-        .course-table th, .course-table td {
-            padding: 10px;
-            border: 1px solid #ccc;
+        .choicecontent {
+            display: none;
+            padding: 20px;
+            border-top: 2px solid #000;
         }
 
-        .course-table th {
-            background-color: #f2f2f2;
+        .active:after {
+            display: block;
         }
     </style>
 </head>
+<script>
+    var courseTable = document.getElementById("course-table");
+    var personalInfo = document.getElementById("personal-info");
+    document.querySelector("a[href='#course-table']").addEventListener("click", function() {
+        courseTable.style.display = "block";
+        personalInfo.style.display = "none";
+    });
+    document.querySelector("a[href='#personal-info']").addEventListener("click", function() {
+        courseTable.style.display = "none";
+        personalInfo.style.display = "block";
+    });
+</script>
 <jsp:useBean id="userBean" class="bean.Teacher" scope="session"/>
 <div class="container">
     <div class="left">
@@ -207,45 +227,61 @@
                 <button class="logout-button">退出空间</button>
             </div>
             <div class="content">
-                <div id="password-form">
-                    <a href="#" onclick="showTeacherSchedule()" class="a">我教的课>></a>
-                    <%--                    <jsp:getProperty name="userBean" property="courseRes"/>--%>
-                    <br><br><br><br>
-                    <%
-                        ArrayList courselist=(ArrayList)request.getAttribute("courselist");
-                    %>
-                    <h2 align="center">课程列表</h2>
-                    <table align="center" class="course-table">
-                        <tr>
-                            <th>课程名称</th>
-                            <th>班级ID</th>
-                            <th>上课时间</th>
-                            <th>操作</th>
-                        </tr>
-                        <form action="class" method="get">
-                            <%for(int i=0;i<courselist.size();i++){
-                            TCourse tcourse=(TCourse) courselist.get(i);%>
-                        <tr><td><%=tcourse.getCourseName() %></td>
-                            <td><%=tcourse.getClasseId() %></td>
-                            <%request.setAttribute("classid",tcourse.getClasseId());
-                                request.getRequestDispatcher("TClass.jsp");%>
-                            <td><%=tcourse.getCourseTime() %></td>
-                            <td>
-                                <input type="submit" class="submit-button" value="进入班级"></input>
-                        </td>
-                        </tr>
-                             </td>
-                            </form>
+                <div class="choiceheader">
+                    <a class="choice" href="#" onclick="showContent('choice1')">作业</a>
+                    <a class="choice" href="#" onclick="showContent('choice2')">签到</a>
+                    <a class="choice" href="#" onclick="showContent('choice3')">通知</a>
+                    <a class="choice" href="#" onclick="showContent('choice4')">学生管理</a>
+                    <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
+                </div>
 
-                    <% } %>
-                        <br>
-                        <br>
+                <div id="choice1" class="choicecontent">
+                    <h2>内容1</h2>
+                    <p>这是作业对应的内容。</p>
+                </div>
+
+                <div id="choice2" class="choicecontent">
+                    <h2>内容2</h2>
+                    <p>这是签到对应的内容。</p>
+                </div>
+
+                <div id="choice3" class="choicecontent">
+                    <h2>内容3</h2>
+                    <p>这是通知对应的内容。</p>
+                </div>
+                <div id="choice4" class="choicecontent">
+                    <h2>内容4</h2>
+                    <p>这是学生管理对应的内容。</p>
+                </div>
+                <div id="choice5" class="choicecontent">
+                    <h2>内容5</h2>
+                    <p>这是分组对应的内容。</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 <script>
+    function showContent(id) {
+        var choices = document.getElementsByClassName('choice');
+        for (var i = 0; i < choices.length; i++) {
+            choices[i].classList.remove('active');
+        }
+        var contents = document.getElementsByClassName('choicecontent');
+        for (var i = 0; i < contents.length; i++) {
+            contents[i].style.display = 'none';
+        }
+
+        var choice = document.getElementById(id);
+        var content = document.getElementById(id);
+        choice.classList.add('active');
+        content.style.display = 'block';
+
+        var choiceWidth = choice.offsetWidth;
+        var underlineWidth = choiceWidth - 20; // 调整下划线宽度，可以根据实际情况调整数值
+        choice.style.setProperty('--underline-width', underlineWidth + 'px');
+    }
 </script>
 </body>
 </html>

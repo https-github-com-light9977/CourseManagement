@@ -1,5 +1,5 @@
 import bean.Teacher;
-import unsolved.TCourse;
+import bean.TCourse;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
