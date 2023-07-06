@@ -1,20 +1,23 @@
+import bean.Login;
 import com.mysql.cj.jdbc.JdbcConnection;
 import util.JdbcUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.*;
-
 public class ResetPasswordServlet extends HttpServlet {
         Connection conn;
         PreparedStatement stmt;
         ResultSet rs;
         String backnews = "test";
+        Integer success = 0;
         public void init(ServletConfig config) throws ServletException {
             super.init(config);
         }
@@ -22,53 +25,91 @@ public class ResetPasswordServlet extends HttpServlet {
         public void service(HttpServletRequest request,
                             HttpServletResponse response)
                 throws ServletException, IOException {
-            String id = request.getParameter("id");
-            String old_password = request.getParameter("old-password");
-            String new_password = request.getParameter("new-password");
-            String confirm_password = request.getParameter("confirm-password");
+            Login loginBean = null;
+            HttpSession session = request.getSession(true);
+            loginBean = (Login) session.getAttribute("loginBean");
 
-            //连接数据库
-            conn = JdbcUtil.getConnection();
+            String id = loginBean.getLogid();
+            String old_password = request.getParameter("old_password");
+            String new_password = request.getParameter("new_password");
+            String confirm_password = request.getParameter("confirm_password");
+            System.out.println(id);
+            System.out.println(old_password);
+            System.out.println(new_password);
+            System.out.println(confirm_password);
+            boolean boo = (new_password.length() > 0) && confirm_password.length() > 0;
+            if (boo) {
+                //连接数据库
+//            conn = JdbcUtil.getConnection();
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    String url = "jdbc:mysql://rm-cn-pe33aabsn000o2io.rwlb.cn-chengdu.rds.aliyuncs.com:3306/course_management-2023";
+                    String user = "course_management2023";
+                    String db_password = "210470727czyCZY";
+                    conn = DriverManager.getConnection(url, user, db_password);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
 
-            //处理数据表
-            try {
-                String sql = "select Teacher_password from teacher where Teacher_id = ? ";
-                stmt=conn.prepareStatement(sql);
-                stmt.setString(1,id);
-                rs = stmt.executeQuery();
-                if(rs.next()|old_password.equals(rs.getString("Teacher_password"))) { //判断密码是否正确
-                    if (new_password.equals(confirm_password)) { //判断两次输入是否一致
-                        stmt.close();
-                        rs.close();
-                        // 更新teacher表
-                        String updateSql = "update teacher set Teacher_password = ? where Teacher_id = ?";
-                        PreparedStatement stmt = conn.prepareStatement(updateSql);
-                        stmt.setString(1, new_password);
-                        stmt.setString(2, id);
-                        stmt.executeUpdate();
-                        // 回到初始登录界面
-//                        RequestDispatcher view = request.getRequestDispatcher("Teacher.jsp");
-//                        view.forward(request, response);
-                        // 测试修改
-                        backnews = "修改成功";
-                        request.setAttribute("back",backnews);
-                        RequestDispatcher view = request.getRequestDispatcher("Teacher.jsp");
+                //处理数据表
+                try {
+                    String sql = "select * from teacher where Teacher_id = ? ";
+                    stmt = conn.prepareStatement(sql);
+                    stmt.setString(1, id);
+                    rs = stmt.executeQuery();
+
+                    if (rs.next() && old_password.equals(rs.getString("Teacher_password"))) { //判断密码是否正确
+                        if (new_password.equals(confirm_password)) { //判断两次输入是否一致
+                            if (new_password.equals(old_password)) {
+                                backnews = "新旧密码一致，请重新输入";
+                            } else {
+                                stmt.close();
+                                rs.close();
+                                // 更新teacher表
+                                String updateSql = "update teacher set Teacher_password = ? where Teacher_id = ?";
+                                PreparedStatement stmt = conn.prepareStatement(updateSql);
+                                stmt.setString(1, new_password);
+                                stmt.setString(2, id);
+                                stmt.executeUpdate();
+                                // 回到初始登录界面
+                                // 测试修改
+                                backnews = "修改成功";
+                                success = 1;
+                            }
+                        }else {
+                            backnews = "两次输入不相同";
+                        }
+                    } else {
+                        backnews = "原密码错误";
+                    }
+
+                    if (success == 1){
+                        request.setAttribute("back", backnews);
+                        RequestDispatcher view = request.getRequestDispatcher("index.jsp");
                         view.forward(request, response);
 
-                    }else{
-                        backnews = "两次输入不相同";
+                    }else {
+                        request.setAttribute("back", backnews);
+                        RequestDispatcher view = request.getRequestDispatcher("Teacher.jsp");
+                        view.forward(request, response);
                     }
-                } else{
-                    backnews = "原密码错误";
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    request.setAttribute("back", backnews);
+                    RequestDispatcher view = request.getRequestDispatcher("Teacher.jsp");
+                    view.forward(request, response);
                 }
-                request.setAttribute("back",backnews);
+            } else{
+                backnews ="请输入新密码";
+                request.setAttribute("back", backnews);
                 RequestDispatcher view = request.getRequestDispatcher("Teacher.jsp");
                 view.forward(request, response);
 
+    }
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+    }
     }
 

@@ -8,7 +8,7 @@
       height: 100%;
       margin: 0;
       padding: 0;
-      background-color: #f5f5f5;
+      background-color: cornflowerblue;
     }
     .container {
       display: flex;
@@ -19,14 +19,15 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      width: 200px;
-      background-color: #f2f2f2;
+      width: 150px;
+      background-color: royalblue;
       padding: 20px;
     }
     .sidebar .avatar {
+      background-image: url(images/默认头像.jpg);
+      background-size: cover;
       width: 100px;
       height: 100px;
-      background-color: gray;
       border-radius: 50%;
       margin-bottom: 10px;
     }
@@ -40,7 +41,6 @@
     }
     .sidebar .profile-id {
       font-size: 14px;
-      color: #666;
     }
     .content-wrapper {
       flex: 1;
@@ -55,16 +55,12 @@
       align-items: center;
       justify-content: space-between;
       padding: 20px;
-      background-color: #f2f2f2;
-      border-bottom: 1px solid #ccc;
-    }
-    .header-title {
-      font-size: 24px;
-      font-weight: bold;
+      background-color: cornflowerblue;
+      border-bottom: 1px solid #ffffff;
     }
     .logout-button {
       padding: 10px 20px;
-      background-color: #f44336;
+      background-color: royalblue;
       border: none;
       color: #fff;
       font-size: 16px;
@@ -76,11 +72,24 @@
       flex-direction: column;
       align-items: center;
       padding: 10px;
-      background-color: #f2f2f2;
-      border-bottom: 1px solid #ccc;
+      width: 150px;
+      background-color: cornflowerblue;
+      border-bottom: 1px solid #f2f2f2;
+      float: left;
+      border-radius: 10px;
+      overflow: hidden;
+    }
     }
     .horizontal-menu a {
       margin-bottom: 10px;
+      display: block;
+      padding: 16px;
+      text-decoration: none;
+      color: black;
+      transition: background-color 0.3s;
+    }
+    .sidebar a:hover {
+      background-color: #f2f2f2;
     }
     .content {
       flex: 1;
@@ -92,13 +101,46 @@
       font-weight: bold;
       margin-bottom: 10px;
     }
-    table {
+
+    .table-container table {
       width: 100%;
       border-collapse: collapse;
     }
-    th, td {
+    .table-container th, .table-container td {
       padding: 10px;
-      border: 1px solid #ccc;
+      border: 1px solid cornflowerblue;
+    }
+    .form-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .form-container label {
+      margin-bottom: 5px;
+    }
+    .form-container input {
+      padding: 5px;
+      margin-bottom: 10px;
+      width: 200px;
+    }
+    .form-container button {
+      padding: 10px 20px;
+      background-color: cornflowerblue;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    a {
+      color: black; /* 设置超链接的文本颜色为蓝色 */
+      text-decoration: none; /* 去除超链接的下划线 */
+    }
+
+    a:hover {
+      color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为红色 */
     }
   </style>
 </head>
@@ -124,34 +166,54 @@
         <jsp:getProperty name="loginBean" property="name"/>
       </h3>
       <p class="profile-id" id="profile-id">
-        <jsp:getProperty name="loginBean" property="logid"/></p>
+        <jsp:getProperty name="loginBean" property="logid"/>
+      </p>
     </div>
     <div class="horizontal-menu">
-      <a href="#course-table">课程活动</a>
-      <a href="#personal-info">个人信息</a>
+      <a href="#course-table" class="a">课程活动</a>
+      <a href="#personal-info" class="a">个人信息</a>
     </div>
   </div>
   <div class="content-wrapper">
     <div class="header">
-      <div class="header-title">西南财经大学</div>
       <button class="logout-button">退出空间</button>
     </div>
     <div class="content">
       <!-- 个人信息界面 -->
+
       <div id="personal-info" style="">
-        <div class="label">个人信息</div>
-        <p id="user-id">ID：
-          <jsp:getProperty name="loginBean" property="logid"/></p>
+        <div class="label">>个人信息</div>
+        <p id="user-id" name = "userid">账号：
+          <jsp:getProperty name="loginBean" property="logid"/>
+          <jsp:setProperty name="loginBean" property="logid"/>
+        </p>
         <p id="userpassword">姓名：
-          <jsp:getProperty name="loginBean" property="name"/></p>
-        <div id="change-password-label">修改密码:</div><br>
-        <label for="old-password">输入旧密码:</label><br>
-        <input type="password" id="old-password" name="old-password"><br>
-        <label for="new-password">输入新密码:</label><br>
-        <input type="password" id="new-password" name="new-password"><br>
-        <label for="confirm-password">确认新密码:</label><br>
-        <input type="password" id="confirm-password" name="confirm-password"><br>
-        <button id="submit-button">提交</button>
+          <jsp:getProperty name="loginBean" property="name"/>
+          <jsp:setProperty name="loginBean" property="name"/>
+        </p>
+        <br><br>
+        <div class="label">>修改密码</div>
+        <form action="resetPassword" method="post">
+        <div class="form-container"  >
+
+          <label for="old-password">旧密码:</label><input type="password" id="old-password" name="old_password">
+          <br>
+          <label for="new-password">新密码:</label><input type="password" id="new-password" name="new_password">
+          <br>
+          <label for="confirm-password">确认新密码:</label><input type="password" id="confirm-password" name="confirm_password">
+          <br>
+          <input type="submit" id="submit-button" value="提交"></input>
+          <%
+            String backnews = " ";
+         //   if(request.getAttribute("backnews") != null){
+            backnews = (String) request.getAttribute("back");
+           // }
+            out.println(backnews);
+          %>
+
+        </div>
+        </form>
+
       </div>
     </div>
   </div>
@@ -164,7 +226,6 @@
             document.getElementById('profile-name').textContent = data.name;
             document.getElementById('profile-id').textContent = 'ID: ' + data.id;
             document.getElementById('user-id').textContent = '用户ID: ' + data.id;
-
             var changePasswordButton = document.getElementById('change-password-button');
             var changePasswordCheckbox = document.getElementById('change-password');
             changePasswordButton.addEventListener("click", function() {
@@ -177,4 +238,3 @@
           });
 </script>
 </body>
-</html>

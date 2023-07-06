@@ -81,7 +81,7 @@ public class LoginServlet extends HttpServlet{
                         rs_1.close();
                         ResultSet rs_2 = sql.executeQuery(condition_2);
                         boolean m2 = rs_2.next();
-                        System.out.println("test");
+
                         if (m2 == true) { //判断密码是否正确
                             success2(request, response, logid,password);
                             RequestDispatcher dispatcher =
@@ -127,13 +127,16 @@ public class LoginServlet extends HttpServlet{
                         String logid,String password) {
         Login loginBean=null;
         HttpSession session=request.getSession(true);
-        try{  loginBean=(Login)session.getAttribute("loginBean");
-            if(loginBean==null){
-                loginBean=new Login();  //创建新的数据模型 。
-                session.setAttribute("loginBean",loginBean);
-                loginBean=(Login)session.getAttribute("loginBean");
+        try{
+            loginBean=(Login)session.getAttribute("loginBean");
+            if(loginBean==null) {
+                loginBean = new Login();  //创建新的数据模型 。
+                session.setAttribute("loginBean", loginBean);
+                loginBean = (Login) session.getAttribute("loginBean");
             }
-            loginBean.setBackNews(" ");
+            loginBean.setBackNews("登录成功");
+            System.out.println("test");
+            System.out.println(loginBean.getBackNews());
             String id =loginBean.getLogid();
             if(id.equals(logid)) {
                 loginBean.setLogid(logid);
@@ -143,8 +146,7 @@ public class LoginServlet extends HttpServlet{
             }
 
             // 根据用户id从数据库查找姓名，并保存在loginBean中
-            loginBean.setBackNews("登录成功");
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://rm-cn-pe33aabsn000o2io.rwlb.cn-chengdu.rds.aliyuncs.com:3306/course_management-2023";
             String user = "course_management2023";
             String db_password = "210470727czyCZY";
@@ -191,7 +193,7 @@ public class LoginServlet extends HttpServlet{
             }
             // 根据用户id从数据库查找姓名，并保存在loginBean中
             loginBean.setBackNews("登录成功");
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://rm-cn-pe33aabsn000o2io.rwlb.cn-chengdu.rds.aliyuncs.com:3306/course_management-2023";
             String user = "course_management2023";
             String db_password = "210470727czyCZY";
@@ -230,8 +232,8 @@ public class LoginServlet extends HttpServlet{
                     session.setAttribute("loginBean", loginBean);
                     loginBean = (Login) session.getAttribute("loginBean");
                 }
-
                 loginBean.setBackNews(backNews);
+                System.out.println(loginBean.getBackNews());
                 RequestDispatcher dispatcher =
                         request.getRequestDispatcher("index.jsp");//转发
                 dispatcher.forward(request, response);

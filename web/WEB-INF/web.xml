@@ -13,4 +13,14 @@
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>resetpw</servlet-name>
+        <servlet-class>ResetPasswordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>resetpw</servlet-name>
+        <url-pattern>/resetPassword</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

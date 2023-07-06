@@ -13,6 +13,7 @@ public class JdbcUtil {
     static {
         // -1.读取配置文件
         InputStream is = JdbcUtil.class.getClassLoader().getResourceAsStream("jdbc.properties");
+
         Properties pro = new Properties();
         try {
             pro.load(is);
@@ -23,6 +24,7 @@ public class JdbcUtil {
 
             // 0.加载驱动
             Class.forName(driver);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -33,9 +35,11 @@ public class JdbcUtil {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url, username, password);
+            System.out.println("jdbc");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         return conn;
     }
 
