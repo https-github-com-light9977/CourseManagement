@@ -206,44 +206,44 @@
       <div class="content">
         <!-- 个人信息界面 -->
         <div id="personal-info">
-          <a href="#" onclick="showPersonalInfo()" class="a">个人信息>></a>
-          <div id="personal-info-content" style="display: block;">
-            <br><br>
+          <a label>个人信息>></a>
+          <div id="personal-info-content" >
+            <br><br><br><br>
             <p id="user-id">账号：<jsp:getProperty name="userBean" property="logid"/>
-              <%--              <jsp:setProperty name="loginBean" property="logid"/>--%>
+<%--              <jsp:setProperty name="loginBean" property="logid"/>--%>
             </p>
             <p id="userpassword">姓名：<jsp:getProperty name="userBean" property="name"/>
-              <%--              <jsp:setProperty name="loginBean" property="name"/>--%>
+<%--              <jsp:setProperty name="loginBean" property="name"/>--%>
             </p>
           </div>
         </div>
         <br><br>
         <div id="password-form">
           <form action="resetPassword" method="post">
-            <a href="#" onclick="showPasswordForm()" class="a">修改密码>></a>
-            <br>
-            <div id="password-form-content" style="display: none;">
-              <div class="form-container">
-                <label for="old-password">旧密码:</label><input type="password" id="old-password" name="old_password">
-                <br>
-                <label for="new-password">新密码:</label><input type="password" id="new-password" name="new_password">
-                <br>
-                <label for="confirm-password">确认新密码:</label><input type="password" id="confirm-password" name="confirm_password">
-                <br>
-                <input type="submit" id="submit-button" value="提交">
-                  <%
+          <a label  >修改密码>></a>
+          <br><br>
+          <div id="password-form-content" >
+            <div class="form-container">
+              <label for="old-password">旧密码:</label><input type="password" id="old-password" name="old_password">
+              <br>
+              <label for="new-password">新密码:</label><input type="password" id="new-password" name="new_password">
+              <br>
+              <label for="confirm-password">确认新密码:</label><input type="password" id="confirm-password" name="confirm_password">
+              <br>
+              <input type="submit" id="submit-button" class="logout-button" value="提交">
+              <%
                 String backnews = (String) request.getAttribute("back");
                 if (backnews != null){
                   System.out.println(backnews);
                   out.println(backnews);
                 }
               %>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 <script>
   function showPersonalInfo() {
