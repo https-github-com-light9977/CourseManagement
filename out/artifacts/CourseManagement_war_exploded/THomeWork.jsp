@@ -186,10 +186,6 @@
       padding: 20px;
       border-top: 2px solid #000;
     }
-
-    .active:after {
-      display: block;
-    }
   </style>
 </head>
 <script>
@@ -218,6 +214,7 @@
             <jsp:getProperty name="userBean" property="logid"/>
           </p>
         </div>
+        <br><br>
         <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
         <a href="Teacher.jsp" class="a">个人信息>></a>
       </div>
@@ -228,39 +225,39 @@
       <div class="header">
         <button class="logout-button">退出空间</button>
       </div>
-<body>
-<div class="choiceheader">
-  <a class="choice" href="/CourseManagement_war_exploded/homework" onclick="showContent('choice1')">作业</a>
-  <a class="choice" href="#" onclick="showContent('choice2')">签到</a>
-  <a class="choice" href="#" onclick="showContent('choice3')">通知</a>
-  <a class="choice" href="#" onclick="showContent('choice4')">学生管理</a>
-  <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
-</div>
+      <body>
+      <div class="choiceheader">
+        <a class="choice" href="/CourseManagement_war_exploded/homework" onclick="showContent('choice1')">作业</a>
+        <a class="choice" href="#" onclick="showContent('choice2')">签到</a>
+        <a class="choice" href="#" onclick="showContent('choice3')">通知</a>
+        <a class="choice" href="#" onclick="showContent('choice4')">学生管理</a>
+        <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
+      </div>
 
-<div id="choice1" class="choicecontent">
-  <button class="logout-button" >发布新作业</button>
-  <h1>已发布作业列表</h1>
-  <table>
-    <tr>
-      <th>作业ID</th>
-      <th>作业要求</th>
-      <th>截止时间</th>
-    </tr>
-    <%
-      ArrayList homeworks=(ArrayList)request.getAttribute("homeworks");
-    %>
-    <%for(int i=0;i<homeworks.size();i++){
-      THomework tHomework=(THomework) homeworks.get(i);%>
-    <tr><td><%=tHomework.getHwid() %></td>
-      <td><%=tHomework.getHw_requirement() %></td>
-      <td><%=tHomework.getDeadline() %></td>
-      <td><button class="logout-button">查看详情</button></td>
-    </tr>
-    <% } %>
-  </table>
+      <div id="choice1" class="choicecontent">
+        <button class="logout-button" >发布新作业</button>
+        <h1>已发布作业列表</h1>
+        <table>
+          <tr>
+            <th>作业ID</th>
+            <th>作业要求</th>
+            <th>截止时间</th>
+          </tr>
+          <%
+            ArrayList homeworks=(ArrayList)request.getAttribute("homeworks");
+          %>
+          <%for(int i=0;i<homeworks.size();i++){
+            THomework tHomework=(THomework) homeworks.get(i);%>
+          <tr><td><%=tHomework.getHwid() %></td>
+            <td><%=tHomework.getHw_requirement() %></td>
+            <td><%=tHomework.getDeadline() %></td>
+            <td><button class="logout-button">查看详情</button></td>
+          </tr>
+          <% } %>
+        </table>
 
-</div>
-</body>
+      </div>
+      </body>
     </div>
   </div>
 </div>
