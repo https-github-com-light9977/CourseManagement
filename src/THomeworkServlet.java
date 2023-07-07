@@ -1,3 +1,4 @@
+import bean.TCourse;
 import unsolved.TClass;
 import bean.THomework;
 
@@ -9,16 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class THomeworkServlet extends HttpServlet {
     String class_id;
     public void doGet(HttpServletRequest request,
-                        HttpServletResponse response)
+                      HttpServletResponse response)
             throws IOException {
         request.setCharacterEncoding("utf-8");
         Connection con = null;
         Statement statement;
-        class_id = new TClass().getClassid();
+        class_id = request.getParameter("classid");
+        System.out.println(class_id);
         try {
 //          //连接数据库
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -29,33 +32,59 @@ public class THomeworkServlet extends HttpServlet {
             statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
             //查询作业列表（作业id，作业要求，截止时间）语句
-            String sql = "select Homework_id,Request,Homework_Deadline from homework where Class_id='"+class_id+"'";
+            String sql = "select Homework_id,Request,Homework_Deadline from homework where Class_id='" + "1" + "'";
             ResultSet hwRes = statement.executeQuery(sql);
             // 处理hwRes数据，生成列表并储存
             ArrayList<THomework> homeworks = new ArrayList<>();
+            THomework hw ;
             while(hwRes.next()){
                 System.out.println("处理结果集");
-                THomework hw=new THomework();
-                hw.setHwid(hwRes.getString(1));
-                hw.setHw_requirement(hwRes.getString(2));
-                hw.setDeadline(hwRes.getString(3));
+                hw=new THomework();
+                hw.setHwid(hwRes.getString("Homework_id"));
+                hw.setHw_requirement(hwRes.getString("Request"));
+                hw.setDeadline(hwRes.getString("Homework_Deadline"));
                 homeworks.add(hw);
             }
-            System.out.println(homeworks);
-            request.setAttribute("homeworks",homeworks);
-            //转发
-            RequestDispatcher dispatcher =
-                    request.getRequestDispatcher("THomeWork.jsp");//转发
-            dispatcher.forward(request, response);
-            con.close();
-            statement.close();
+            System.out.println(homeworks.get(0));
+            request.setAttribute("homeworks", homeworks);
+            hwRes.close();
+            //班级信息
+            String s = "select Class_id,Class_name,Course_time,Location from course where Class_id='" + class_id + "'";   //返回(班级id,班级名称,上课时间,地点)查询语句
+            ResultSet classRes = statement.executeQuery(s);
+            //解析classRes
+            if (classRes.next()) {
+                System.out.println("test");
+                String classname = classRes.getString(2);
+                String classtime = classRes.getString(3);
+                String location = classRes.getString(4);
+                try {
+                    //将结果打包成list传入前端
+                    List<String> classinfo = new ArrayList<>();
+                    classinfo.add(class_id);
+                    classinfo.add(classname);
+                    classinfo.add(classtime);
+                    classinfo.add(location);
+                    request.setAttribute("classinfo", classinfo);
 
-        }catch(ClassNotFoundException | SQLException e) {
+                    //转发
+                    RequestDispatcher dispatcher =
+                            request.getRequestDispatcher("THomeWork.jsp");//转发
+                    dispatcher.forward(request, response);
+                    con.close();
+                    statement.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (ServletException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ServletException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }
 

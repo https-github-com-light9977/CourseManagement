@@ -49,6 +49,24 @@
         <url-pattern>/homework</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>hwsubmitlistk</servlet-name>
+        <servlet-class>HwSubmitListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hwsubmitlistk</servlet-name>
+        <url-pattern>/hw_submit_list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>hwdetails</servlet-name>
+        <servlet-class>THwDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hwdetails</servlet-name>
+        <url-pattern>/hw_details</url-pattern>
+    </servlet-mapping>
+
 
 
 </web-app>

@@ -18,8 +18,9 @@ public class THomework {
     public String getHw_requirement() {
         return hw_requirement;
     }
+
     public void setDeadline( String deadline){
-        this.hwid = deadline;
+        this.deadline = deadline;
     }
     public String getDeadline() {
         return deadline;

@@ -1,5 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="bean.THomework" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -182,7 +183,6 @@
     }
 
     .choicecontent {
-      display: none;
       padding: 20px;
       border-top: 2px solid #000;
     }
@@ -229,6 +229,12 @@
         <button class="logout-button">退出空间</button>
       </div>
 <body>
+<%
+  List classinfo=(List)request.getAttribute("classinfo");
+%>
+<%for(int i=0;i<classinfo.size();i++){%>
+<td><%=classinfo.get(i)%></td>
+<%}%>
 <div class="choiceheader">
   <a class="choice" href="/CourseManagement_war_exploded/homework" onclick="showContent('choice1')">作业</a>
   <a class="choice" href="#" onclick="showContent('choice2')">签到</a>
@@ -247,10 +253,10 @@
       <th>截止时间</th>
     </tr>
     <%
-      ArrayList homeworks=(ArrayList)request.getAttribute("homeworks");
+      ArrayList<THomework> homeworks=(ArrayList)request.getAttribute("homeworks");
     %>
     <%for(int i=0;i<homeworks.size();i++){
-      THomework tHomework=(THomework) homeworks.get(i);%>
+      THomework tHomework=homeworks.get(i);%>
     <tr><td><%=tHomework.getHwid() %></td>
       <td><%=tHomework.getHw_requirement() %></td>
       <td><%=tHomework.getDeadline() %></td>

@@ -22,7 +22,6 @@ public class TClassServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         Connection con = null;
         Statement statement;
-
         class_id = request.getParameter("classid");
         System.out.println(class_id);
         try {
