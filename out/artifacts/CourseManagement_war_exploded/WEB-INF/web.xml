@@ -49,6 +49,41 @@
         <url-pattern>/homework</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>hwsubmitlist</servlet-name>
+        <servlet-class>HwSubmitListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hwsubmitlist</servlet-name>
+        <url-pattern>/hw_submit_list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>hwdetails</servlet-name>
+        <servlet-class>THwDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hwdetails</servlet-name>
+        <url-pattern>/hw_details</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>tnotice</servlet-name>
+        <servlet-class>TNoticeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>tnotice</servlet-name>
+        <url-pattern>/notice</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>submitgrade</servlet-name>
+        <servlet-class>SubmitGradeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>submitgrade</servlet-name>
+        <url-pattern>/submitgrade</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

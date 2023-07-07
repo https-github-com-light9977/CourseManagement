@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet{
                 if (boo) {
                     ResultSet rs_1 = sql.executeQuery(condition_1);
                     boolean m1 = rs_1.next();
-                    System.out.println(m1);
+
                     if (m1 == true) {//判断用户id是否正确
                         rs_1.close();
                         ResultSet rs_2 = sql.executeQuery(condition_2);

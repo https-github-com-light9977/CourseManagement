@@ -5,6 +5,7 @@ public class HwSubmitList {
     String Student_name;
     String grade;
     String submitTime;
+    String Homework_id;
 
     public void setStudent_id( String Student_id){
         this.Student_id = Student_id;
@@ -24,6 +25,13 @@ public class HwSubmitList {
     }
     public String getGrade() {
         return grade;
+    }
+
+    public void setHomework_id( String Homework_id){
+        this.Homework_id = Homework_id;
+    }
+    public String getHomework_id() {
+        return Homework_id;
     }
 
     public void setSubmitTime( String submitTime){

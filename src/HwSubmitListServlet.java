@@ -35,8 +35,6 @@ import java.util.List;
             Statement statement;
             hw_id = request.getParameter("hwid");
             class_id = request.getParameter("classid");
-            System.out.println(class_id);
-            System.out.println(hw_id);
             try {
 //          //连接数据库
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -48,22 +46,20 @@ import java.util.List;
                         ResultSet.CONCUR_READ_ONLY);
                 //查询学生提交作业语句
                 String sql = "select student.Student_id,Student_name,Grade" +
-                        "from student,grade" +
-                        "where student.Student_id=grade.Student_id and Homework_id='INS30601'";
+                        " from student,grade" +
+                        " where student.Student_id=grade.Student_id and Homework_id='"+hw_id+"'";
                 ResultSet hwsubmitRes = statement.executeQuery(sql);
                 // 处理hwRes数据，生成列表并储存
                 ArrayList<HwSubmitList> submitLists = new ArrayList<>();
                 HwSubmitList hwsubmitlist ;
                 while(hwsubmitRes.next()){
-                    System.out.println("处理结果集");
+
                     hwsubmitlist=new HwSubmitList();
+                    hwsubmitlist.setHomework_id(hw_id);
                     hwsubmitlist.setStudent_id(hwsubmitRes.getString(1));
                     hwsubmitlist.setStudent_name(hwsubmitRes.getString(2));
                     hwsubmitlist.setGrade(hwsubmitRes.getString(3));
                     submitLists.add(hwsubmitlist);
-                    System.out.println(hwsubmitlist.getStudent_id());
-                    System.out.println(hwsubmitlist.getStudent_name());
-                    System.out.println(hwsubmitlist.getGrade());
                 }
                 request.setAttribute("submitLists", submitLists);
                 hwsubmitRes.close();
@@ -72,7 +68,7 @@ import java.util.List;
                 ResultSet classRes = statement.executeQuery(s);
                 //解析classRes
                 if (classRes.next()) {
-                    System.out.println("test");
+
                     String classname = classRes.getString(2);
                     String classtime = classRes.getString(3);
                     String location = classRes.getString(4);
@@ -87,7 +83,7 @@ import java.util.List;
 
                         //转发
                         RequestDispatcher dispatcher =
-                                request.getRequestDispatcher("HwSubmitList.jsp");//转发
+                                request.getRequestDispatcher("THwSubmitList.jsp");//转发
                         dispatcher.forward(request, response);
                         con.close();
                         statement.close();

@@ -1,13 +1,14 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="bean.THomework" %>
+<%@ page import="bean.HwSubmitList" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>选择教学课程班级进入管理</title>
+  <title>作业</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family:sans-serif;
       height: 100%;
       margin: 0;
       padding: 0;
@@ -23,7 +24,6 @@
     .right {
       flex: 5;
     }
-
     .sidebar {
       display: flex;
       flex-direction: column;
@@ -41,9 +41,6 @@
       border-radius: 50%;
       margin-bottom: 10px;
     }
-    .sidebar .profile-info {
-      text-align: center;
-    }
     .sidebar .profile-name {
       font-size: 18px;
       font-weight: bold;
@@ -51,6 +48,9 @@
     }
     .sidebar .profile-id {
       font-size: 14px;
+    }
+    .sidebar a:hover {
+      background-color: #f2f2f2;
     }
     .content-wrapper {
       flex: 1;
@@ -101,15 +101,6 @@
       color: black;
       transition: background-color 0.3s;
     }
-    .sidebar a:hover {
-      background-color: #f2f2f2;
-    }
-    .content {
-      flex: 1;
-      padding: 20px;
-      background-color: white;
-    }
-
     .table-container table {
       width: 100%;
       border-collapse: collapse;
@@ -150,7 +141,6 @@
       color: black; /* 设置超链接的文本颜色为蓝色 */
       text-decoration: none; /* 去除超链接的下划线 */
     }
-
     a:hover {
       color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
     }
@@ -160,7 +150,6 @@
       justify-content: flex-start;
       padding: 20px;
     }
-
     .choice {
       margin: 0 10px;
       text-decoration: none;
@@ -178,20 +167,43 @@
       transform: translateX(-50%);
       width: 80%;
       height: 4px;
-
       display: none;
     }
-
     .choicecontent {
       padding: 20px;
       border-top: 2px solid #000;
     }
+    <%-- 课程列表显示的布局样式--%>
+    .homework-table {
+      margin: 0 auto;
+      overflow-y: auto;
+      border-collapse: collapse;
+      width: 90%;
+      text-align: center;
+    }
+    .homework-table th, .homework-table td {
+      padding: 10px;
+      text-align: center;
+      border: 0.5px solid #ccc;
+    }
+    .homework-table {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    th:first-child, td:first-child {
+      border-left-width: 1px;
+    }
 
-    .active:after {
-      display: block;
+    th:last-child, td:last-child {
+      border-right-width: 1px;
+    }
+
+    tr:last-child th, tr:last-child td {
+      border-bottom-width: 1px;
     }
   </style>
 </head>
+<body>
 <script>
   var courseTable = document.getElementById("course-table");
   var personalInfo = document.getElementById("personal-info");
@@ -218,6 +230,7 @@
             <jsp:getProperty name="userBean" property="logid"/>
           </p>
         </div>
+        <br><br>
         <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
         <a href="Teacher.jsp" class="a">个人信息>></a>
       </div>
@@ -228,52 +241,75 @@
       <div class="header">
         <button class="logout-button">退出空间</button>
       </div>
-<body>
-<%
-  List classinfo=(List)request.getAttribute("classinfo");
-%>
-<%for(int i=0;i<classinfo.size();i++){%>
-<td><%=classinfo.get(i)%></td>
-<%}%>
+      <%
+        List classinfo=(List)request.getAttribute("classinfo");
+      %>
+      <%for(int i=0;i<classinfo.size();i++){%>
+      <td><%=classinfo.get(i)%></td>
+      <%}%>
 
-<div class="choiceheader">
-  <a class="choice" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-  <a class="choice" href="#">签到</a>
-  <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
-  <a class="choice" href="#" onclick="showContent('choice4')">学生管理</a>
-  <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
+      <div class="choiceheader">
+        <a class="choice" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
+        <a class="choice" href="#">签到</a>
+        <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
+        <a class="choice" href="#" onclick="showContent('choice4')">学生管理</a>
+        <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
+      </div>
 
-</div>
+      <div id="choice1" class="choicecontent">
+        <h1>作业提交详情>></h1>
+        <table align="center" class="homework-table">
+          <tr>
+            <th>学生ID</th>
+            <th>学生姓名</th>
+            <th>完成评价</th>
+            <th>操作</th>
+          </tr>
+          <%
+            ArrayList submitLists=(ArrayList)request.getAttribute("submitLists");
+          %>
+          <%if(submitLists.size()>0){
+            for(int i=0;i<submitLists.size();i++){
+            HwSubmitList submitList=(HwSubmitList) submitLists.get(i);%>
+          <tr><td><%=submitList.getStudent_id() %></td>
+            <td><%=submitList.getStudent_name() %></td>
+            <%String grade;
+              if(request.getAttribute("grade") == null){
+                grade = submitList.getGrade();
+            }else {grade = (String) request.getAttribute("grade");
+              }
+            %>
+            <td><%=grade %></td>
 
-<div id="choice1" class="choicecontent">
-  <button class="logout-button" >发布新作业</button>
-  <h1>已发布作业列表</h1>
-  <table>
-    <tr>
-      <th>作业ID</th>
-      <th>作业要求</th>
-      <th>截止时间</th>
-    </tr>
-    <%
-      ArrayList<THomework> homeworks=(ArrayList)request.getAttribute("homeworks");
-    %>
-    <%for(int i=0;i<homeworks.size();i++){
-      THomework tHomework=homeworks.get(i);%>
-    <tr><td><%=tHomework.getHwid() %></td>
-      <td><%=tHomework.getHw_requirement() %></td>
-      <td><%=tHomework.getDeadline() %></td>
-      <td><a href="/CourseManagement_war_exploded/hw_submit_list?classid=<%=classinfo.get(0)%>&hwid=<%=tHomework.getHwid()%>" >
-        <button class="logout-button">查看详情</button></a></td>
-    </tr>
-    <% } %>
-  </table>
+            <td>
+              <a href="/CourseManagement_war_exploded/hw_details?classid=<%=classinfo.get(0)%>&hwid=<%=submitList.getHomework_id()%>&stuid=<%=submitList.getStudent_id()%>">
+                <botton type="submit" class="submit-button">进入批改</botton>
+              </a>
+            </td>
+          </tr>
+          <%}
+          }%>
+          </td>
+        </table>
+<%--        <%--%>
+<%--        ArrayList homeworks=(ArrayList)request.getAttribute("homeworks");--%>
+<%--      %>--%>
+<%--        <%for(int i=0;i<homeworks.size();i++){--%>
+<%--          THomework tHomework=(THomework) homeworks.get(i);%>--%>
+<%--        <tr><td><%=tHomework.getHwid() %></td>--%>
+<%--          <td><%=tHomework.getHw_requirement() %></td>--%>
+<%--          <td><%=tHomework.getDeadline() %></td>--%>
+<%--          <td><button class="logout-button">进入批改</button></td>--%>
+<%--        </tr>--%>
+<%--        <% } %>--%>
+        </table>
 
-</div>
-</body>
+      </div>
+
     </div>
   </div>
 </div>
-
+</body>
 <%--<div id="choice2" class="choicecontent">--%>
 <%--  <button class="logout-button" >发布新签到</button>--%>
 <%--  <h1>已发布签到列表</h1>--%>

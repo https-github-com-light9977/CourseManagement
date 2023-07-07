@@ -16,7 +16,7 @@ public class SubmitGradeServlet extends HttpServlet {
     String grade;
     String hw_id;
     String stu_id;
-
+    String class_id;
     public void service(HttpServletRequest request,
                         HttpServletResponse response)
             throws IOException {
@@ -26,6 +26,8 @@ public class SubmitGradeServlet extends HttpServlet {
         grade = request.getParameter("grade");
         hw_id = request.getParameter("hwid");
         stu_id = request.getParameter("stuid");
+        class_id = request.getParameter("classid");
+        System.out.println(grade);
         try {
 //          //连接数据库
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -34,16 +36,27 @@ public class SubmitGradeServlet extends HttpServlet {
             String db_password = "210470727czyCZY";
             con = DriverManager.getConnection(url, user, db_password);
             statement = con.createStatement();
-            String sql = "insert into grade set Grade = '"+grade+"' where Student_id = '"
+            System.out.println(hw_id);
+            System.out.println(stu_id);
+            System.out.println(grade);
+            String sql = "update grade set Grade = '"+grade+"' where Student_id = '"
                     + stu_id + "' and Homework_id = '"+hw_id+"'";
             statement.executeUpdate(sql);
-
-            //转发
-            RequestDispatcher dispatcher =
-                    request.getRequestDispatcher("TClass.jsp");//转发
-            dispatcher.forward(request, response);
+            System.out.println(grade);
             con.close();
             statement.close();
+            //转发
+            System.out.println("test1");
+//            request.setAttribute("grade",grade);
+            System.out.println("test2");
+
+//            RequestDispatcher dispatcher =
+//                    request.getRequestDispatcher("THwDetails.jsp");
+//            dispatcher.forward(request, response);
+            String redirect_url ="/CourseManagement_war_exploded/hw_submit_list?" +
+                    "classid="+class_id+"&hwid="+ hw_id;
+            response.sendRedirect(redirect_url);
+            System.out.println("转发");
         }catch (Exception e){}
             }
 

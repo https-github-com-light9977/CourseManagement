@@ -34,7 +34,7 @@ public class TCourseServlet extends HttpServlet {
             String teacher_id = teacherBean.getLogid();
 
             try {
-                System.out.println(teacher_id+"1");
+
                 //连接数据库
 //            conn = JdbcUtil.getConnection();
                 try {
@@ -47,22 +47,22 @@ public class TCourseServlet extends HttpServlet {
                     con = DriverManager.getConnection(url, user, db_password);
                     statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_READ_ONLY);
-                    System.out.println(teacher_id+"2");
+
 
                     String sql = "select Course_name,Class_id,Course_time from course where Teacher_id= '" +
                             teacher_id + "'"; // 返回(课程,时间)列表语句
                     ResultSet courseRes = statement.executeQuery(sql);
                     // 处理courseRes数据，生成列表
-                    System.out.println("test");
+
                     while(courseRes.next()){
-                        System.out.println("处理结果集");
+
                         course=new TCourse();
                         course.setCourseName(courseRes.getString("Course_name"));
                         course.setClassid(courseRes.getString("Class_id"));
                         course.setCourseTime(courseRes.getString("Course_time"));
                         courselist.add(course);
                     }
-                    System.out.println(courselist);
+
                     request.setAttribute("courselist",courselist);
                     //在bean中放入resultSet
 //                    teacherBean.setCourseRes(courseRes);
@@ -74,13 +74,13 @@ public class TCourseServlet extends HttpServlet {
                     statement.close();
                 }
                 catch (Exception e) {
-                    System.out.println(teacher_id+"e");
+
 
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println(teacher_id+"ee");
+
 
 
             }

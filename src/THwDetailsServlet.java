@@ -19,7 +19,7 @@ public class THwDetailsServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         Connection con = null;
         Statement statement;
-        student_id = request.getParameter("studentid");
+        student_id = request.getParameter("stuid");
         homework_id = request.getParameter("hwid");
         class_id = request.getParameter("classid");
         try {
@@ -30,13 +30,14 @@ public class THwDetailsServlet extends HttpServlet {
             String db_password = "210470727czyCZY";
             con = DriverManager.getConnection(url, user, db_password);
             statement = con.createStatement();
-            String sql = "select Sdutent_id,Student_name,Text,Grade,Homework_id from grade,student where Student_id='" + student_id + "'"
-                    + "and Homework_id = '" + homework_id + "'";   //返回(班级id,班级名称,上课时间,地点)查询语句
+            String sql = "select student.Student_id,student.Student_name,Text,Grade,Homework_id from grade,student where student." +
+                    "Student_id='" + student_id + "'"
+                    + "and Homework_id = '" + homework_id + "'";
             ResultSet hwDetailsRes = statement.executeQuery(sql);
 
             //解析ResultSet
             if (hwDetailsRes.next()) {
-                System.out.println("test");
+
                 String stuid = hwDetailsRes.getString(1);
                 String stuname = hwDetailsRes.getString(2);
                 String text = hwDetailsRes.getString(3);
@@ -59,7 +60,6 @@ public class THwDetailsServlet extends HttpServlet {
                 ResultSet classRes = statement.executeQuery(s);
                 //解析classRes
                 if (classRes.next()) {
-                    System.out.println("test");
                     String classname = classRes.getString(2);
                     String classtime = classRes.getString(3);
                     String location = classRes.getString(4);

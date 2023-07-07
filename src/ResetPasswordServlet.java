@@ -31,10 +31,6 @@ public class ResetPasswordServlet extends HttpServlet {
         String old_password = request.getParameter("old_password");
         String new_password = request.getParameter("new_password");
         String confirm_password = request.getParameter("confirm_password");
-        System.out.println(id);
-        System.out.println(old_password);
-        System.out.println(new_password);
-        System.out.println(confirm_password);
         boolean boo = (new_password.length() > 0) && confirm_password.length() > 0;
         if (boo) {
             //连接数据库

@@ -1,5 +1,4 @@
-import bean.TCourse;
-import unsolved.TClass;
+import bean.Notice;
 import bean.THomework;
 
 import javax.servlet.RequestDispatcher;
@@ -12,7 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class THomeworkServlet extends HttpServlet {
+public class TNoticeServlet extends HttpServlet {
     String class_id;
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
@@ -21,6 +20,7 @@ public class THomeworkServlet extends HttpServlet {
         Connection con = null;
         Statement statement;
         class_id = request.getParameter("classid");
+
         try {
 //          //连接数据库
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -30,22 +30,23 @@ public class THomeworkServlet extends HttpServlet {
             con = DriverManager.getConnection(url, user, db_password);
             statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
-            //查询作业列表（作业id，作业要求，截止时间）语句
-            String sql = "select Homework_id,Request,Homework_Deadline from homework where Class_id='" + class_id + "'";
-            ResultSet hwRes = statement.executeQuery(sql);
-            // 处理hwRes数据，生成列表并储存
-            ArrayList<THomework> homeworks = new ArrayList<>();
-            THomework hw ;
-            while(hwRes.next()){
 
-                hw=new THomework();
-                hw.setHwid(hwRes.getString("Homework_id"));
-                hw.setHw_requirement(hwRes.getString("Request"));
-                hw.setDeadline(hwRes.getString("Homework_Deadline"));
-                homeworks.add(hw);
+            //查询已发布通知列表
+            String sql = "select Notice_id,Content,NoticeTime from notice where Class_id='" + class_id + "'";
+            ResultSet noticeRes = statement.executeQuery(sql);
+            // 处理noticeRes数据，生成列表并储存
+            ArrayList<Notice> noticeArrayList = new ArrayList<>();
+            Notice notice ;
+            while(noticeRes.next()){
+                notice=new Notice();
+                notice.setNoticeid(noticeRes.getString("Notice_id"));
+                notice.setContent(noticeRes.getString("Content"));
+                notice.setTime(noticeRes.getString("NoticeTime"));
+                noticeArrayList.add(notice);
             }
-            request.setAttribute("homeworks", homeworks);
-            hwRes.close();
+            request.setAttribute("noticeArrayList", noticeArrayList);
+            noticeRes.close();
+
             //班级信息
             String s = "select Class_id,Class_name,Course_time,Location from course where Class_id='" + class_id + "'";   //返回(班级id,班级名称,上课时间,地点)查询语句
             ResultSet classRes = statement.executeQuery(s);
@@ -66,7 +67,7 @@ public class THomeworkServlet extends HttpServlet {
 
                     //转发
                     RequestDispatcher dispatcher =
-                            request.getRequestDispatcher("THomeWork.jsp");//转发
+                            request.getRequestDispatcher("TNotice.jsp");//转发
                     dispatcher.forward(request, response);
                     con.close();
                     statement.close();

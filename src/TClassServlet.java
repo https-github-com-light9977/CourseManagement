@@ -23,7 +23,7 @@ public class TClassServlet extends HttpServlet {
         Connection con = null;
         Statement statement;
         class_id = request.getParameter("classid");
-        System.out.println(class_id);
+
         try {
 //          //连接数据库
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -37,7 +37,7 @@ public class TClassServlet extends HttpServlet {
 
             //解析ResultSet
             if( classRes.next()){
-                System.out.println("test");
+
                 String classname = classRes.getString(2);
                 String classtime = classRes.getString(3);
                 String location = classRes.getString(4);
