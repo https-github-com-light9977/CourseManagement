@@ -218,15 +218,18 @@
 
       <div class="choiceheader">
         <a class="choice" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-        <a class="choice" href="#" onclick="showContent('choice2')">签到</a>
+        <a class="choice" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
         <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
         <a class="choice" href="#" onclick="showContent('choice4')">学生管理</a>
         <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
       </div>
 
       <div id="choice1" class="choicecontent">
-        <button class="logout-button">发布新通知</button>
-        <h1 style="font-size: 17px">已发布通知列表>></h1>
+        <a href="/CourseManagement_war_exploded/releaseNotice?classid=<%=classinfo.get(0)%>">
+          <button class="logout-button">发布新通知</button>
+        </a>
+        <br>
+          <h1 style="font-size: 17px">已发布通知列表>></h1>
 
         <table align="center" class="checkin-table">
           <tr>
@@ -235,7 +238,7 @@
             <th>通知发布时间</th>
           </tr>
           <%
-            ArrayList noticeArrayList=(ArrayList)request.getAttribute("noticeArrayList");
+            ArrayList<Notice> noticeArrayList=(ArrayList)request.getAttribute("noticeArrayList");
           %>
           <%if(noticeArrayList.size()>0){
             for(int i=0;i<noticeArrayList.size();i++){
@@ -243,7 +246,8 @@
           <tr><td><%=notice.getNoticeid() %></td>
             <td><%=notice.getContent() %></td>
             <td><%=notice.getTime() %></td>
-            <td><button class="logout-button"></button></td>
+            <td><a href="/CourseManagement_war_exploded/noticeDetail?classid=<%=classinfo.get(0)%>&no_id=<%=notice.getNoticeid()%>" >
+              <button class="logout-button">查看详情</button></a></td>
           </tr>
           <% }
           }

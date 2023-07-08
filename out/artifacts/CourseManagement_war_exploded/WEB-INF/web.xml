@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>login</servlet-name>
-        <servlet-class>LoginServlet</servlet-class>
+        <servlet-class>servlet.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>resetpw</servlet-name>
-        <servlet-class>ResetPasswordServlet</servlet-class>
+        <servlet-class>servlet.ResetPasswordServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>resetpw</servlet-name>
@@ -24,7 +24,7 @@
 
     <servlet>
         <servlet-name>course</servlet-name>
-        <servlet-class>TCourseServlet</servlet-class>
+        <servlet-class>servlet.teacher.TCourseServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>course</servlet-name>
@@ -33,7 +33,7 @@
 
     <servlet>
         <servlet-name>class</servlet-name>
-        <servlet-class>TClassServlet</servlet-class>
+        <servlet-class>servlet.teacher.TClassServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>class</servlet-name>
@@ -42,7 +42,7 @@
 
     <servlet>
         <servlet-name>homework</servlet-name>
-        <servlet-class>THomeworkServlet</servlet-class>
+        <servlet-class>servlet.teacher.THomeworkServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>homework</servlet-name>
@@ -51,7 +51,7 @@
 
     <servlet>
         <servlet-name>hwsubmitlist</servlet-name>
-        <servlet-class>HwSubmitListServlet</servlet-class>
+        <servlet-class>servlet.HwSubmitListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>hwsubmitlist</servlet-name>
@@ -60,7 +60,7 @@
 
     <servlet>
         <servlet-name>hwdetails</servlet-name>
-        <servlet-class>THwDetailsServlet</servlet-class>
+        <servlet-class>servlet.teacher.THwDetailsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>hwdetails</servlet-name>
@@ -69,7 +69,7 @@
 
     <servlet>
         <servlet-name>tnotice</servlet-name>
-        <servlet-class>TNoticeServlet</servlet-class>
+        <servlet-class>servlet.teacher.TNoticeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>tnotice</servlet-name>
@@ -78,11 +78,65 @@
 
     <servlet>
         <servlet-name>submitgrade</servlet-name>
-        <servlet-class>SubmitGradeServlet</servlet-class>
+        <servlet-class>servlet.teacher.SubmitGradeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>submitgrade</servlet-name>
         <url-pattern>/submitgrade</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>checkin</servlet-name>
+        <servlet-class>servlet.teacher.TCheckinServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkin</servlet-name>
+        <url-pattern>/checkin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>releaseHw</servlet-name>
+        <servlet-class>servlet.teacher.ReleaseHwServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>releaseHw</servlet-name>
+        <url-pattern>/releaseHw</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>submitreleaseHw</servlet-name>
+        <servlet-class>servlet.teacher.SubmitReleaseHwServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>submitreleaseHw</servlet-name>
+        <url-pattern>/submitreleaseHw</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>releaseNotice</servlet-name>
+        <servlet-class>servlet.teacher.ReleaseNoticeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>releaseNotice</servlet-name>
+        <url-pattern>/releaseNotice</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>submitNotice</servlet-name>
+        <servlet-class>servlet.teacher.SubmitNoticeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>submitNotice</servlet-name>
+        <url-pattern>/submitNotice</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>noticeDetail</servlet-name>
+        <servlet-class>servlet.teacher.NoticeDetailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>noticeDetail</servlet-name>
+        <url-pattern>/noticeDetail</url-pattern>
     </servlet-mapping>
 
 

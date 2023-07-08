@@ -40,7 +40,7 @@
         <jarDirectory url="file://$MODULE_DIR$/web/WEB-INF/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.0.27" level="application_server_libraries" />
-    <orderEntry type="library" name="mysql-connector-j-8.0.33" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="Tomcat 8.0.27" level="application_server_libraries" />
+    <orderEntry type="library" exported="" name="mysql-connector-j-8.0.33" level="project" />
   </component>
 </module>

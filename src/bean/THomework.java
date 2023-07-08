@@ -6,6 +6,10 @@ public class THomework {
     String hwid;
     String hw_requirement;
     String deadline;
+    String releaseTime;
+    String grouped;
+    String groupid;
+    String submit;
     public void setHwid( String hwid){
         this.hwid = hwid;
     }
@@ -25,4 +29,5 @@ public class THomework {
     public String getDeadline() {
         return deadline;
     }
+
 }

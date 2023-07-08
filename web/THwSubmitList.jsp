@@ -250,7 +250,7 @@
 
       <div class="choiceheader">
         <a class="choice" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-        <a class="choice" href="#">签到</a>
+          <a class="choice" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
         <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
         <a class="choice" href="#" onclick="showContent('choice4')">学生管理</a>
         <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
