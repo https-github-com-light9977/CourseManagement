@@ -277,12 +277,14 @@
         <a class="choice" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
         <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
 
-        <a class="choice" href="#" onclick="showContent('choice4')">学生管理</a>
+        <a class="choice" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
         <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
       </div>
 
       <div id="choice1" class="choicecontent">
+        <a href="/CourseManagement_war_exploded/releaseCheckIn?classid=<%=classinfo.get(0)%>">
         <button class="round-button" >发布新签到</button>
+        </a>
         <h1 style="font-size: 17px">已发布签到列表>></h1>
         <table align="center" class="checkin-table">
           <tr>

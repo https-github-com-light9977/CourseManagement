@@ -1,10 +1,12 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="bean.THomework" %>
 <%@ page import="java.util.List" %>
+<%@ page import="bean.SCheckIn" %>
+<%@ page import="bean.SHwGrade" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>通知详情！</title>
+  <title>学生具体情况！</title>
   <style>
     body {
       font-family:sans-serif;
@@ -23,6 +25,7 @@
     .right {
       flex: 5;
     }
+
     .sidebar {
       display: flex;
       flex-direction: column;
@@ -213,51 +216,73 @@
       <div class="header">
         <button class="logout-button">退出空间</button>
       </div>
-
-      <%List classinfo = (List) request.getAttribute("classinfo");%>
+      <%
+        List classinfo=(List)request.getAttribute("classinfo");
+      %>
       <div class="choiceheader">
         <a class="choice" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
         <a class="choice" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
-        <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
+        <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
         <a class="choice" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-        <a class="choice" href="#" onclick="showContent('choice4')">分组</a>
+        <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
       </div>
+
       <%
-        List noDetail=(List)request.getAttribute("noDetail");
+        ArrayList<SCheckIn> sCheckIns=(ArrayList)request.getAttribute("sCheckIns");
+      %>
+
+      <%
+        ArrayList<SHwGrade> sHwGrades=(ArrayList)request.getAttribute("sHwGrades");
       %>
 
       <div class="content" >
-        <div id="personal-info-" style="">
-            <table>
-              <tr>
-                <td>通知ID：</td>
-                <td><%= noDetail.get(0)%></td>
-              </tr>
-              <tr>
-                <td>发布时间：</td>
-                <td><%= noDetail.get(1) %></td>
-              </tr>
-              <tr>
-                <td>内容：</td>
-                <td><%= noDetail.get(2) %></td>
-              </tr>
-            </table>
-        </div>
-      </div>
+          <label for="content">学生ID：<%=sCheckIns.get(0).getStuid()%></label>
+          <br>
+          <label for="content">学生名字：<%=sCheckIns.get(0).getStuname()%></label>
+          <br>
+          <label for="content">签到情况：</label>
+          <table align="center" class="course-table">
+            <tr>
+              <th>签到ID</th>
+              <th>签到情况</th>
+            </tr>
 
-      <div class="content" >
-        <div id="personal-info" style="">
-<%--          <p id="作业名称">通知ID：XXXX</p>--%>
-<%--          <p id="详情">通知具体内容：XXXX</p>--%>
-          </select><br>
-          <a href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">
+            <%for(int i=0;i<sCheckIns.size();i++){
+              SCheckIn sCheckIn=(SCheckIn) sCheckIns.get(i);%>
+            <tr>
+              <td><%=sCheckIn.getCheckin_id() %></td>
+              <td><%=sCheckIn.getChecked() %></td>
+            </tr>
+            <%}%>
+
+          </table>
+          <br>
+          <label for="content">作业完成情况：</label>
+          <table align="center" class="course-table">
+            <tr>
+              <th>作业ID</th>
+              <th>成绩</th>
+            </tr>
+            <%for(int i=0;i<sHwGrades.size();i++){
+              SHwGrade sHwGrade=(SHwGrade) sHwGrades.get(i);%>
+            <tr>
+              <td><%=sHwGrade.getHwid() %></td>
+              <td><%=sHwGrade.getGrade() %></td>
+            </tr>
+            <%}%>
+
+          </table>
+          <br>
+          <br>
+          <br>
+        <a href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">
           <button id="submit-button">退出查看</button>
-          </a>
-        </div>
+        </a>
       </div>
-
     </div>
+
   </div>
+</div>
 </div>
 </div>
 </body>

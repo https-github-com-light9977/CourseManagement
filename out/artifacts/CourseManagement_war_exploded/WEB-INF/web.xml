@@ -51,7 +51,7 @@
 
     <servlet>
         <servlet-name>hwsubmitlist</servlet-name>
-        <servlet-class>servlet.HwSubmitListServlet</servlet-class>
+        <servlet-class>servlet.teacher.HwSubmitListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>hwsubmitlist</servlet-name>
@@ -137,6 +137,33 @@
     <servlet-mapping>
         <servlet-name>noticeDetail</servlet-name>
         <url-pattern>/noticeDetail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>releaseCheckIn</servlet-name>
+        <servlet-class>servlet.teacher.ReleaseCheckInServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>releaseCheckIn</servlet-name>
+        <url-pattern>/releaseCheckIn</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>manageStudent</servlet-name>
+        <servlet-class>servlet.teacher.ManageStuServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>manageStudent</servlet-name>
+        <url-pattern>/manageStudent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>manageStuCon</servlet-name>
+        <servlet-class>servlet.teacher.ManageStuConServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>manageStuCon</servlet-name>
+        <url-pattern>/manageStuCon</url-pattern>
     </servlet-mapping>
 
 
