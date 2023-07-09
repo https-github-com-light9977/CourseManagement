@@ -20,6 +20,7 @@
         }
         .left {
             flex: 1;
+            padding-right: 2px;    <%-- 调整左右两边的间距--%>
         }
         .right {
             flex: 5;
@@ -140,31 +141,50 @@
         a:hover {
             color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
         }
-        <%-- 课程列表显示的布局样式--%>
-        .course-table {
+        .choiceheader {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #000;
+            background-color: white;
+            position: relative;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .choiceheader.active {
+            text-decoration: underline;
+        }
+        .choicecontent {
+            padding: 20px;
+            border-top: 2px solid #000;
+        }
+        .student-table {
             margin: 0 auto;
             overflow-y: auto;
             border-collapse: collapse;
             width: 90%;
             text-align: center;
         }
-        .course-table th, .course-table td {
+        .student-table th, .student-table td {
             padding: 10px;
             text-align: center;
-            border: 0.5px solid #ccc;
+            border-bottom: 0.5px solid #ccc;      <%-- 使列表里的竖直线不显示  --%>
         }
-        .course-table th {
+        .student-table tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+        .student-table tr:hover {
+            background-color: #e0e0e0;
+        }                                      <%-- 以上两个样式是让列表里的奇数行颜色深浅与偶数行不一样，且鼠标悬浮到奇数行颜色会改变 --%>
+        .student-table th {
             background-color: #f2f2f2;
             font-weight: bold;
         }
         th:first-child, td:first-child {
             border-left-width: 1px;
         }
-
         th:last-child, td:last-child {
             border-right-width: 1px;
         }
-
         tr:last-child th, tr:last-child td {
             border-bottom-width: 1px;
         }
@@ -182,6 +202,7 @@
                 <p class="profile-id" id="profile-id">
                     <jsp:getProperty name="userBean" property="logid"/>
                 </p>
+
                 <br><br>
                 <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
                 <a href="Teacher.jsp" class="a">个人信息>></a>
@@ -193,17 +214,26 @@
             <div class="header">
                 <button class="logout-button">退出空间</button>
             </div>
-            <%List classinfo = (List) request.getAttribute("classinfo");%>
-            <div class="choiceheader">
-                <a class="choice" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-                <a class="choice" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
-                <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
-                <a class="choice" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-                <a class="choice" href="#" onclick="showContent('choice4')">分组</a>
+            <br>
+            <div class="logout-button"
+            <%
+                List classinfo=(List)request.getAttribute("classinfo");
+            %>
+            <%for(int i=0;i<classinfo.size();i++){%>
+            <td><%=classinfo.get(i)%></td>
+            <%}%>
+        </div>
+        <br>
+            <div class="choicecontent">
+                <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
+                <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
+                <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
+                <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
+                <a class="choiceheader" href="#" onclick="showContent('choice4')">分组</a>
             </div>
 
             <div class="content">
-                <div id="personal-info">
+                <div>
                     <label class="logout-button">班级学生列表>></label>
                     <%--                    <jsp:getProperty name="userBean" property="courseRes"/>--%>
                 </div>
@@ -212,8 +242,9 @@
                 <%
                     ArrayList manageStus=(ArrayList)request.getAttribute("manageStus");
                 %>
-                <table align="center" class="course-table">
+                <table align="center" class="student-table">
                     <tr>
+                        <th>序号</th>
                         <th>学生ID</th>
                         <th>学生名字</th>
 <%--                        <th>签到情况</th>--%>
@@ -224,27 +255,24 @@
                     <%for(int i=0;i<manageStus.size();i++){
                         ManageStu manageStu=(ManageStu) manageStus.get(i);%>
                     <tr>
+                        <td><%=i+1 %></td>   <!-- 修改这里，使用 i+1 来表示第几行 -->
                         <td><%=manageStu.getStuid() %></td>
                         <td><%=manageStu.getStuname()%></td>
 <%--                        <td><%=manageStu.getCheckin() %></td>--%>
                         <td><%=manageStu.getCheckinGrade() %></td>
                         <td><%=manageStu.getHwGrade() %></td>
-                        <td><a href="/CourseManagement_war_exploded/manageStuCon?classid=<%=classinfo.get(0)%>&stuid=<%=manageStu.getStuid()%>">
-                            <botton type="submit" class="submit-button" value="查看详情">查看详情</botton>
+                        <td><a class="logout-button" href="/CourseManagement_war_exploded/manageStuCon?classid=<%=classinfo.get(0)%>&stuid=<%=manageStu.getStuid()%>">
+                            查看详情
                         </a></td>
                         <% } %>
                     </tr>
-
                 </table>
-                <div id="personal-info">
-                    <label class="logout-button">导出学生成绩列表>></label>
+                <br>
+                <div>
+                    <button class="logout-button">导出学生成绩列表>></button>
                     <%--                    <jsp:getProperty name="userBean" property="courseRes"/>--%>
                 </div>
-
-                <br>
-                <br>
             </div>
-        </div>
     </div>
 </div>
 </body>

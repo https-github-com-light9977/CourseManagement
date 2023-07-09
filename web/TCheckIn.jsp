@@ -20,6 +20,7 @@
     }
     .left {
       flex: 1;
+      padding-right: 2px;    <%-- 调整左右两边的间距--%>
     }
     .right {
       flex: 5;
@@ -151,12 +152,6 @@
       color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
     }
     .choiceheader {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      padding: 20px;
-    }
-    .choice {
       margin: 0 10px;
       text-decoration: none;
       color: #000;
@@ -165,36 +160,12 @@
       display: inline-block;
       transition: all 0.3s ease;
     }
-    .choice:after {
-      content: "";
-      position: absolute;
-      bottom: -2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 4px;
-      display: none;
+    .choiceheader.active {
+      text-decoration: underline;
     }
     .choicecontent {
       padding: 20px;
       border-top: 2px solid #000;
-    }
-    <%-- 发布按钮的样式--%>
-    .round-button {
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      padding: 0;
-      text-align: center;
-      font-size: 16px;
-      background-color: #ccc;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-
-    .round-button:hover {
-      background-color: #aaa;
     }
     <%-- 课程列表显示的布局样式--%>
     .checkin-table {
@@ -212,6 +183,9 @@
     .checkin-table {
       background-color: #f2f2f2;
       font-weight: bold;
+    }
+    .checkin-table tr:nth-child(odd) {
+      background-color: #f2f2f2;
     }
     th:first-child, td:first-child {
       border-left-width: 1px;
@@ -264,30 +238,37 @@
       <div class="header">
         <button class="logout-button">退出空间</button>
       </div>
-
+      <br>
+      <div class="logout-button"
       <%
         List classinfo=(List)request.getAttribute("classinfo");
       %>
       <%for(int i=0;i<classinfo.size();i++){%>
       <td><%=classinfo.get(i)%></td>
       <%}%>
-
-      <div class="choiceheader">
-        <a class="choice" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-        <a class="choice" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
-        <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
-
-        <a class="choice" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-        <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
+    </div>
+    <br>
+      <div>
+        <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
+        <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
+        <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
+        <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
+        <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>
       </div>
-
-      <div id="choice1" class="choicecontent">
-        <a href="/CourseManagement_war_exploded/releaseCheckIn?classid=<%=classinfo.get(0)%>">
-        <button class="round-button" >发布新签到</button>
+<br>
+    <div class="choicecontent">
+        <a class="logout-button" href="/CourseManagement_war_exploded/releaseCheckIn?classid=<%=classinfo.get(0)%>">
+        发布新签到
         </a>
-        <h1 style="font-size: 17px">已发布签到列表>></h1>
+    </div>
+    <br>
+      <div>
+        <label class="logout-button">已发布签到列表>></label>
+      </div>
+      <br><br>
         <table align="center" class="checkin-table">
           <tr>
+            <th>序号</th>
             <th>签到ID</th>
             <th>截止时间</th>
           </tr>
@@ -296,13 +277,14 @@
           %>
           <%for(int i=0;i<checkInArrayList.size();i++){
             CheckIn checkIn=(CheckIn) checkInArrayList.get(i);%>
-          <tr><td><%=checkIn.getCheckinid() %></td>
+          <tr>
+            <td><%=i+1 %></td>   <%-- 修改这里，使用 i+1 来表示第几行 --%>
+            <td><%=checkIn.getCheckinid() %></td>
             <td><%=checkIn.getDeadline() %></td>
 <%--            <td><button class="logout-button">查看详情</button></td>--%>
           </tr>
           <% } %>
         </table>
-
       </div>
 
     </div>
