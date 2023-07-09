@@ -5,7 +5,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>作业</title>
+  <title>作业提交详情</title>
   <style>
     body {
       font-family:sans-serif;
@@ -20,6 +20,7 @@
     }
     .left {
       flex: 1;
+      padding-right: 2px;    <%-- 调整左右两边的间距--%>
     }
     .right {
       flex: 5;
@@ -184,52 +185,42 @@
     .homework-table th, .homework-table td {
       padding: 10px;
       text-align: center;
-      border: 0.5px solid #ccc;
+      border-bottom: 0.5px solid #ccc;      <%-- 使列表里的竖直线不显示  --%>
     }
-    .homework-table {
+    .homework-table tr:nth-child(odd) {
+      background-color: #f2f2f2;
+    }
+    .homework-table tr:hover {
+      background-color: #e0e0e0;
+    }                                      <%-- 以上两个样式是让列表里的奇数行颜色深浅与偶数行不一样，且鼠标悬浮到奇数行颜色会改变 --%>
+    .homework-table th {
       background-color: #f2f2f2;
       font-weight: bold;
     }
     th:first-child, td:first-child {
       border-left-width: 1px;
     }
-
     th:last-child, td:last-child {
       border-right-width: 1px;
     }
-
     tr:last-child th, tr:last-child td {
       border-bottom-width: 1px;
     }
   </style>
 </head>
 <body>
-<script>
-  var courseTable = document.getElementById("course-table");
-  var personalInfo = document.getElementById("personal-info");
-  document.querySelector("a[href='#course-table']").addEventListener("click", function() {
-    courseTable.style.display = "block";
-    personalInfo.style.display = "none";
-  });
-  document.querySelector("a[href='#personal-info']").addEventListener("click", function() {
-    courseTable.style.display = "none";
-    personalInfo.style.display = "block";
-  });
-</script>
-<jsp:useBean id="userBean" class="bean.User" scope="session"/>
+<jsp:useBean id="userBean" class="bean.Teacher" scope="session"/>
 <div class="container">
   <div class="left">
     <div class="horizontal-menu">
       <div class="sidebar">
         <div class="avatar"></div>
-        <div class="profile-info">
           <h3 class="profile-name" id="profile-name">
             <jsp:getProperty name="userBean" property="name"/>
           </h3>
           <p class="profile-id" id="profile-id">
             <jsp:getProperty name="userBean" property="logid"/>
           </p>
-        </div>
         <br><br>
         <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
         <a href="Teacher.jsp" class="a">个人信息>></a>
@@ -241,13 +232,16 @@
       <div class="header">
         <button class="logout-button">退出空间</button>
       </div>
+      <br>
+      <div class="logout-button"
       <%
         List classinfo=(List)request.getAttribute("classinfo");
       %>
       <%for(int i=0;i<classinfo.size();i++){%>
       <td><%=classinfo.get(i)%></td>
       <%}%>
-
+    </div>
+     <br>
       <div class="choiceheader">
         <a class="choice" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
           <a class="choice" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
@@ -257,9 +251,13 @@
       </div>
 
       <div id="choice1" class="choicecontent">
-        <h1>作业提交详情>></h1>
+        <div>
+          <label class="logout-button">作业提交列表>></label>
+        </div>
+        <br><br>
         <table align="center" class="homework-table">
           <tr>
+            <th>序号</th>
             <th>学生ID</th>
             <th>学生姓名</th>
             <th>完成评价</th>
@@ -271,7 +269,9 @@
           <%if(submitLists.size()>0){
             for(int i=0;i<submitLists.size();i++){
             HwSubmitList submitList=(HwSubmitList) submitLists.get(i);%>
-          <tr><td><%=submitList.getStudent_id() %></td>
+          <tr>
+            <td><%=i+1 %></td>    <%-- 修改这里，使用 i+1 来表示第几行 --%>
+            <td><%=submitList.getStudent_id() %></td>
             <td><%=submitList.getStudent_name() %></td>
             <%String grade;
               if(request.getAttribute("grade") == null){
@@ -282,8 +282,8 @@
             <td><%=grade %></td>
 
             <td>
-              <a href="/CourseManagement_war_exploded/hw_details?classid=<%=classinfo.get(0)%>&hwid=<%=submitList.getHomework_id()%>&stuid=<%=submitList.getStudent_id()%>">
-                <botton type="submit" class="submit-button">进入批改</botton>
+              <a class="logout-button" href="/CourseManagement_war_exploded/hw_details?classid=<%=classinfo.get(0)%>&hwid=<%=submitList.getHomework_id()%>&stuid=<%=submitList.getStudent_id()%>">
+                进入批改
               </a>
             </td>
           </tr>
@@ -291,88 +291,11 @@
           }%>
           </td>
         </table>
-<%--        <%--%>
-<%--        ArrayList homeworks=(ArrayList)request.getAttribute("homeworks");--%>
-<%--      %>--%>
-<%--        <%for(int i=0;i<homeworks.size();i++){--%>
-<%--          THomework tHomework=(THomework) homeworks.get(i);%>--%>
-<%--        <tr><td><%=tHomework.getHwid() %></td>--%>
-<%--          <td><%=tHomework.getHw_requirement() %></td>--%>
-<%--          <td><%=tHomework.getDeadline() %></td>--%>
-<%--          <td><button class="logout-button">进入批改</button></td>--%>
-<%--        </tr>--%>
-<%--        <% } %>--%>
-        </table>
 
       </div>
 
     </div>
   </div>
-</div>
+
 </body>
-<%--<div id="choice2" class="choicecontent">--%>
-<%--  <button class="logout-button" >发布新签到</button>--%>
-<%--  <h1>已发布签到列表</h1>--%>
-<%--  <table>--%>
-<%--    <tr>--%>
-<%--      <th>签到名称</th>--%>
-<%--      <th>操作</th>--%>
-<%--    </tr>--%>
-<%--    <%for(int i=0;i<courselist.size();i++){--%>
-<%--      TCourse tcourse=(TCourse) courselist.get(i);%>--%>
-<%--    <tr><td><%=tcourse.getCourseName() %></td>--%>
-<%--      <td><button class="logout-button">查看详情</button></td>--%>
-<%--    </tr>--%>
-<%--    <% } %>--%>
-<%--  </table>--%>
-
-<%--</div>--%>
-
-<%--<div id="choice3" class="choicecontent">--%>
-<%--  <button class="logout-button" >发布新通知</button>--%>
-<%--  <h1>已发布通知列表</h1>--%>
-<%--  <table>--%>
-<%--    <tr>--%>
-<%--      <th>通知名称</th>--%>
-<%--      <th>操作</th>--%>
-<%--    </tr>--%>
-<%--    <%for(int i=0;i<courselist.size();i++){--%>
-<%--      TCourse tcourse=(TCourse) courselist.get(i);%>--%>
-<%--    <tr><td><%=tcourse.getCourseName() %></td>--%>
-<%--      <td><button class="logout-button">查看详情</button></td>--%>
-<%--    </tr>--%>
-<%--    <% } %>--%>
-<%--  </table>--%>
-
-<%--</div>--%>
-<%--<div id="choice4" class="choicecontent">--%>
-<%--  <h2>内容4</h2>--%>
-<%--  <p>这是学生管理对应的内容。</p>--%>
-<%--</div>--%>
-<%--<div id="choice5" class="choicecontent">--%>
-<%--  <h2>内容5</h2>--%>
-<%--  <p>这是分组对应的内容。</p>--%>
-<%--</div>--%>
-<%--<script>--%>
-<%--  function showContent(id) {--%>
-<%--    var choices = document.getElementsByClassName('choice');--%>
-<%--    for (var i = 0; i < choices.length; i++) {--%>
-<%--      choices[i].classList.remove('active');--%>
-<%--    }--%>
-<%--    var contents = document.getElementsByClassName('choicecontent');--%>
-<%--    for (var i = 0; i < contents.length; i++) {--%>
-<%--      contents[i].style.display = 'none';--%>
-<%--    }--%>
-
-<%--    var choice = document.getElementById(id);--%>
-<%--    var content = document.getElementById(id);--%>
-<%--    choice.classList.add('active');--%>
-<%--    content.style.display = 'block';--%>
-
-<%--    var choiceWidth = choice.offsetWidth;--%>
-<%--    var underlineWidth = choiceWidth - 20; // 调整下划线宽度，可以根据实际情况调整数值--%>
-<%--    choice.style.setProperty('--underline-width', underlineWidth + 'px');--%>
-<%--  }--%>
-<%--</script>--%>
-
 </html>
