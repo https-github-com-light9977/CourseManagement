@@ -1,6 +1,6 @@
 package servlet.teacher;
 
-import bean.Teacher;
+import bean.User;
 import bean.TCourse;
 
 import javax.servlet.RequestDispatcher;
@@ -24,16 +24,16 @@ public class TCourseServlet extends HttpServlet {
             Connection con = null;
             Statement statement;
             //获取请求
-            Teacher teacherBean = null;
+            User userBean = null;
             HttpSession session = request.getSession(true);
-            teacherBean = (Teacher) session.getAttribute("userBean");
-            if (teacherBean == null) {
-                teacherBean = new Teacher();  //创建新的数据模型 。
-                session.setAttribute("userBean", teacherBean);
-                teacherBean = (Teacher) session.getAttribute("userBean");
+            userBean = (User) session.getAttribute("userBean");
+            if (userBean == null) {
+                userBean = new User();  //创建新的数据模型 。
+                session.setAttribute("userBean", userBean);
+                userBean = (User) session.getAttribute("userBean");
             }
 
-            String teacher_id = teacherBean.getLogid();
+            String teacher_id = userBean.getLogid();
 
             try {
 
@@ -67,7 +67,7 @@ public class TCourseServlet extends HttpServlet {
 
                     request.setAttribute("courselist",courselist);
                     //在bean中放入resultSet
-//                    teacherBean.setCourseRes(courseRes);
+//                    userBean.setCourseRes(courseRes);
                     //转发
                     RequestDispatcher dispatcher =
                             request.getRequestDispatcher("TeacherCourse.jsp");//转发

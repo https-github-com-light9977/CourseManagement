@@ -195,7 +195,7 @@
     personalInfo.style.display = "block";
   });
 </script>
-<jsp:useBean id="userBean" class="bean.Teacher" scope="session"/>
+<jsp:useBean id="userBean" class="bean.User" scope="session"/>
 <div class="container">
   <div class="left">
     <div class="horizontal-menu">
@@ -230,7 +230,7 @@
         <a class="choice" href="/CourseManagement_war_exploded/checkin?classid=<%=classid%>" >签到</a>
         <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classid%>">通知</a>
 
-        <a class="choice" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
+        <a class="choice" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classid%>">学生管理</a>
         <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
       </div>
 

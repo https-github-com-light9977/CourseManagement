@@ -2,14 +2,14 @@ package bean;
 
 import java.sql.ResultSet;
 
-public class Teacher {
+public class User {
     String logid="",
             password = "",
             name ="",
             backNews="";
     ResultSet courseRes = null;
 
-    public Teacher(){}
+    public User(){}
     public void setLogid(String logid){
         this.logid = logid;
     }

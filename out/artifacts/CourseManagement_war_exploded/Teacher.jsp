@@ -177,7 +177,7 @@
     personalInfo.style.display = "block";
   });
 </script>
-<jsp:useBean id="userBean" class="bean.Teacher" scope="session"/>
+<jsp:useBean id="userBean" class="bean.User" scope="session"/>
 <div class="container">
   <div class="left">
     <div class="horizontal-menu">
@@ -228,6 +228,7 @@
               <br>
               <label for="confirm-password">确认新密码:</label><input type="password" id="confirm-password" name="confirm_password">
               <br>
+              <input type="hidden" value="t" name="role">
               <input type="submit" id="submit-button" class="logout-button" value="提交">
               <%
                 String backnews = (String) request.getAttribute("back");

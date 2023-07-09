@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.Teacher;
+import bean.User;
 
 import java.sql.*;
 import java.io.*;
@@ -131,14 +131,14 @@ public class LoginServlet extends HttpServlet{
     public void success1(HttpServletRequest request,
                         HttpServletResponse response,
                         String logid,String password) {
-        Teacher loginBean=null;
+        User loginBean=null;
         HttpSession session=request.getSession(true);
         try{
-            loginBean=(Teacher)session.getAttribute("userBean");
+            loginBean=(User)session.getAttribute("userBean");
             if(loginBean==null) {
-                loginBean = new Teacher();  //创建新的数据模型 。
+                loginBean = new User();  //创建新的数据模型 。
                 session.setAttribute("userBean", loginBean);
-                loginBean = (Teacher) session.getAttribute("userBean");
+                loginBean = (User) session.getAttribute("userBean");
             }
             loginBean.setBackNews("登录成功");
             System.out.println(loginBean.getBackNews());
@@ -180,13 +180,13 @@ public class LoginServlet extends HttpServlet{
     public void success2(HttpServletRequest request,
                          HttpServletResponse response,
                          String logid,String password) {
-        Teacher loginBean=null;
+        User loginBean=null;
         HttpSession session=request.getSession(true);
-        try{  loginBean=(Teacher)session.getAttribute("userBean");
+        try{  loginBean=(User)session.getAttribute("userBean");
             if(loginBean==null){
-                loginBean=new Teacher();  //创建新的数据模型 。
+                loginBean=new User();  //创建新的数据模型 。
                 session.setAttribute("userBean",loginBean);
-                loginBean=(Teacher)session.getAttribute("userBean");
+                loginBean=(User)session.getAttribute("userBean");
             }
             loginBean.setBackNews(" ");
             String id =loginBean.getLogid();
@@ -228,14 +228,14 @@ public class LoginServlet extends HttpServlet{
                      HttpServletResponse response,String backNews) {
         response.setContentType("text/html;charset=utf-8");
         try {
-//            Teacher loginBean = null;
+//            User loginBean = null;
 //            HttpSession session = request.getSession(true);
 //            try {
-//                loginBean = (Teacher) session.getAttribute("userBean");
+//                loginBean = (User) session.getAttribute("userBean");
 //                if (loginBean == null) {
-//                    loginBean = new Teacher();  //创建新的数据模型 。
+//                    loginBean = new User();  //创建新的数据模型 。
 //                    session.setAttribute("userBean", loginBean);
-//                    loginBean = (Teacher) session.getAttribute("userBean");
+//                    loginBean = (User) session.getAttribute("userBean");
 //                }
 //                loginBean.setBackNews(backNews);
 //                System.out.println(loginBean.getBackNews());

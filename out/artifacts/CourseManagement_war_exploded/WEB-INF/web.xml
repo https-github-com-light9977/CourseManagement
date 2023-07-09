@@ -166,5 +166,59 @@
         <url-pattern>/manageStuCon</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>scourse</servlet-name>
+        <servlet-class>servlet.student.servlet.CourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>scourse</servlet-name>
+        <url-pattern>/scourse</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>sclass</servlet-name>
+        <servlet-class>servlet.student.servlet.ClassServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>sclass</servlet-name>
+        <url-pattern>/sclass</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>shomework</servlet-name>
+        <servlet-class>servlet.student.servlet.HwServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>shomework</servlet-name>
+        <url-pattern>/shomework</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>hwcontent</servlet-name>
+        <servlet-class>servlet.student.servlet.HwContentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hwcontent</servlet-name>
+        <url-pattern>/hwcontent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>snotice</servlet-name>
+        <servlet-class>servlet.student.servlet.NoticeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>snotice</servlet-name>
+        <url-pattern>/snotice</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>scheckin</servlet-name>
+        <servlet-class>servlet.student.servlet.CheckInServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>scheckin</servlet-name>
+        <url-pattern>/scheckin</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

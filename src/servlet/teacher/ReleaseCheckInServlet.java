@@ -27,7 +27,7 @@ public class ReleaseCheckInServlet extends HttpServlet {
             statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
 
-            //查询通知是否为空，设置通知ID
+            //查询签到是否为空，设置通知ID
             String condition1 = "select  count(*) as cnt from checkin where Class_id='" + class_id + "'";
             String condition2 = "select Checkin_id from checkin where Class_id='" + class_id + "'";
             ResultSet noticeExist = statement.executeQuery(condition1);
@@ -38,10 +38,15 @@ public class ReleaseCheckInServlet extends HttpServlet {
             }else{
 
                 ResultSet getLast = statement.executeQuery(condition2);
-                System.out.println(getLast.last());
-                String last_checkinid;
-                last_checkinid = getLast.getString("Checkin_id");
-                checkin_id = class_id + "check"+((Integer.parseInt(last_checkinid.substring(13)))+1);
+                Integer maxid = 0;
+                while (getLast.next()){
+                    Integer cur_id = Integer.parseInt(getLast.getString(1).substring(13));
+                    if (cur_id>maxid){maxid = cur_id;}
+                }
+//                System.out.println(getLast.last());
+//                String last_checkinid;
+//                last_checkinid = getLast.getString("Checkin_id");
+                checkin_id = class_id + "check"+(maxid+1);
                 getLast.close();
             }
             System.out.println("insert checkin");
@@ -58,6 +63,7 @@ public class ReleaseCheckInServlet extends HttpServlet {
 //            RequestDispatcher dispatcher =
 //                    request.getRequestDispatcher("THwDetails.jsp");
 //            dispatcher.forward(request, response);
+            System.out.println("转发");
             String redirect_url ="/CourseManagement_war_exploded/checkin?" +
                     "classid="+class_id;
             response.sendRedirect(redirect_url);
