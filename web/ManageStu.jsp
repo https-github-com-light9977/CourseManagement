@@ -268,10 +268,37 @@
                     </tr>
                 </table>
                 <br>
-                <div>
-                    <button class="logout-button">导出学生成绩列表>></button>
-                    <%--                    <jsp:getProperty name="userBean" property="courseRes"/>--%>
-                </div>
+                <button class="logout-button" onclick="exportToExcel()">导出学生成绩</button>
+
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+<script>
+          function exportToExcel() {
+              var wb = XLSX.utils.table_to_book(document.querySelector('.student-table'), { sheet: "学生成绩" });
+              var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+          function s2ab(s) {
+              var buf = new ArrayBuffer(s.length);
+              var view = new Uint8Array(buf);
+              for (var i = 0; i < s.length; i++) {
+                  view[i] = s.charCodeAt(i) & 0xFF;
+                            }
+              return buf;
+                        }
+              function saveAs(blob, filename) {
+                  var a = document.createElement('a');
+                  a.href = URL.createObjectURL(blob);
+                  a.download = filename;
+                  a.style.display = 'none';
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  URL.revokeObjectURL(a.href);
+              }
+
+              saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), "student_scores.xlsx");
+          }
+</script>
+                <br>
             </div>
     </div>
 </div>
