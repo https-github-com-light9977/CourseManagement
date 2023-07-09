@@ -20,11 +20,11 @@
     }
     .left {
       flex: 1;
+      padding-right: 2px;    <%-- 调整左右两边的间距--%>
     }
     .right {
       flex: 5;
     }
-
     .sidebar {
       display: flex;
       flex-direction: column;
@@ -102,11 +102,6 @@
       color: black;
       transition: background-color 0.3s;
     }
-    .content {
-      flex: 1;
-      padding: 20px;
-      background-color: white;
-    }
     .table-container table {
       width: 100%;
       border-collapse: collapse;
@@ -151,12 +146,6 @@
       color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
     }
     .choiceheader {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      padding: 20px;
-    }
-    .choice {
       margin: 0 10px;
       text-decoration: none;
       color: #000;
@@ -165,45 +154,30 @@
       display: inline-block;
       transition: all 0.3s ease;
     }
-    .choice:after {
-      content: "";
-      position: absolute;
-      bottom: -2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 4px;
-      display: none;
+    .choiceheader.active {
+      text-decoration: underline;
+    }
+    .choicecontent {
+      padding: 20px;
+      border-top: 2px solid #000;
     }
   </style>
 </head>
 <body>
-<script>
-  var courseTable = document.getElementById("course-table");
-  var personalInfo = document.getElementById("personal-info");
-  document.querySelector("a[href='#course-table']").addEventListener("click", function() {
-    courseTable.style.display = "block";
-    personalInfo.style.display = "none";
-  });
-  document.querySelector("a[href='#personal-info']").addEventListener("click", function() {
-    courseTable.style.display = "none";
-    personalInfo.style.display = "block";
-  });
-</script>
 <jsp:useBean id="userBean" class="bean.User" scope="session"/>
 <div class="container">
   <div class="left">
     <div class="horizontal-menu">
       <div class="sidebar">
         <div class="avatar"></div>
-        <div class="profile-info">
+
           <h3 class="profile-name" id="profile-name">
             <jsp:getProperty name="userBean" property="name"/>
           </h3>
           <p class="profile-id" id="profile-id">
             <jsp:getProperty name="userBean" property="logid"/>
           </p>
-        </div>
+
         <br><br>
         <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
         <a href="Teacher.jsp" class="a">个人信息>></a>
@@ -211,24 +185,26 @@
     </div>
   </div>
   <div class="right">
-    <div class="content-wrapper">
       <div class="header">
         <button class="logout-button">退出空间</button>
       </div>
-
+      <br>
+      <div class="logout-button"
       <%
         String classid = (String) request.getAttribute("classid");
       %>
       <%=classid%>
-      <div class="choiceheader">
-        <a class="choice" href="/CourseManagement_war_exploded/homework?classid=<%=classid%>">作业</a>
-        <a class="choice" href="/CourseManagement_war_exploded/checkin?classid=<%=classid%>" >签到</a>
-        <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classid%>">通知</a>
-        <a class="choice" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classid%>">学生管理</a>
-        <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
+    </div>
+    <br>
+      <div>
+        <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classid%>">作业</a>
+        <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classid%>" >签到</a>
+        <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classid%>">通知</a>
+        <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classid%>">学生管理</a>
+        <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>
       </div>
-
-      <div class="content" >
+<br><br><br>
+      <div class="choicecontent" >
         <form action="submitNotice" method="post">
           <label for="publishTime">发布时间:</label>
           <input type="text" id="publishTime" name="publishTime" placeholder="点击选择发布时间">
@@ -243,17 +219,9 @@
 <%--          </form>--%>
           <br>
           <input type="hidden" name="classid" value=<%=classid%>>
-          <input type="submit" id="submit-button"value="确认发布"></input>
+          <input class="logout-button" type="submit" id="submit-button"value="确认发布"></input>
         </form>
 
-
-      </div>
-    </div>
-
-  </div>
-</div>
-</div>
-</div>
 <!-- 引入日期选择器的JS文件，并初始化日期选择器 -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
@@ -269,5 +237,10 @@
     minDate: "today" // 只能选择今天及以后的日期和时间
   });
 </script>
+      </div>
+
+</div>
+</div>
+</div>
 </body>
 </html>

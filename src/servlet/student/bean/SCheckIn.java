@@ -1,10 +1,19 @@
-package bean;
+package servlet.student.bean;
 
 public class SCheckIn {
     String stuid;
     String stuname;
     String checkin_id;
     String checked;
+    String checkin_deadline;
+
+    public String getCheckin_deadline() {
+        return checkin_deadline;
+    }
+
+    public void setCheckin_deadline(String checkin_deadline) {
+        this.checkin_deadline = checkin_deadline;
+    }
     public void setStuid( String stuid){
         this.stuid = stuid;
     }

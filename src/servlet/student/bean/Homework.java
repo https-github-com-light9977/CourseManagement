@@ -7,7 +7,25 @@ public class Homework {
     String releaseTime;
     String grouped;
     String groupid;
-    String submit;
+    String submited;
+    String grade;
+
+    public String getSubmited() {
+        return submited;
+    }
+
+    public void setSubmited(String submited) {
+        this.submited = submited;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
 
     public String getHwid() {
         return hwid;
@@ -56,12 +74,12 @@ public class Homework {
     public void setGroupid(String groupid) {
         this.groupid = groupid;
     }
-
-    public String getSubmit() {
-        return submit;
-    }
-
-    public void setSubmit(String submit) {
-        this.submit = submit;
-    }
+//
+//    public String getSubmit() {
+//        return submit;
+//    }
+//
+//    public void setSubmit(String submit) {
+//        this.submit = submit;
+//    }
 }

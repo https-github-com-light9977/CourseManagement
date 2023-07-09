@@ -1,10 +1,13 @@
 package servlet.student.servlet;
 
 
+import bean.Notice;
 import servlet.student.bean.CourseSel;
+import servlet.student.bean.Homework;
 import servlet.student.dao.ClassDao;
 import servlet.student.dao.CourseSelDao;
-import servlet.student.dao.HwContentDao;
+import servlet.student.dao.HwDao;
+import servlet.student.dao.NoticeDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,19 +18,19 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class HwContentServlet  extends HttpServlet {
+public class NoticeDeServlet  extends HttpServlet {
     public void service(HttpServletRequest request, HttpServletResponse response){
-        String stuid,classid,hwid;
-        stuid = request.getParameter("stuid");
+        String classid,stuid,no_id;
         classid = request.getParameter("classid");
-        hwid =request.getParameter("hwid");
+        stuid = request.getParameter("stuid");
+        no_id = request.getParameter("no_id");
+        NoticeDao noticeDao= new NoticeDao();
         try {
-            ArrayList<String> hwContent = new HwContentDao().findHwContent(hwid,classid,stuid);
-            request.setAttribute("hwContent",hwContent);
+            ArrayList<String> noticeArrayList = noticeDao.findNoticeDetail(classid,no_id);
+            request.setAttribute("noDetail",noticeArrayList);
             request.setAttribute("classinfo",new ClassDao().findClassInfo(stuid,classid));
-//            System.out.println((new ClassDao().findClassInfo(stuid,classid)).get(0));
             RequestDispatcher dispatcher =
-                    request.getRequestDispatcher("SHomeworkContent.jsp");//转发
+                    request.getRequestDispatcher("SNoticeDetail.jsp");//转发
             dispatcher.forward(request, response);
 
         } catch (SQLException e) {

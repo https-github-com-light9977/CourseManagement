@@ -1,11 +1,19 @@
 package bean;
 
-public class SHwGrade {
+public class Grade {
     String stuid;
     String stuname;
     String hwid;
     String grade;
-    public void setStuid( String stuid){
+    String text;
+
+    public String getText() {
+        return text;
+    }
+    public void setText(String text) {
+        this.text = text;
+    }
+    public void setStuid(String stuid){
         this.stuid = stuid;
     }
     public String getStuid(){

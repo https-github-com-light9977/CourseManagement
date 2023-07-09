@@ -1,10 +1,7 @@
 package servlet.student.servlet;
 
 
-import bean.CheckIn;
-import bean.Notice;
-import servlet.student.bean.CourseSel;
-import servlet.student.bean.Homework;
+import servlet.student.bean.SCheckIn;
 import servlet.student.dao.*;
 
 import javax.servlet.RequestDispatcher;
@@ -23,7 +20,7 @@ public class CheckInServlet  extends HttpServlet {
         stuid = request.getParameter("stuid");
         CheckInDao checkInDao= new CheckInDao();
         try {
-            ArrayList<CheckIn> checkInArrayList = checkInDao.findCheckIn(classid);
+            ArrayList<SCheckIn> checkInArrayList = checkInDao.findCheckIn(classid,stuid);
             request.setAttribute("checkInArrayList",checkInArrayList);
             request.setAttribute("classinfo",new ClassDao().findClassInfo(stuid,classid));
             RequestDispatcher dispatcher =

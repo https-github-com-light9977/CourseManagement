@@ -209,7 +209,7 @@
   </style>
 </head>
 <body>
-<jsp:useBean id="userBean" class="bean.Teacher" scope="session"/>
+<jsp:useBean id="userBean" class="bean.User" scope="session"/>
 <div class="container">
   <div class="left">
     <div class="horizontal-menu">

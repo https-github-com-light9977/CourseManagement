@@ -203,12 +203,30 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>hwsubmit</servlet-name>
+        <servlet-class>servlet.student.servlet.HwSubmitServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hwsubmit</servlet-name>
+        <url-pattern>/hwsubmit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>snotice</servlet-name>
         <servlet-class>servlet.student.servlet.NoticeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>snotice</servlet-name>
         <url-pattern>/snotice</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>snoticeDetail</servlet-name>
+        <servlet-class>servlet.student.servlet.NoticeDeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>snoticeDetail</servlet-name>
+        <url-pattern>/snoticeDetail</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -220,5 +238,13 @@
         <url-pattern>/scheckin</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>subcheckin</servlet-name>
+        <servlet-class>servlet.student.servlet.SubCheckInServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>subcheckin</servlet-name>
+        <url-pattern>/subcheckin</url-pattern>
+    </servlet-mapping>
 
 </web-app>

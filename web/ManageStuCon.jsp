@@ -1,8 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="bean.THomework" %>
 <%@ page import="java.util.List" %>
-<%@ page import="bean.SCheckIn" %>
-<%@ page import="bean.SHwGrade" %>
+<%@ page import="servlet.student.bean.SCheckIn" %>
+<%@ page import="bean.Grade" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -200,7 +200,7 @@
   </style>
 </head>
 <body>
-<jsp:useBean id="userBean" class="bean.Teacher" scope="session"/>
+<jsp:useBean id="userBean" class="bean.User" scope="session"/>
 <div class="container">
   <div class="left">
     <div class="horizontal-menu">
@@ -248,7 +248,7 @@
       %>
 
       <%
-        ArrayList<SHwGrade> sHwGrades=(ArrayList)request.getAttribute("sHwGrades");
+        ArrayList<SHwGrade> grades =(ArrayList)request.getAttribute("grades");
       %>
 
       <div class="content" >
@@ -279,11 +279,11 @@
               <th>作业ID</th>
               <th>成绩</th>
             </tr>
-            <%for(int i=0;i<sHwGrades.size();i++){
-              SHwGrade sHwGrade=(SHwGrade) sHwGrades.get(i);%>
+            <%for(int i = 0; i< grades.size(); i++){
+              SHwGrade grade =(SHwGrade) grades.get(i);%>
             <tr>
-              <td><%=sHwGrade.getHwid() %></td>
-              <td><%=sHwGrade.getGrade() %></td>
+              <td><%=grade.getHwid() %></td>
+              <td><%=grade.getGrade() %></td>
             </tr>
             <%}%>
 

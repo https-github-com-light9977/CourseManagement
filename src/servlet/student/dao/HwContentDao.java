@@ -5,10 +5,7 @@ import servlet.student.bean.Homework;
 import servlet.student.bean.Student;
 import util.DB_Con_Util;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class HwContentDao {
@@ -17,40 +14,64 @@ public class HwContentDao {
     Connection conn = null;
     //工具包中的数据库连接方法
     DB_Con_Util db = new DB_Con_Util();
-    public ArrayList<String> findHwContent(String hwid,String classid) throws SQLException {
+    String submited="未完成"
+            ,grade = "未批改";
+    public ArrayList<String> findHwContent(String hwid,String classid,String stuid) throws SQLException {
         ArrayList<String> hwContent = new ArrayList<>();
         Homework homework = new Homework();
         conn = db.getConnection();
-        String sql = "select Homework_id,Request,ReleaseTime,Homework_Deadline from homework where Class_id=? and Homework_id =?";
+        String sql = "select Homework_id,Request from homework where Class_id=? and Homework_id =?";
         try {
             //	预编译sql
-            pstm = conn.prepareStatement(sql);
+            pstm = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
             //赋值占位符
             pstm.setString(1, classid);
-            pstm.setString(2,hwid);
+            pstm.setString(2, hwid);
             //更新结果集
             rs = pstm.executeQuery();
-            System.out.println("test");
-            while(rs.next()) {
-                homework =  new Homework();
+
+            if(rs.next()) {
                 homework.setHwid(rs.getString(1));
                 homework.setHw_requirement(rs.getString(2));
-                homework.setReleaseTime(rs.getString(3));
-                homework.setDeadline(rs.getString(4));
+
                 hwContent.add(homework.getHwid());
-                hwContent.add(homework.getReleaseTime());
-                hwContent.add(homework.getDeadline());
                 hwContent.add(homework.getHw_requirement());
             }
+            rs.close();
+            pstm.close();
+            conn.close();
+
+            Connection connection = new DB_Con_Util().getConnection();
+
+            String submit_sql = "select Text,Grade from grade where Homework_id = '"+hwid+"' and Student_id='"+stuid+"'";
+            Statement statement = connection.createStatement();
+            ResultSet submitRes = statement.executeQuery(submit_sql);
+            if(submitRes.next()){
+                System.out.println("hwcontent");
+                    submited = "已提交";
+                    System.out.println("hwcontent");
+                if(submitRes.getString(2) != null){
+                    grade = submitRes.getString(2);
+                    System.out.println("hwcontent");
+                }
+            }
+            System.out.println("hwcontent");
+            submitRes.close();
+            statement.close();
+            connection.close();
+
+            homework.setSubmited(submited);
+            homework.setGrade(grade);
+            hwContent.add(homework.getSubmited());
+            hwContent.add(homework.getGrade());
+            System.out.println(hwContent.size());
             return hwContent;
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             //释放资源
-            conn.close();
-            pstm.close();
-            rs.close();
         }
 
         return null;

@@ -258,24 +258,33 @@
             <div id="choice1" class="choicecontent">
                 <h1>作业内容详情>></h1>
                 <div class="content" >
+                    <form action="hwsubmit" method="post">
                     <div id="personal-info" style="">
                         <%ArrayList<String> hwContent = (ArrayList)request.getAttribute("hwContent");
-                            String content = hwContent.get(3);%>
-                        <label for="content">作业内容:<%=content%></label>
+                            String content = hwContent.get(1);%>
+                        <label for="content">作业要求:<%=content%></label>
                         <br>
                         <label for="content">我的答案:</label>
-                        <textarea id="content" name="content" rows="5" cols="40"></textarea>
+                        <textarea id="content" name="text" rows="5" cols="40"></textarea>
                         <br>
+                        <label for="content">提交状态：<%=hwContent.get(2)%></label>
+                        <br>
+                        <label for="content">成绩：<%=hwContent.get(3)%></label>
                         <form method="post" action="upload.jsp" enctype="multipart/form-data">
                             <br/><br/>
                             <input type="file" name="file" /><br/><br/>
                             <input type="submit" value="上传已选文件" />
                         </form>
-                        <button id="submit-button">确认提交</button>
+                        <input type="hidden" name="hwid" value="<%=hwContent.get(0)%>">
+                        <input type="hidden" name="stuid" value="<%=userBean.getLogid()%>">
+                        <input type="hidden" name="classid" value="<%=classinfo.get(0)%>">
+                        <input type="submit" id="submit-button" value="确认提交"></input>
                     </div>
-                </div>                <%
+                    </form>
+                </div>
+                <%
                 ArrayList homeworks=(ArrayList)request.getAttribute("homeworks");
-            %>
+                %>
                 </table>
 
             </div>

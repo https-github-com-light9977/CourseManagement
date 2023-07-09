@@ -1,11 +1,10 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="bean.THomework" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>教师发布通知！</title>
-  <!-- 引入日期选择器的CSS文件 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <title>通知详情！</title>
   <style>
     body {
       font-family:sans-serif;
@@ -102,6 +101,11 @@
       color: black;
       transition: background-color 0.3s;
     }
+    .content {
+      flex: 1;
+      padding: 20px;
+      background-color: white;
+    }
     .table-container table {
       width: 100%;
       border-collapse: collapse;
@@ -164,6 +168,7 @@
   </style>
 </head>
 <body>
+
 <jsp:useBean id="userBean" class="bean.User" scope="session"/>
 <div class="container">
   <div class="left">
@@ -171,12 +176,12 @@
       <div class="sidebar">
         <div class="avatar"></div>
 
-          <h3 class="profile-name" id="profile-name">
-            <jsp:getProperty name="userBean" property="name"/>
-          </h3>
-          <p class="profile-id" id="profile-id">
-            <jsp:getProperty name="userBean" property="logid"/>
-          </p>
+        <h3 class="profile-name" id="profile-name">
+          <jsp:getProperty name="userBean" property="name"/>
+        </h3>
+        <p class="profile-id" id="profile-id">
+          <jsp:getProperty name="userBean" property="logid"/>
+        </p>
 
         <br><br>
         <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
@@ -185,62 +190,60 @@
     </div>
   </div>
   <div class="right">
+    <div class="content-wrapper">
       <div class="header">
         <button class="logout-button">退出空间</button>
       </div>
+
       <br>
       <div class="logout-button"
       <%
-        String classid = (String) request.getAttribute("classid");
+        List classinfo=(List)request.getAttribute("classinfo");
       %>
-      <%=classid%>
+      <%for(int i=0;i<classinfo.size();i++){%>
+      <td><%=classinfo.get(i)%></td>
+      <%}%>
     </div>
     <br>
-      <div>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classid%>">作业</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classid%>" >签到</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classid%>">通知</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classid%>">学生管理</a>
-        <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>
+    <div class="choiceheader">
+      <a class="choice" href="/CourseManagement_war_exploded/shomework?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">作业</a>
+      <a class="choice" href="/CourseManagement_war_exploded/scheckin?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">签到</a>
+      <a class="choice" href="/CourseManagement_war_exploded/snotice?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">通知</a>
+      <a class="choice" href="/CourseManagement_war_exploded/sgrade?classid=<%=classinfo.get(0)%>&stuid<%=userBean.getLogid()%>">查看成绩</a>
+    </div>
+    <%
+      List noDetail=(List)request.getAttribute("noDetail");
+    %>
+
+    <div class="content" >
+      <div id="personal-info-" style="">
+        <table>
+          <tr>
+            <td>通知ID：</td>
+            <td><%= noDetail.get(0)%></td>
+          </tr>
+          <tr>
+            <td>发布时间：</td>
+            <td><%= noDetail.get(1) %></td>
+          </tr>
+          <tr>
+            <td>内容：</td>
+            <td><%= noDetail.get(2) %></td>
+          </tr>
+        </table>
       </div>
-<br><br><br>
-      <div class="choicecontent" >
-        <form action="submitNotice" method="post">
-          <label for="publishTime">发布时间:</label>
-          <input type="text" id="publishTime" name="publishTime" placeholder="点击选择发布时间">
-          <br><br>
-          <label for="content">通知内容:</label>
-          <textarea id="content" name="content" rows="5" cols="40"></textarea>
-          <br>
-<%--          <form method="post" action="upload.jsp" enctype="multipart/form-data">--%>
-<%--            <br/><br/>--%>
-<%--            <input type="file" name="file" /><br/><br/>--%>
-<%--            <input type="submit" value="上传已选文件" />--%>
-<%--          </form>--%>
-          <br>
-          <input type="hidden" name="classid" value=<%=classid%>>
-          <input class="logout-button" type="submit" id="submit-button"value="确认发布"></input>
-        </form>
+    </div>
 
-<!-- 引入日期选择器的JS文件，并初始化日期选择器 -->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script>
-  flatpickr("#deadline", {
-    enableTime: true, // 允许选择具体时间
-    dateFormat: "Y-m-d H:i", // 时间格式
-    minDate: "today" // 只能选择今天及以后的日期和时间
-  });
-
-  flatpickr("#publishTime", {
-    enableTime: true, // 允许选择具体时间
-    dateFormat: "Y-m-d H:i", // 时间格式
-    minDate: "today" // 只能选择今天及以后的日期和时间
-  });
-</script>
+    <div class="content" >
+      <div id="personal-info" style="">
+        </select><br>
+        <a class="logout-button" href="/CourseManagement_war_exploded/snotice?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">
+          退出查看
+        </a>
       </div>
+    </div>
 
-</div>
-</div>
+  </div>
 </div>
 </body>
 </html>

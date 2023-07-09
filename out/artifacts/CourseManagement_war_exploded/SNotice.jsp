@@ -245,7 +245,7 @@
                     <tr><td><%=notice.getNoticeid() %></td>
                         <td><%=notice.getContent() %></td>
                         <td><%=notice.getTime() %></td>
-                        <td><a href="/CourseManagement_war_exploded/noticeDetail?classid=<%=classinfo.get(0)%>&no_id=<%=notice.getNoticeid()%>" >
+                        <td><a href="/CourseManagement_war_exploded/snoticeDetail?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>&no_id=<%=notice.getNoticeid()%>" >
                             <button class="logout-button">查看详情</button></a></td>
                     </tr>
                     <% }

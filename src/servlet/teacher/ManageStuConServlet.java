@@ -1,7 +1,7 @@
 package servlet.teacher;
 
 import bean.*;
-import unsolved.TClass;
+import servlet.student.bean.SCheckIn;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -86,8 +86,8 @@ public class ManageStuConServlet extends HttpServlet {
             checkRes.close();
 
             //作业情况
-            ArrayList<SHwGrade> sHwGrades = new ArrayList<>();
-            SHwGrade sHwGrade ;
+            ArrayList<Grade> grades = new ArrayList<>();
+            Grade grade;
             //查询班级所有发布的作业
             String sql2 = "select Homework_id from homework where Class_id='"+class_id+"'";
             ResultSet hwRes = statement.executeQuery(sql2);
@@ -105,19 +105,19 @@ public class ManageStuConServlet extends HttpServlet {
 
                 ResultSet hwgradeRes = statement.executeQuery(hw_sql);
                 if (!hwgradeRes.next()) {
-                    grade = "0";
+                    this.grade = "0";
                 }else{
-                    grade = hwgradeRes.getString(3);
+                    this.grade = hwgradeRes.getString(3);
                 }
                 hwgradeRes.close();
 
 
-                sHwGrade=new SHwGrade();
-                sHwGrade.setHwid(hwid.substring(8));
-                sHwGrade.setGrade(grade);
-                sHwGrades.add(sHwGrade);
+                grade =new Grade();
+                grade.setHwid(hwid.substring(8));
+                grade.setGrade(this.grade);
+                grades.add(grade);
             }
-            request.setAttribute("sHwGrades", sHwGrades);
+            request.setAttribute("sHwGrades", grades);
 
 
             //班级信息

@@ -35,9 +35,52 @@ public class NoticeDao {
             while(rs.next()) {
                 notice =  new Notice();
                 notice.setNoticeid(rs.getString(1));
-                notice.setContent(rs.getString(2));
+                String content = rs.getString(2);
+                if (content.length()>15){content=content.substring(15)+"...";}
+                notice.setContent(content);
                 notice.setTime(rs.getString(3));
                 noticeArrayList.add(notice);
+            }
+            return noticeArrayList;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            //释放资源
+            conn.close();
+            pstm.close();
+            rs.close();
+        }
+
+        return null;
+
+
+    }
+
+    public ArrayList<String> findNoticeDetail(String classid,String no_id) throws SQLException {
+        ArrayList<String> noticeArrayList = new ArrayList<>();
+        Notice notice ;
+        conn = db.getConnection();
+        String sql =  " select Notice_id,Content,NoticeTime from notice where Class_id=? and Notice_id =?";
+        try {
+            //	预编译sql
+            pstm = conn.prepareStatement(sql);
+            //赋值占位符
+            System.out.println(classid);
+            pstm.setString(1, classid);
+            pstm.setString(2, no_id);
+            //更新结果集
+            rs = pstm.executeQuery();
+            System.out.println("test");
+            while(rs.next()) {
+                notice =  new Notice();
+                notice.setNoticeid(rs.getString(1));
+                String content = rs.getString(2);
+                notice.setContent(content);
+                notice.setTime(rs.getString(3));
+                noticeArrayList.add(notice.getNoticeid());
+                noticeArrayList.add(notice.getTime());
+                noticeArrayList.add(notice.getContent());
             }
             return noticeArrayList;
 

@@ -60,7 +60,9 @@ import java.util.List;
                     hwsubmitlist.setHomework_id(hw_id);
                     hwsubmitlist.setStudent_id(hwsubmitRes.getString(1));
                     hwsubmitlist.setStudent_name(hwsubmitRes.getString(2));
-                    hwsubmitlist.setGrade(hwsubmitRes.getString(3));
+                    String grade = hwsubmitRes.getString(3);
+                    if (grade == null){grade = "未批改";}
+                    hwsubmitlist.setGrade(grade);
                     submitLists.add(hwsubmitlist);
                 }
                 request.setAttribute("submitLists", submitLists);

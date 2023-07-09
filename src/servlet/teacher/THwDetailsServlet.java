@@ -32,26 +32,31 @@ public class THwDetailsServlet extends HttpServlet {
             String db_password = "210470727czyCZY";
             con = DriverManager.getConnection(url, user, db_password);
             statement = con.createStatement();
-            String sql = "select student.Student_id,student.Student_name,Text,Grade,Homework_id from grade,student where student." +
+            String sql = "select student.Student_id,student.Student_name,Text,Grade,Homework_id from grade,student where student.Student_id = grade.Student_id and student." +
                     "Student_id='" + student_id + "'"
                     + "and Homework_id = '" + homework_id + "'";
             ResultSet hwDetailsRes = statement.executeQuery(sql);
 
             //解析ResultSet
             if (hwDetailsRes.next()) {
-
+                System.out.println("test");
                 String stuid = hwDetailsRes.getString(1);
                 String stuname = hwDetailsRes.getString(2);
                 String text = hwDetailsRes.getString(3);
                 String grade = hwDetailsRes.getString(4);
+                if(grade == null) {
+                    grade = "未批改";
+                }
+                System.out.println(grade);
 
                 //将结果打包成list传入前端
-                List<String> hwDetail = new ArrayList<>();
+                ArrayList<String> hwDetail = new ArrayList<>();
                 hwDetail.add(stuid);
                 hwDetail.add(stuname);
                 hwDetail.add(text);
                 hwDetail.add(grade);
                 hwDetail.add(homework_id);
+                System.out.println(hwDetail.get(2));
                 //前端展示时只取前四个数据
                 request.setAttribute("hwDetail", hwDetail);
                 hwDetailsRes.close();
