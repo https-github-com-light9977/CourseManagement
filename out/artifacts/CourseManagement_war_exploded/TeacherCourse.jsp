@@ -23,7 +23,6 @@
         .right {
             flex: 5;
         }
-
         <%-- .sidebar是设置左侧侧边栏区域的布局样式 --%>
         .sidebar {
             display: flex;
@@ -225,8 +224,8 @@
                         <td><%=classid %></td>
                         <td><%=tcourse.getCourseTime() %></td>
                         <td>
-                            <a href="/CourseManagement_war_exploded/class?classid=<%=tcourse.getClasseId()%>">
-                                <botton type="submit" class="submit-button" value="进入班级">进入班级</botton>
+                            <a class="logout-button" href="/CourseManagement_war_exploded/class?classid=<%=tcourse.getClasseId()%>">
+                                进入班级
                             </a>
                         </td>
                     </tr>

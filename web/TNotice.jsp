@@ -161,6 +161,11 @@
       padding: 20px;
       border-top: 2px solid #000;
     }
+    .content {
+      flex: 1;
+      padding: 20px;
+      background-color: white;
+    }
     .notice-table {
       margin: 0 auto;
       overflow-y: auto;
@@ -202,12 +207,12 @@
       <div class="sidebar">
         <div class="avatar"></div>
 
-          <h3 class="profile-name" id="profile-name">
-            <jsp:getProperty name="userBean" property="name"/>
-          </h3>
-          <p class="profile-id" id="profile-id">
-            <jsp:getProperty name="userBean" property="logid"/>
-          </p>
+        <h3 class="profile-name" id="profile-name">
+          <jsp:getProperty name="userBean" property="name"/>
+        </h3>
+        <p class="profile-id" id="profile-id">
+          <jsp:getProperty name="userBean" property="logid"/>
+        </p>
 
         <br><br>
         <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
@@ -230,55 +235,55 @@
       <%}%>
     </div>
     <br>
+    <div>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
+      <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>
+    </div>
+    <br>
+    <div class="choicecontent"></div>
+    <div class="content">
+      <div><a class="logout-button" href="/CourseManagement_war_exploded/releaseNotice?classid=<%=classinfo.get(0)%>">
+        发布新通知
+      </a></div>
+      <br><br><br><br>
       <div>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-        <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>
+        <label class="logout-button">已发布通知列表>></label>
       </div>
-<br>
-      <div id="choice1" class="choicecontent">
-        <a class="logout-button" href="/CourseManagement_war_exploded/releaseNotice?classid=<%=classinfo.get(0)%>">
-          发布新通知
-        </a>
-      </div>
-        <br>
-        <div>
-          <label class="logout-button">已发布通知列表>></label>
-        </div>
-<br><br>
-        <table align="center" class="notice-table">
-          <tr>
-            <th>序号</th>
-            <th>通知ID</th>
-            <th>通知详情</th>
-            <th>通知发布时间</th>
-            <th>操作</th>
-          </tr>
-          <%
-            ArrayList<Notice> noticeArrayList=(ArrayList)request.getAttribute("noticeArrayList");
-          %>
-          <%if(noticeArrayList.size()>0){
-            for(int i=0;i<noticeArrayList.size();i++){
-              Notice notice=(Notice) noticeArrayList.get(i);%>
-          <tr>
-            <td><%=i+1 %></td>   <%-- 修改这里，使用 i+1 来表示第几行 --%>
-            <td><%=notice.getNoticeid() %></td>
-            <td><%=notice.getContent() %></td>
-            <td><%=notice.getTime() %></td>
-            <td><a class="logout-button" href="/CourseManagement_war_exploded/noticeDetail?classid=<%=classinfo.get(0)%>&no_id=<%=notice.getNoticeid()%>" >
-              查看详情
-            </a>
-            </td>
-          </tr>
-          <% }
-          }
-          %>
-        </table>
-      </div>
+      <br><br>
+      <table align="center" class="notice-table">
+        <tr>
+          <th>序号</th>
+          <th>通知ID</th>
+          <th>通知详情</th>
+          <th>通知发布时间</th>
+          <th>操作</th>
+        </tr>
+        <%
+          ArrayList<Notice> noticeArrayList=(ArrayList)request.getAttribute("noticeArrayList");
+        %>
+        <%if(noticeArrayList.size()>0){
+          for(int i=0;i<noticeArrayList.size();i++){
+            Notice notice=(Notice) noticeArrayList.get(i);%>
+        <tr>
+          <td><%=i+1 %></td>   <%-- 修改这里，使用 i+1 来表示第几行 --%>
+          <td><%=notice.getNoticeid() %></td>
+          <td><%=notice.getContent() %></td>
+          <td><%=notice.getTime() %></td>
+          <td><a class="logout-button" href="/CourseManagement_war_exploded/noticeDetail?classid=<%=classinfo.get(0)%>&no_id=<%=notice.getNoticeid()%>" >
+            查看详情
+          </a>
+          </td>
+        </tr>
+        <% }
+        }
+        %>
+      </table>
     </div>
   </div>
+</div>
 </div>
 </body>
 

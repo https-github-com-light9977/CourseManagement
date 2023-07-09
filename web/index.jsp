@@ -71,9 +71,9 @@
         <br>
         <form action="LoginServlet" method="post" onsubmit="showErrorMessage()">
             <%--@declare id="role"--%>
-            <label for="userid">账号:</label><br><input type="text" id="userid" name="userid" placeholder="请输入..." required><br>
+            <label>账号:</label><br><input type="text" id="userid" name="userid" placeholder="请输入..." required><br>
             <br>
-            <label for="password">密码:</label><br><input type="password" id="password" name="password" placeholder="请输入..." required><br><br>
+            <label>密码:</label><br><input type="password" id="password" name="password" placeholder="请输入..." required><br><br>
             <br>
             <label for="role">身份:</label><br>
             <input type="radio" id="teacher" name="role" value="teacher">
@@ -90,7 +90,6 @@
                     out.println(backnews);
                 }
             %>
-            <a href="http://localhost:8080/CourseManagement_war_exploded/shomework?classid=FEG40901&stuid=42123025">test</a>
         </div>
     </div>
 </div>

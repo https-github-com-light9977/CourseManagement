@@ -6,7 +6,7 @@
     <title>成功进入课程班级！</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
             height: 100%;
             margin: 0;
             padding: 0;
@@ -173,14 +173,14 @@
         <div class="horizontal-menu">
             <div class="sidebar">
                 <div class="avatar"></div>
-                <div class="profile-info">
+
                     <h3 class="profile-name" id="profile-name">
                         <jsp:getProperty name="userBean" property="name"/>
                     </h3>
                     <p class="profile-id" id="profile-id">
                         <jsp:getProperty name="userBean" property="logid"/>
                     </p>
-                </div>
+
                 <br><br>
                 <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
                 <a href="Teacher.jsp" class="a">个人信息>></a>
@@ -193,43 +193,43 @@
                 <button class="logout-button">退出空间</button>
             </div>
             <br>
-                <div class="logout-button"
-                <%
-                    List classinfo=(List)request.getAttribute("classinfo");
-                %>
-                <%for(int i=0;i<classinfo.size();i++){%>
-                <td><%=classinfo.get(i)%></td>
-                <%}%>
-            </div>
-        <br>
-            <div>
-                <a id="choice1-link" class="choiceheader"  onclick="showContent('choice1'); setActiveLink('choice1-link')" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-                <a id="choice2-link" class="choiceheader"  onclick="showContent('choice2'); setActiveLink('choice2-link')" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
-                <a id="choice3-link" class="choiceheader"  onclick="showContent('choice3'); setActiveLink('choice3-link')" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
-                <a id="choice4-link" class="choiceheader"  onclick="showContent('choice4'); setActiveLink('choice4-link')" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-                <a id="choice5-link" class="choiceheader"  onclick="showContent('choice5'); setActiveLink('choice5-link')" href="#" >分组</a>
-            </div>
-            <script>
-                function setActiveLink(linkId) {
-                    var links = document.getElementsByClassName('choiceheader');
-                    for (var i = 0; i < links.length; i++) {
-                        links[i].classList.remove('active');
-                    }
-                    var link = document.getElementById(linkId);
-                    link.classList.add('active');
-                }
-
-                function showContent(choiceId) {
-                    var contents = document.getElementsByClassName('choicecontent');
-                    for (var i = 0; i < contents.length; i++) {
-                        contents[i].style.display = 'none';
-                    }
-                    var content = document.getElementById(choiceId);
-                    content.style.display = 'block';
-                }
-            </script>
+            <div class="logout-button"
+            <%
+                List classinfo=(List)request.getAttribute("classinfo");
+            %>
+            <%for(int i=0;i<classinfo.size();i++){%>
+            <td><%=classinfo.get(i)%></td>
+            <%}%>
         </div>
+        <br>
+        <div>
+            <a id="choice1-link" class="choiceheader"  onclick="showContent('choice1'); setActiveLink('choice1-link')" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
+            <a id="choice2-link" class="choiceheader"  onclick="showContent('choice2'); setActiveLink('choice2-link')" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
+            <a id="choice3-link" class="choiceheader"  onclick="showContent('choice3'); setActiveLink('choice3-link')" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
+            <a id="choice4-link" class="choiceheader"  onclick="showContent('choice4'); setActiveLink('choice4-link')" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
+            <a id="choice5-link" class="choiceheader"  onclick="showContent('choice5'); setActiveLink('choice5-link')" href="#" >分组</a>
+        </div>
+        <script>
+            function setActiveLink(linkId) {
+                var links = document.getElementsByClassName('choiceheader');
+                for (var i = 0; i < links.length; i++) {
+                    links[i].classList.remove('active');
+                }
+                var link = document.getElementById(linkId);
+                link.classList.add('active');
+            }
+
+            function showContent(choiceId) {
+                var contents = document.getElementsByClassName('choicecontent');
+                for (var i = 0; i < contents.length; i++) {
+                    contents[i].style.display = 'none';
+                }
+                var content = document.getElementById(choiceId);
+                content.style.display = 'block';
+            }
+        </script>
     </div>
+</div>
 </div>
 
 </body>

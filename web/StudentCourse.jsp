@@ -19,11 +19,11 @@
         }
         .left {
             flex: 1;
+            padding-right: 2px;    <%-- 调整左右两边的间距--%>
         }
         .right {
             flex: 5;
         }
-
         <%-- .sidebar是设置左侧侧边栏区域的布局样式 --%>
         .sidebar {
             display: flex;
@@ -150,8 +150,14 @@
         .course-table th, .course-table td {
             padding: 10px;
             text-align: center;
-            border: 0.5px solid #ccc;
+            border-bottom: 0.5px solid #ccc;      <%-- 使列表里的竖直线不显示  --%>
         }
+        .course-table tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+        .course-table tr:hover {
+            background-color: #e0e0e0;
+        }                                      <%-- 以上两个样式是让列表里的奇数行颜色深浅与偶数行不一样，且鼠标悬浮到奇数行颜色会改变 --%>
         .course-table th {
             background-color: #f2f2f2;
             font-weight: bold;
@@ -159,11 +165,9 @@
         th:first-child, td:first-child {
             border-left-width: 1px;
         }
-
         th:last-child, td:last-child {
             border-right-width: 1px;
         }
-
         tr:last-child th, tr:last-child td {
             border-bottom-width: 1px;
         }
@@ -211,19 +215,19 @@
                     <%--                        <form action="class" method="get">--%>
                         <%for(int i=0;i<courselist.size();i++){
                             CourseSel scourse=(CourseSel) courselist.get(i);%>
-                    <tr><td><%=scourse.getCourse() %></td>
+                    <tr>
+                        <td><%=scourse.getCourse() %></td>
                         <% String classid = scourse.getClass_id();%>
                         <td><%=classid %></td>
                         <td><%=scourse.getTime() %></td>
                         <td>
-                            <a href="/CourseManagement_war_exploded/sclass?classid=<%=scourse.getClass_id()%>&stuid=<%=userBean.getLogid()%>">
-                                <botton type="submit" class="submit-button" value="进入班级">进入班级</botton>
+                            <a class="logout-button" href="/CourseManagement_war_exploded/sclass?classid=<%=scourse.getClass_id()%>&stuid=<%=userBean.getLogid()%>">
+                                进入班级
                             </a>
                         </td>
                     </tr>
-                    </td>
-                    </form>
-                        <% } %>
+                    <% } %>
+                </table>
                     <br>
                     <br>
             </div>

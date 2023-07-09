@@ -19,6 +19,7 @@
     }
     .left {
       flex: 1;
+      padding-right: 2px;    <%-- 调整左右两边的间距--%>
     }
     .right {
       flex: 5;
@@ -149,12 +150,6 @@
       color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
     }
     .choiceheader {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      padding: 20px;
-    }
-    .choice {
       margin: 0 10px;
       text-decoration: none;
       color: #000;
@@ -163,31 +158,16 @@
       display: inline-block;
       transition: all 0.3s ease;
     }
-    .choice:after {
-      content: "";
-      position: absolute;
-      bottom: -2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 4px;
-      display: none;
+    .choiceheader.active {
+      text-decoration: underline;
+    }
+    .choicecontent {
+      padding: 20px;
+      border-top: 2px solid #000;
     }
   </style>
 </head>
 <body>
-<script>
-  var courseTable = document.getElementById("course-table");
-  var personalInfo = document.getElementById("personal-info");
-  document.querySelector("a[href='#course-table']").addEventListener("click", function() {
-    courseTable.style.display = "block";
-    personalInfo.style.display = "none";
-  });
-  document.querySelector("a[href='#personal-info']").addEventListener("click", function() {
-    courseTable.style.display = "none";
-    personalInfo.style.display = "block";
-  });
-</script>
 <jsp:useBean id="userBean" class="bean.User" scope="session"/>
 <div class="container">
   <div class="left">
@@ -214,43 +194,44 @@
         <button class="logout-button">退出空间</button>
       </div>
       <%List classinfo = (List) request.getAttribute("classinfo");%>
-      <div class="choiceheader">
-        <a class="choice" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-        <a class="choice" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
-        <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
-        <a class="choice" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-        <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
+      <div>
+        <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
+        <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
+        <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
+        <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
+        <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>
       </div>
+      <br>
       <%
         List hwDetail=(List)request.getAttribute("hwDetail");
       %>
-
+      <div class="choicecontent"></div>
       <div class="content" >
         <div id="personal-info" style="">
           <form action="submitgrade" method="post">
-          <table>
-            <tr>
-              <td>学生ID：</td>
-              <td><%= hwDetail.get(0)%></td>
-            </tr>
-            <tr>
-              <td>学生姓名：</td>
-              <td><%= hwDetail.get(1) %></td>
-            </tr>
-            <tr>
-              <td>详情：</td>
-              <td><%= hwDetail.get(2) %></td>
-            </tr>
-            <tr>
-              <td>输入成绩：</td>
-              <td><input type="number" name="grade" ></td>
-              <input type="hidden" name="hwid"  value="<%=hwDetail.get(4)%>">
-              <input type="hidden" name="stuid"  value="<%=hwDetail.get(0)%>">
-              <input type="hidden" name="classid"  value="<%=classinfo.get(0)%>">
-            </tr>
-          </table>
-          <br>
-          <input type="submit" id="submit-button" value="提交批改结果"></input>
+            <table>
+              <tr>
+                <td>学生ID：</td>
+                <td><%= hwDetail.get(0)%></td>
+              </tr>
+              <tr>
+                <td>学生姓名：</td>
+                <td><%= hwDetail.get(1) %></td>
+              </tr>
+              <tr>
+                <td>详情：</td>
+                <td><%= hwDetail.get(2) %></td>
+              </tr>
+              <tr>
+                <td>输入成绩：</td>
+                <td><input type="number" name="grade" ></td>
+                <input type="hidden" name="hwid"  value="<%=hwDetail.get(4)%>">
+                <input type="hidden" name="stuid"  value="<%=hwDetail.get(0)%>">
+                <input type="hidden" name="classid"  value="<%=classinfo.get(0)%>">
+              </tr>
+            </table>
+            <br>
+            <input type="submit" id="submit-button" value="提交批改结果"></input>
           </form>
         </div>
       </div>

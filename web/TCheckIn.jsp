@@ -25,7 +25,6 @@
     .right {
       flex: 5;
     }
-
     .sidebar {
       display: flex;
       flex-direction: column;
@@ -201,18 +200,7 @@
   </style>
 </head>
 <body>
-<script>
-  var courseTable = document.getElementById("course-table");
-  var personalInfo = document.getElementById("personal-info");
-  document.querySelector("a[href='#course-table']").addEventListener("click", function() {
-    courseTable.style.display = "block";
-    personalInfo.style.display = "none";
-  });
-  document.querySelector("a[href='#personal-info']").addEventListener("click", function() {
-    courseTable.style.display = "none";
-    personalInfo.style.display = "block";
-  });
-</script>
+
 <jsp:useBean id="userBean" class="bean.User" scope="session"/>
 <div class="container">
   <div class="left">
@@ -248,47 +236,47 @@
       <%}%>
     </div>
     <br>
-      <div>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-        <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>
-      </div>
-<br>
-    <div class="choicecontent">
-        <a class="logout-button" href="/CourseManagement_war_exploded/releaseCheckIn?classid=<%=classinfo.get(0)%>">
-        发布新签到
-        </a>
+    <div>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
+      <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>
     </div>
     <br>
+    <div class="choicecontent"></div>
+    <div class="content">
+      <div><a class="logout-button" href="/CourseManagement_war_exploded/releaseCheckIn?classid=<%=classinfo.get(0)%>">
+        发布新签到
+      </a></div>
+      <br><br><br><br>
       <div>
         <label class="logout-button">已发布签到列表>></label>
       </div>
       <br><br>
-        <table align="center" class="checkin-table">
-          <tr>
-            <th>序号</th>
-            <th>签到ID</th>
-            <th>截止时间</th>
-          </tr>
-          <%
-            ArrayList checkInArrayList=(ArrayList)request.getAttribute("checkInArrayList");
-          %>
-          <%for(int i=0;i<checkInArrayList.size();i++){
-            CheckIn checkIn=(CheckIn) checkInArrayList.get(i);%>
-          <tr>
-            <td><%=i+1 %></td>   <%-- 修改这里，使用 i+1 来表示第几行 --%>
-            <td><%=checkIn.getCheckinid() %></td>
-            <td><%=checkIn.getDeadline() %></td>
-<%--            <td><button class="logout-button">查看详情</button></td>--%>
-          </tr>
-          <% } %>
-        </table>
-      </div>
-
+      <table align="center" class="checkin-table">
+        <tr>
+          <th>序号</th>
+          <th>签到ID</th>
+          <th>截止时间</th>
+        </tr>
+        <%
+          ArrayList checkInArrayList=(ArrayList)request.getAttribute("checkInArrayList");
+        %>
+        <%for(int i=0;i<checkInArrayList.size();i++){
+          CheckIn checkIn=(CheckIn) checkInArrayList.get(i);%>
+        <tr>
+          <td><%=i+1 %></td>   <%-- 修改这里，使用 i+1 来表示第几行 --%>
+          <td><%=checkIn.getCheckinid() %></td>
+          <td><%=checkIn.getDeadline() %></td>
+          <%--            <td><button class="logout-button">查看详情</button></td>--%>
+        </tr>
+        <% } %>
+      </table>
     </div>
+
   </div>
+</div>
 </div>
 </body>
 </html>

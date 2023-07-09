@@ -127,6 +127,11 @@
       font-weight: bold;
       cursor: pointer;
     }
+    .content {
+      flex: 1;
+      padding: 20px;
+      background-color: white;
+    }
     a {
       display: flex;
       flex-direction: column;
@@ -151,7 +156,7 @@
       justify-content: flex-start;
       padding: 20px;
     }
-    .choice {
+    .choiceheader {
       margin: 0 10px;
       text-decoration: none;
       color: #000;
@@ -160,15 +165,8 @@
       display: inline-block;
       transition: all 0.3s ease;
     }
-    .choice:after {
-      content: "";
-      position: absolute;
-      bottom: -2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 4px;
-      display: none;
+    .choiceheader.active {
+      text-decoration: underline;
     }
     .choicecontent {
       padding: 20px;
@@ -215,12 +213,12 @@
     <div class="horizontal-menu">
       <div class="sidebar">
         <div class="avatar"></div>
-          <h3 class="profile-name" id="profile-name">
-            <jsp:getProperty name="userBean" property="name"/>
-          </h3>
-          <p class="profile-id" id="profile-id">
-            <jsp:getProperty name="userBean" property="logid"/>
-          </p>
+        <h3 class="profile-name" id="profile-name">
+          <jsp:getProperty name="userBean" property="name"/>
+        </h3>
+        <p class="profile-id" id="profile-id">
+          <jsp:getProperty name="userBean" property="logid"/>
+        </p>
         <br><br>
         <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
         <a href="Teacher.jsp" class="a">个人信息>></a>
@@ -241,61 +239,62 @@
       <td><%=classinfo.get(i)%></td>
       <%}%>
     </div>
-     <br>
-      <div class="choiceheader">
-        <a class="choice" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-          <a class="choice" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
-        <a class="choice" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
-        <a class="choice" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-        <a class="choice" href="#" onclick="showContent('choice5')">分组</a>
+    <br>
+    <div>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
+      <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>
+    </div>
+    <br>
+    <div class="choicecontent"></div>
+    <div class="content">
+      <div>
+        <label class="logout-button">作业提交列表>></label>
       </div>
-
-      <div id="choice1" class="choicecontent">
-        <div>
-          <label class="logout-button">作业提交列表>></label>
-        </div>
-        <br><br>
-        <table align="center" class="homework-table">
-          <tr>
-            <th>序号</th>
-            <th>学生ID</th>
-            <th>学生姓名</th>
-            <th>完成评价</th>
-            <th>操作</th>
-          </tr>
-          <%
-            ArrayList submitLists=(ArrayList)request.getAttribute("submitLists");
-          %>
-          <%if(submitLists.size()>0){
-            for(int i=0;i<submitLists.size();i++){
+      <br><br>
+      <table align="center" class="homework-table">
+        <tr>
+          <th>序号</th>
+          <th>学生ID</th>
+          <th>学生姓名</th>
+          <th>完成评价</th>
+          <th>操作</th>
+        </tr>
+        <%
+          ArrayList submitLists=(ArrayList)request.getAttribute("submitLists");
+        %>
+        <%if(submitLists.size()>0){
+          for(int i=0;i<submitLists.size();i++){
             HwSubmitList submitList=(HwSubmitList) submitLists.get(i);%>
-          <tr>
-            <td><%=i+1 %></td>    <%-- 修改这里，使用 i+1 来表示第几行 --%>
-            <td><%=submitList.getStudent_id() %></td>
-            <td><%=submitList.getStudent_name() %></td>
-            <%String grade;
-              if(request.getAttribute("grade") == null){
-                grade = submitList.getGrade();
+        <tr>
+          <td><%=i+1 %></td>    <%-- 修改这里，使用 i+1 来表示第几行 --%>
+          <td><%=submitList.getStudent_id() %></td>
+          <td><%=submitList.getStudent_name() %></td>
+          <%String grade;
+            if(request.getAttribute("grade") == null){
+              grade = submitList.getGrade();
             }else {grade = (String) request.getAttribute("grade");
-              }
-            %>
-            <td><%=grade %></td>
+            }
+          %>
+          <td><%=grade %></td>
 
-            <td>
-              <a class="logout-button" href="/CourseManagement_war_exploded/hw_details?classid=<%=classinfo.get(0)%>&hwid=<%=submitList.getHomework_id()%>&stuid=<%=submitList.getStudent_id()%>">
-                进入批改
-              </a>
-            </td>
-          </tr>
-          <%}
-          }%>
+          <td>
+            <a class="logout-button" href="/CourseManagement_war_exploded/hw_details?classid=<%=classinfo.get(0)%>&hwid=<%=submitList.getHomework_id()%>&stuid=<%=submitList.getStudent_id()%>">
+              进入批改
+            </a>
           </td>
-        </table>
-
-      </div>
+        </tr>
+        <%}
+        }%>
+        </td>
+      </table>
 
     </div>
+
   </div>
+</div>
 
 </body>
 </html>

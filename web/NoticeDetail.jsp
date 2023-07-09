@@ -176,12 +176,12 @@
       <div class="sidebar">
         <div class="avatar"></div>
 
-          <h3 class="profile-name" id="profile-name">
-            <jsp:getProperty name="userBean" property="name"/>
-          </h3>
-          <p class="profile-id" id="profile-id">
-            <jsp:getProperty name="userBean" property="logid"/>
-          </p>
+        <h3 class="profile-name" id="profile-name">
+          <jsp:getProperty name="userBean" property="name"/>
+        </h3>
+        <p class="profile-id" id="profile-id">
+          <jsp:getProperty name="userBean" property="logid"/>
+        </p>
 
         <br><br>
         <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
@@ -205,46 +205,47 @@
       <%}%>
     </div>
     <br>
-      <div class="choicecontent">
-        <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-        <a class="choiceheader" href="#" onclick="showContent('choice4')">分组</a>
-      </div>
-      <%
-        List noDetail=(List)request.getAttribute("noDetail");
-      %>
-
-      <div class="content" >
-        <div id="personal-info-" style="">
-            <table>
-              <tr>
-                <td>通知ID：</td>
-                <td><%= noDetail.get(0)%></td>
-              </tr>
-              <tr>
-                <td>发布时间：</td>
-                <td><%= noDetail.get(1) %></td>
-              </tr>
-              <tr>
-                <td>内容：</td>
-                <td><%= noDetail.get(2) %></td>
-              </tr>
-            </table>
-        </div>
-      </div>
-
-      <div class="content" >
-        <div id="personal-info" style="">
-          </select><br>
-          <a class="logout-button" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">
-          退出查看
-          </a>
-        </div>
-      </div>
-
+    <div>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
+      <a class="choiceheader" href="#" onclick="showContent('choice4')">分组</a>
     </div>
+    <br>
+    <%
+      List noDetail=(List)request.getAttribute("noDetail");
+    %>
+    <div class="choicecontent"></div>
+    <div class="content" >
+      <div id="personal-info-" style="">
+        <table>
+          <tr>
+            <td>通知ID：</td>
+            <td><%= noDetail.get(0)%></td>
+          </tr>
+          <tr>
+            <td>发布时间：</td>
+            <td><%= noDetail.get(1) %></td>
+          </tr>
+          <tr>
+            <td>内容：</td>
+            <td><%= noDetail.get(2) %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="content" >
+      <div id="personal-info" style="">
+        </select><br>
+        <a class="logout-button" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">
+          退出查看
+        </a>
+      </div>
+    </div>
+
   </div>
+</div>
 </body>
 </html>
