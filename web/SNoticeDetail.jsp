@@ -184,8 +184,8 @@
         </p>
 
         <br><br>
-        <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
-        <a href="Teacher.jsp" class="a">个人信息>></a>
+        <a href="/CourseManagement_war_exploded/scourse?stuid=<%=userBean.getLogid()%>" class="a">课程活动>></a>
+        <a href="Student.jsp" class="a">个人信息>></a>
       </div>
     </div>
   </div>

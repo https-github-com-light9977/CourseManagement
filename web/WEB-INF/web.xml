@@ -247,4 +247,24 @@
         <url-pattern>/subcheckin</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>randomGroup</servlet-name>
+        <servlet-class>servlet.teacher.RandomGroupServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>randomGroup</servlet-name>
+        <url-pattern>/randomGroup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>group</servlet-name>
+        <servlet-class>servlet.teacher.GroupServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>group</servlet-name>
+        <url-pattern>/group</url-pattern>
+    </servlet-mapping>
+
 </web-app>

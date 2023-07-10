@@ -90,7 +90,7 @@
                     out.println(backnews);
                 }
             %>
-            <a href="http://localhost:8080/CourseManagement_war_exploded/shomework?classid=FEG40901&stuid=42123025">test</a>
+            <a href="http://localhost:8080/CourseManagement_war_exploded/randomGroup?classid=FEG40901">test</a>
         </div>
     </div>
 </div>

@@ -1,11 +1,10 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="bean.TCourse" %>
-<%@ page import="bean.ManageStu" %>
-<%@ page import="java.util.List" %>
+<%@ page import="bean.Group" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>班级学生！</title>
+    <title>分组！</title>
     <style>
         body {
             font-family: sans-serif;
@@ -20,7 +19,6 @@
         }
         .left {
             flex: 1;
-            padding-right: 2px;    <%-- 调整左右两边的间距--%>
         }
         .right {
             flex: 5;
@@ -141,50 +139,31 @@
         a:hover {
             color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
         }
-        .choiceheader {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #000;
-            background-color: white;
-            position: relative;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-        .choiceheader.active {
-            text-decoration: underline;
-        }
-        .choicecontent {
-            padding: 20px;
-            border-top: 2px solid #000;
-        }
-        .student-table {
+        <%-- 课程列表显示的布局样式--%>
+        .course-table {
             margin: 0 auto;
             overflow-y: auto;
             border-collapse: collapse;
             width: 90%;
             text-align: center;
         }
-        .student-table th, .student-table td {
+        .course-table th, .course-table td {
             padding: 10px;
             text-align: center;
-            border-bottom: 0.5px solid #ccc;      <%-- 使列表里的竖直线不显示  --%>
+            border: 0.5px solid #ccc;
         }
-        .student-table tr:nth-child(odd) {
-            background-color: #f2f2f2;
-        }
-        .student-table tr:hover {
-            background-color: #e0e0e0;
-        }                                      <%-- 以上两个样式是让列表里的奇数行颜色深浅与偶数行不一样，且鼠标悬浮到奇数行颜色会改变 --%>
-        .student-table th {
+        .course-table th {
             background-color: #f2f2f2;
             font-weight: bold;
         }
         th:first-child, td:first-child {
             border-left-width: 1px;
         }
+
         th:last-child, td:last-child {
             border-right-width: 1px;
         }
+
         tr:last-child th, tr:last-child td {
             border-bottom-width: 1px;
         }
@@ -202,7 +181,6 @@
                 <p class="profile-id" id="profile-id">
                     <jsp:getProperty name="userBean" property="logid"/>
                 </p>
-
                 <br><br>
                 <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
                 <a href="Teacher.jsp" class="a">个人信息>></a>
@@ -214,92 +192,43 @@
             <div class="header">
                 <button class="logout-button">退出空间</button>
             </div>
-            <br>
-            <div class="logout-button"
-            <%
-                List classinfo=(List)request.getAttribute("classinfo");
-            %>
-            <%for(int i=0;i<classinfo.size();i++){%>
-            <td><%=classinfo.get(i)%></td>
-            <%}%>
-        </div>
-        <br>
-            <div class="choicecontent">
-                <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-                <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
-                <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>" onclick="showContent('choice3')">通知</a>
-                <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-                <a class="choiceheader" href="#" onclick="showContent('choice4')">分组</a>
-            </div>
-
             <div class="content">
-                <div>
-                    <label class="logout-button">班级学生列表>></label>
+                <div id="personal-info">
+                    <%String classid = (String) request.getAttribute("classid");%>
+                    <a href="/CourseManagement_war_exploded/randomGroup?classid=<%=classid%>">
+                    <button class="logout-button" >实行分组</button></a>
+
+                    <h1 style="font-size: 17px">已有分组情况>></h1>
                     <%--                    <jsp:getProperty name="userBean" property="courseRes"/>--%>
                 </div>
-
                 <br><br>
-                <%
-                    ArrayList manageStus=(ArrayList)request.getAttribute("manageStus");
+                <%if(request.getAttribute("group")!=null){
+                    ArrayList group=(ArrayList)request.getAttribute("group");}
                 %>
-                <table align="center" class="student-table">
+                <table align="center" class="course-table">
                     <tr>
-                        <th>序号</th>
-                        <th>学生ID</th>
-                        <th>学生名字</th>
-<%--                        <th>签到情况</th>--%>
-                        <th>签到分数</th>
-                        <th>作业分数</th>
+                        <th>小组ID</th>
+                        <th>小组成员</th>
                         <th>操作</th>
                     </tr>
-                    <%for(int i=0;i<manageStus.size();i++){
-                        ManageStu manageStu=(ManageStu) manageStus.get(i);%>
+                    <%if(request.getAttribute("groups")!=null){
+                        ArrayList groups=(ArrayList)request.getAttribute("groups");
+                    %>
+                    <%for(int i=0;i<groups.size();i++){
+                        Group group=(Group) groups.get(i);%>
+
                     <tr>
-                        <td><%=i+1 %></td>   <!-- 修改这里，使用 i+1 来表示第几行 -->
-                        <td><%=manageStu.getStuid() %></td>
-                        <td><%=manageStu.getStuname()%></td>
-<%--                        <td><%=manageStu.getCheckin() %></td>--%>
-                        <td><%=manageStu.getCheckinGrade() %></td>
-                        <td><%=manageStu.getHwGrade() %></td>
-                        <td><a class="logout-button" href="/CourseManagement_war_exploded/manageStuCon?classid=<%=classinfo.get(0)%>&stuid=<%=manageStu.getStuid()%>">
-                            查看详情
-                        </a></td>
-                        <% } %>
+<%--                        <td><%=i+1 %></td>   <!-- 修改这里，使用 i+1 来表示第几行 -->--%>
+                        <td><%=group.getGroupid() %></td>
+                        <td><%=group.getStuname() %></td>
+                        <%}
+                    }%>
                     </tr>
                 </table>
                 <br>
-                <button class="logout-button" onclick="exportToExcel()">导出学生成绩</button>
-
-<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-<script>
-          function exportToExcel() {
-              var wb = XLSX.utils.table_to_book(document.querySelector('.student-table'), { sheet: "学生成绩" });
-              var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
-
-          function s2ab(s) {
-              var buf = new ArrayBuffer(s.length);
-              var view = new Uint8Array(buf);
-              for (var i = 0; i < s.length; i++) {
-                  view[i] = s.charCodeAt(i) & 0xFF;
-                            }
-              return buf;
-                        }
-              function saveAs(blob, filename) {
-                  var a = document.createElement('a');
-                  a.href = URL.createObjectURL(blob);
-                  a.download = filename;
-                  a.style.display = 'none';
-                  document.body.appendChild(a);
-                  a.click();
-                  document.body.removeChild(a);
-                  URL.revokeObjectURL(a.href);
-              }
-
-              saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), "student_scores.xlsx");
-          }
-</script>
                 <br>
             </div>
+        </div>
     </div>
 </div>
 </body>

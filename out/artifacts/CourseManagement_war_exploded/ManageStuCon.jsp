@@ -207,12 +207,12 @@
       <div class="sidebar">
         <div class="avatar"></div>
 
-          <h3 class="profile-name" id="profile-name">
-            <jsp:getProperty name="userBean" property="name"/>
-          </h3>
-          <p class="profile-id" id="profile-id">
-            <jsp:getProperty name="userBean" property="logid"/>
-          </p>
+        <h3 class="profile-name" id="profile-name">
+          <jsp:getProperty name="userBean" property="name"/>
+        </h3>
+        <p class="profile-id" id="profile-id">
+          <jsp:getProperty name="userBean" property="logid"/>
+        </p>
 
         <br><br>
         <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
@@ -235,67 +235,67 @@
       <%}%>
     </div>
     <br>
-      <div class="choicecontent">
-        <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
-        <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-        <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>
-      </div>
+    <div>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
+      <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
+      <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>
+    </div>
+    <br>
+    <%
+      ArrayList<SCheckIn> sCheckIns=(ArrayList)request.getAttribute("sCheckIns");
+    %>
 
-      <%
-        ArrayList<SCheckIn> sCheckIns=(ArrayList)request.getAttribute("sCheckIns");
-      %>
+    <%
+      ArrayList<Grade> sHwGrades=(ArrayList)request.getAttribute("sHwGrades");
+    %>
+    <div class="choicecontent"></div>
+    <div class="content" >
+      <label>学生ID：<%=sCheckIns.get(0).getStuid()%></label>
+      <br>
+      <label>学生名字：<%=sCheckIns.get(0).getStuname()%></label>
+      <br>
+      <label>签到情况：</label><br>
+      <table align="center" class="table">
+        <tr>
+          <th>签到ID</th>
+          <th>签到情况</th>
+        </tr>
 
-      <%
-        ArrayList<SHwGrade> grades =(ArrayList)request.getAttribute("grades");
-      %>
+        <%for(int i=0;i<sCheckIns.size();i++){
+          SCheckIn sCheckIn=(SCheckIn) sCheckIns.get(i);%>
+        <tr>
+          <td><%=sCheckIn.getCheckin_id() %></td>
+          <td><%=sCheckIn.getChecked() %></td>
+        </tr>
+        <%}%>
 
-      <div class="content" >
-          <label>学生ID：<%=sCheckIns.get(0).getStuid()%></label>
-          <br>
-          <label>学生名字：<%=sCheckIns.get(0).getStuname()%></label>
-          <br>
-          <label>签到情况：</label><br>
-          <table align="center" class="table">
-            <tr>
-              <th>签到ID</th>
-              <th>签到情况</th>
-            </tr>
+      </table>
+      <br>
+      <label>作业完成情况：</label><br>
+      <table align="center" class="table">
+        <tr>
+          <th>作业ID</th>
+          <th>成绩</th>
+        </tr>
+        <%for(int i=0;i<sHwGrades.size();i++){
+          Grade sHwGrade=(Grade) sHwGrades.get(i);%>
+        <tr>
+          <td><%=sHwGrade.getHwid() %></td>
+          <td><%=sHwGrade.getGrade() %></td>
+        </tr>
+        <%}%>
 
-            <%for(int i=0;i<sCheckIns.size();i++){
-              SCheckIn sCheckIn=(SCheckIn) sCheckIns.get(i);%>
-            <tr>
-              <td><%=sCheckIn.getCheckin_id() %></td>
-              <td><%=sCheckIn.getChecked() %></td>
-            </tr>
-            <%}%>
-
-          </table>
-          <br>
-          <label>作业完成情况：</label><br>
-          <table align="center" class="table">
-            <tr>
-              <th>作业ID</th>
-              <th>成绩</th>
-            </tr>
-            <%for(int i = 0; i< grades.size(); i++){
-              SHwGrade grade =(SHwGrade) grades.get(i);%>
-            <tr>
-              <td><%=grade.getHwid() %></td>
-              <td><%=grade.getGrade() %></td>
-            </tr>
-            <%}%>
-
-          </table>
-          <br>
-          <br>
-          <br>
-        <a class="logout-button" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">
-          退出查看
-        </a>
-      </div>
+      </table>
+      <br>
+      <br>
+      <br>
+      <a class="logout-button" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">
+        退出查看
+      </a>
     </div>
   </div>
+</div>
 </body>
 </html>
