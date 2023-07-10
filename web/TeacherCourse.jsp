@@ -131,8 +131,7 @@
             float: left;
             border-radius: 10px;
             overflow: hidden;
-            font-size: 16px;
-            font-weight: bold;
+            font-size-adjust: unset;
             color: black; /* 设置超链接的文本颜色为蓝色 */
             text-decoration: none; /* 去除超链接的下划线 */
         }

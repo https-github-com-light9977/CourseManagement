@@ -146,7 +146,7 @@
             text-decoration: none; /* 去除超链接的下划线 */
         }
         a:hover {
-            color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
+            color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
         }
         .choiceheader {
             margin: 0 10px;
@@ -182,7 +182,7 @@
 
                 <br><br>
                 <a href="/CourseManagement_war_exploded/scourse?stuid=<%=userBean.getLogid()%>" class="a">课程活动>></a>
-                <a href="Teacher.jsp" class="a">个人信息>></a>
+                <a href="Student.jsp" class="a">个人信息>></a>
             </div>
         </div>
     </div>

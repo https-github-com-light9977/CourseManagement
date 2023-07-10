@@ -144,7 +144,7 @@
             text-decoration: none; /* 去除超链接的下划线 */
         }
         a:hover {
-            color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
+            color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
         }
         .choiceheader {
             margin: 0 10px;
@@ -181,14 +181,19 @@
         .checkin-table tr:nth-child(odd) {
             background-color: #f2f2f2;
         }
+        .checkin-table tr:hover {
+            background-color: #e0e0e0;
+        }                                      <%-- 以上两个样式是让列表里的奇数行颜色深浅与偶数行不一样，且鼠标悬浮到奇数行颜色会改变 --%>
+        .checkin-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
         th:first-child, td:first-child {
             border-left-width: 1px;
         }
-
         th:last-child, td:last-child {
             border-right-width: 1px;
         }
-
         tr:last-child th, tr:last-child td {
             border-bottom-width: 1px;
         }
@@ -212,10 +217,9 @@
                     <p class="profile-id" id="profile-id">
                         <jsp:getProperty name="userBean" property="logid"/>
                     </p>
-            </div>
                 <br><br>
-                <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
-                <a href="Teacher.jsp" class="a">个人信息>></a>
+                <a href="/CourseManagement_war_exploded/scourse?stuid=<%=userBean.getLogid()%>" class="a">课程活动>></a>
+                <a href="Student.jsp" class="a">个人信息>></a>
             </div>
         </div>
     </div>
@@ -224,6 +228,8 @@
             <div class="header">
                 <button class="logout-button">退出空间</button>
             </div>
+            <br>
+            <div class="logout-button"
             <%
                 List classinfo=(List)request.getAttribute("classinfo");
             %>
@@ -231,6 +237,7 @@
             <td><%=classinfo.get(i)%></td>
             <%}%>
         </div>
+        <br>
         <div>
             <a class="choiceheader" href="/CourseManagement_war_exploded/shomework?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">作业</a>
             <a class="choiceheader" href="/CourseManagement_war_exploded/scheckin?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">签到</a>

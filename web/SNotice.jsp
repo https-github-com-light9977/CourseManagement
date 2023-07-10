@@ -148,7 +148,7 @@
             text-decoration: none; /* 去除超链接的下划线 */
         }
         a:hover {
-            color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
+            color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
         }
         .choiceheader {
             margin: 0 10px;
@@ -215,8 +215,8 @@
                     </p>
 
                 <br><br>
-                <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
-                <a href="Teacher.jsp" class="a">个人信息>></a>
+                <a href="/CourseManagement_war_exploded/scourse?stuid=<%=userBean.getLogid()%>" class="a">课程活动>></a>
+                <a href="Student.jsp" class="a">个人信息>></a>
             </div>
         </div>
     </div>
@@ -225,6 +225,8 @@
             <div class="header">
                 <button class="logout-button">退出空间</button>
             </div>
+            <br>
+            <div class="logout-button"
             <%
                 List classinfo=(List)request.getAttribute("classinfo");
             %>
@@ -239,8 +241,9 @@
             <a class="choiceheader" href="/CourseManagement_war_exploded/snotice?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">通知</a>
             <a class="choiceheader" href="/CourseManagement_war_exploded/sgrade?classid=<%=classinfo.get(0)%><%=userBean.getLogid()%>">查看成绩</a>
         </div>
-<br><br><br><br>
+<br>
         <div class="choicecontent"></div>
+        <div class="content">
         <div>
             <label class="logout-button">通知列表>></label>
         </div>

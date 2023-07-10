@@ -4,7 +4,7 @@
     <title>个人信息</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
             height: 100%;
             margin: 0;
             padding: 0;
@@ -16,11 +16,11 @@
         }
         .left {
             flex: 1;
+            padding-right: 2px;    <%-- 调整左右两边的间距--%>
         }
         .right {
             flex: 5;
         }
-
         .sidebar {
             display: flex;
             flex-direction: column;
@@ -38,9 +38,6 @@
             border-radius: 50%;
             margin-bottom: 10px;
         }
-        .sidebar .profile-info {
-            text-align: center;
-        }
         .sidebar .profile-name {
             font-size: 18px;
             font-weight: bold;
@@ -48,6 +45,11 @@
         }
         .sidebar .profile-id {
             font-size: 14px;
+            font-family: sans-serif;
+            margin-bottom: 5px;
+        }
+        .sidebar a:hover {
+            background-color: #f2f2f2;
         }
         .content-wrapper {
             flex: 1;
@@ -75,6 +77,9 @@
             font-weight: bold;
             cursor: pointer;
         }
+        .logout-button:hover {
+            color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
+        }
         .horizontal-menu {
             position: fixed;
             top: 0;
@@ -97,21 +102,11 @@
             text-decoration: none;
             color: black;
             transition: background-color 0.3s;
-        }
-        .sidebar a:hover {
-            background-color: #f2f2f2;
-        }
-        .content {
-            flex: 1;
-            padding: 20px;
-            background-color: white;
-        }
-        .label {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
+        }.content {
+             flex: 1;
+             padding: 20px;
+             background-color: white;
+         }
         .table-container table {
             width: 100%;
             border-collapse: collapse;
@@ -135,15 +130,6 @@
             margin-bottom: 10px;
             width: 200px;
         }
-        .form-container button {
-            padding: 10px 20px;
-            background-color: cornflowerblue;
-            border: none;
-            color: #fff;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
         a {
             display: flex;
             flex-direction: column;
@@ -159,38 +145,25 @@
             color: black; /* 设置超链接的文本颜色为蓝色 */
             text-decoration: none; /* 去除超链接的下划线 */
         }
-
         a:hover {
             color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
         }
     </style>
 </head>
-<script>
-    var courseTable = document.getElementById("course-table");
-    var personalInfo = document.getElementById("personal-info");
-    document.querySelector("a[href='#course-table']").addEventListener("click", function() {
-        courseTable.style.display = "block";
-        personalInfo.style.display = "none";
-    });
-    document.querySelector("a[href='#personal-info']").addEventListener("click", function() {
-        courseTable.style.display = "none";
-        personalInfo.style.display = "block";
-    });
-</script>
 <jsp:useBean id="userBean" class="bean.User" scope="session"/>
 <div class="container">
     <div class="left">
         <div class="horizontal-menu">
             <div class="sidebar">
                 <div class="avatar"></div>
-                <div class="profile-info">
+
                     <h3 class="profile-name" id="profile-name">
                         <jsp:getProperty name="userBean" property="name"/>
                     </h3>
                     <p class="profile-id" id="profile-id">
                         <jsp:getProperty name="userBean" property="logid"/>
                     </p>
-                </div>
+                <br><br>
                 <a href="/CourseManagement_war_exploded/scourse?stuid=<%=userBean.getLogid()%>" class="a">课程活动>></a>
                 <a href="Student.jsp" class="a">个人信息>></a>
             </div>
@@ -242,6 +215,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 

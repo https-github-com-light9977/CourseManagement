@@ -77,6 +77,9 @@
             font-weight: bold;
             cursor: pointer;
         }
+        .logout-button:hover {
+            color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
+        }
         .horizontal-menu {
             position: fixed;
             top: 0;
