@@ -24,7 +24,6 @@
     .right {
       flex: 5;
     }
-
     .sidebar {
       display: flex;
       flex-direction: column;
@@ -68,6 +67,11 @@
       padding: 20px;
       background-color: cornflowerblue;
       border-bottom: 1px solid #ffffff;
+    }
+    .content {
+      flex: 1;
+      padding: 20px;
+      background-color: white;
     }
     .logout-button {
       border: 2px solid #000;
@@ -146,7 +150,7 @@
       text-decoration: none; /* 去除超链接的下划线 */
     }
     a:hover {
-      color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
+      color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
     }
     .choiceheader {
       margin: 0 10px;
@@ -204,12 +208,12 @@
     <div class="horizontal-menu">
       <div class="sidebar">
         <div class="avatar"></div>
-          <h3 class="profile-name" id="profile-name">
-            <jsp:getProperty name="userBean" property="name"/>
-          </h3>
-          <p class="profile-id" id="profile-id">
-            <jsp:getProperty name="userBean" property="logid"/>
-          </p>
+        <h3 class="profile-name" id="profile-name">
+          <jsp:getProperty name="userBean" property="name"/>
+        </h3>
+        <p class="profile-id" id="profile-id">
+          <jsp:getProperty name="userBean" property="logid"/>
+        </p>
         <br><br>
         <a href="/CourseManagement_war_exploded/course?id=1" class="a">课程活动>></a>
         <a href="Teacher.jsp" class="a">个人信息>></a>
@@ -221,77 +225,61 @@
       <div class="header">
         <button class="logout-button">退出空间</button>
       </div>
-       <br>
-        <div class="logout-button"
-        <%
-          List classinfo=(List)request.getAttribute("classinfo");
-        %>
-        <%for(int i=0;i<classinfo.size();i++){%>
-        <td><%=classinfo.get(i)%></td>
-        <%}%>
-      </div>
       <br>
-<div>
-  <a id="choice1-link" class="choiceheader"  onclick="showContent('choice1'); setActiveLink('choice1-link')" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
-  <a id="choice2-link" class="choiceheader"  onclick="showContent('choice2'); setActiveLink('choice2-link')" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
-  <a id="choice3-link" class="choiceheader"  onclick="showContent('choice3'); setActiveLink('choice3-link')" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
-  <a id="choice4-link" class="choiceheader"  onclick="showContent('choice4'); setActiveLink('choice4-link')" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-  <a id="choice5-link" class="choiceheader"  onclick="showContent('choice5'); setActiveLink('choice5-link')" href="#" >分组</a>
+      <div class="logout-button"
+      <%
+        List classinfo=(List)request.getAttribute("classinfo");
+      %>
+      <%for(int i=0;i<classinfo.size();i++){%>
+      <td><%=classinfo.get(i)%></td>
+      <%}%>
     </div>
-      <br>
-<div class="choicecontent">
-  <a class="logout-button" href="/CourseManagement_war_exploded/releaseHw?classid=<%=classinfo.get(0)%>">发布新作业</a>
-</div>
-  <div>
-    <label class="logout-button">已发布作业列表>></label>
-  </div>
+    <br>
+    <div>
+      <a id="choice1-link" class="choiceheader"  onclick="showContent('choice1'); setActiveLink('choice1-link')" href="/CourseManagement_war_exploded/homework?classid=<%=classinfo.get(0)%>">作业</a>
+      <a id="choice2-link" class="choiceheader"  onclick="showContent('choice2'); setActiveLink('choice2-link')" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
+      <a id="choice3-link" class="choiceheader"  onclick="showContent('choice3'); setActiveLink('choice3-link')" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
+      <a id="choice4-link" class="choiceheader"  onclick="showContent('choice4'); setActiveLink('choice4-link')" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
+      <a id="choice5-link" class="choiceheader"  onclick="showContent('choice5'); setActiveLink('choice5-link')" href="#" >分组</a>
+    </div>
+    <br>
+
+    <div class="choicecontent"></div>
+
+    <div class="content">
+      <a class="logout-button" href="/CourseManagement_war_exploded/releaseHw?classid=<%=classinfo.get(0)%>">发布新作业</a>
+      <br><br><br><br>
+      <label class="logout-button">已发布作业列表>></label>
       <br><br>
-  <table align="center" class="homework-table">
-    <tr>
-      <th>序号</th>
-      <th>作业ID</th>
-      <th>作业要求</th>
-      <th>截止时间</th>
-      <th>操作</th>
-    </tr>
-    <%
-      ArrayList<THomework> homeworks=(ArrayList)request.getAttribute("homeworks");
-    %>
-    <%for(int i=0;i<homeworks.size();i++){
-      THomework tHomework=homeworks.get(i);%>
-    <tr>
-      <td><%=i+1 %></td>   <%-- 修改这里，使用 i+1 来表示第几行 --%>
-      <td><%=tHomework.getHwid() %></td>
-      <td><%=tHomework.getHw_requirement() %></td>
-      <td><%=tHomework.getDeadline() %></td>
-      <td><a class="logout-button" href="/CourseManagement_war_exploded/hw_submit_list?classid=<%=classinfo.get(0)%>&hwid=<%=tHomework.getHwid()%>" >
-        查看详情</a></td>
-    </tr>
-    <% } %>
-  </table>
-
-</div>
-      <script>
-        function setActiveLink(linkId) {
-          var links = document.getElementsByClassName('choiceheader');
-          for (var i = 0; i < links.length; i++) {
-            links[i].classList.remove('active');
-          }
-          var link = document.getElementById(linkId);
-          link.classList.add('active');
-        }
-
-        function showContent(choiceId) {
-          var contents = document.getElementsByClassName('choicecontent');
-          for (var i = 0; i < contents.length; i++) {
-            contents[i].style.display = 'none';
-          }
-          var content = document.getElementById(choiceId);
-          content.style.display = 'block';
-        }
-      </script>
+      <table align="center" class="homework-table">
+        <tr>
+          <th>序号</th>
+          <th>作业ID</th>
+          <th>作业要求</th>
+          <th>截止时间</th>
+          <th>操作</th>
+        </tr>
+        <%
+          ArrayList<THomework> homeworks=(ArrayList)request.getAttribute("homeworks");
+        %>
+        <%for(int i=0;i<homeworks.size();i++){
+          THomework tHomework=homeworks.get(i);%>
+        <tr>
+          <td><%=i+1 %></td>   <%-- 修改这里，使用 i+1 来表示第几行 --%>
+          <td><%=tHomework.getHwid() %></td>
+          <td><%=tHomework.getHw_requirement() %></td>
+          <td><%=tHomework.getDeadline() %></td>
+          <td><a class="logout-button" href="/CourseManagement_war_exploded/hw_submit_list?classid=<%=classinfo.get(0)%>&hwid=<%=tHomework.getHwid()%>" >
+            查看详情</a></td>
+        </tr>
+        <% } %>
+      </table>
     </div>
+  </div>
+
 </div>
+
 </div>
+
 </body>
 </html>

@@ -33,20 +33,19 @@ public class ReleaseCheckInServlet extends HttpServlet {
             ResultSet noticeExist = statement.executeQuery(condition1);
             noticeExist.next();
             if("0".equals(noticeExist.getString("cnt"))){
-                checkin_id = class_id +"check"+ "1";
+                checkin_id = class_id +"check"+ "01";
                 noticeExist.close();
             }else{
 
                 ResultSet getLast = statement.executeQuery(condition2);
-                Integer maxid = 0;
-                while (getLast.next()){
-                    Integer cur_id = Integer.parseInt(getLast.getString(1).substring(13));
-                    if (cur_id>maxid){maxid = cur_id;}
+                String lastid;
+                lastid = getLast.getString(1);
+                String lastnum = lastid.substring(13);
+                if(Integer.parseInt(lastnum)<9){
+                    checkin_id = class_id + "0" + (Integer.parseInt(lastnum)+1);
+                }else {
+                    checkin_id = class_id + (Integer.parseInt(lastnum)+1);
                 }
-//                System.out.println(getLast.last());
-//                String last_checkinid;
-//                last_checkinid = getLast.getString("Checkin_id");
-                checkin_id = class_id + "check"+(maxid+1);
                 getLast.close();
             }
             System.out.println("insert checkin");

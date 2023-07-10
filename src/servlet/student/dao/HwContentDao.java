@@ -20,7 +20,7 @@ public class HwContentDao {
         ArrayList<String> hwContent = new ArrayList<>();
         Homework homework = new Homework();
         conn = db.getConnection();
-        String sql = "select Homework_id,Request from homework where Class_id=? and Homework_id =?";
+        String sql = "select Homework_id,Request,Grouped from homework where Class_id=? and Homework_id =?";
         try {
             //	预编译sql
             pstm = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -34,9 +34,11 @@ public class HwContentDao {
             if(rs.next()) {
                 homework.setHwid(rs.getString(1));
                 homework.setHw_requirement(rs.getString(2));
+                homework.setGrouped(rs.getString(3));
 
                 hwContent.add(homework.getHwid());
                 hwContent.add(homework.getHw_requirement());
+
             }
             rs.close();
             pstm.close();
@@ -65,6 +67,7 @@ public class HwContentDao {
             homework.setGrade(grade);
             hwContent.add(homework.getSubmited());
             hwContent.add(homework.getGrade());
+            hwContent.add(homework.getGrouped());
             System.out.println(hwContent.size());
             return hwContent;
 

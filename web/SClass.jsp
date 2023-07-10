@@ -3,10 +3,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>已进入具体课程！</title>
+    <title>成功进入课程班级！</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
             height: 100%;
             margin: 0;
             padding: 0;
@@ -18,11 +18,11 @@
         }
         .left {
             flex: 1;
+            padding-right: 2px;    <%-- 调整左右两边的间距--%>
         }
         .right {
             flex: 5;
         }
-
         .sidebar {
             display: flex;
             flex-direction: column;
@@ -105,7 +105,6 @@
             padding: 20px;
             background-color: white;
         }
-
         .table-container table {
             width: 100%;
             border-collapse: collapse;
@@ -147,15 +146,9 @@
             text-decoration: none; /* 去除超链接的下划线 */
         }
         a:hover {
-            color: royalblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
+            color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
         }
         .choiceheader {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            padding: 20px;
-        }
-        .choice {
             margin: 0 10px;
             text-decoration: none;
             color: #000;
@@ -164,49 +157,29 @@
             display: inline-block;
             transition: all 0.3s ease;
         }
-        .choice:after {
-            content: "";
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 4px;
-            display: none;
+        .choiceheader.active {
+            text-decoration: underline;
         }
         .choicecontent {
-            display: none;
             padding: 20px;
             border-top: 2px solid #000;
         }
     </style>
 </head>
-<script>
-    var courseTable = document.getElementById("course-table");
-    var personalInfo = document.getElementById("personal-info");
-    document.querySelector("a[href='#course-table']").addEventListener("click", function() {
-        courseTable.style.display = "block";
-        personalInfo.style.display = "none";
-    });
-    document.querySelector("a[href='#personal-info']").addEventListener("click", function() {
-        courseTable.style.display = "none";
-        personalInfo.style.display = "block";
-    });
-</script>
 <jsp:useBean id="userBean" class="bean.User" scope="session"/>
 <div class="container">
     <div class="left">
         <div class="horizontal-menu">
             <div class="sidebar">
                 <div class="avatar"></div>
-                <div class="profile-info">
+
                     <h3 class="profile-name" id="profile-name">
                         <jsp:getProperty name="userBean" property="name"/>
                     </h3>
                     <p class="profile-id" id="profile-id">
                         <jsp:getProperty name="userBean" property="logid"/>
                     </p>
-                </div>
+
                 <br><br>
                 <a href="/CourseManagement_war_exploded/scourse?stuid=<%=userBean.getLogid()%>" class="a">课程活动>></a>
                 <a href="Student.jsp" class="a">个人信息>></a>
@@ -218,7 +191,7 @@
             <div class="header">
                 <button class="logout-button">退出空间</button>
             </div>
-            <div class="content">
+            <br>
                 <div class="logout-button"
                 <%
                     List classinfo=(List)request.getAttribute("classinfo");
@@ -227,37 +200,13 @@
                 <td><%=classinfo.get(i)%></td>
                 <%}%>
             </div>
-            <div class="choiceheader">
-                <a class="choice" href="/CourseManagement_war_exploded/shomework?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">作业</a>
-                <a class="choice" href="/CourseManagement_war_exploded/scheckin?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">签到</a>
-                <a class="choice" href="/CourseManagement_war_exploded/snotice?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">通知</a>
-                <a class="choice" href="/CourseManagement_war_exploded/sgrade?classid=<%=classinfo.get(0)%>&stuid<%=userBean.getLogid()%>">查看成绩</a>
+        <br>
+            <div>
+                <a id="choice1-link" class="choiceheader" href="/CourseManagement_war_exploded/shomework?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">作业</a>
+                <a id="choice2-link" class="choiceheader" href="/CourseManagement_war_exploded/scheckin?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">签到</a>
+                <a id="choice3-link" class="choiceheader" href="/CourseManagement_war_exploded/snotice?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">通知</a>
+                <a id="choice4-link" class="choiceheader" href="/CourseManagement_war_exploded/sgrade?classid=<%=classinfo.get(0)%>&stuid<%=userBean.getLogid()%>">成绩</a>
             </div>
-            <div id="choice1" class="choicecontent">
-                <h2>内容1</h2>
-                <p>这是作业对应的内容。</p>
-            </div>
-            <div id="choice2" class="choicecontent">
-                <h2>内容2</h2>
-                <p>这是签到对应的内容。</p>
-            </div>
-            <div id="choice3" class="choicecontent">
-                <h2>内容3</h2>
-                <p>这是通知对应的内容。</p>
-            </div>
-            <div id="choice4" class="choicecontent">
-                <h2>内容4</h2>
-                <p>这是学生管理对应的内容。</p>
-            </div>
-            <div id="choice5" class="choicecontent">
-                <h2>内容5</h2>
-                <p>这是分组对应的内容。</p>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
 <script>
     function showContent(id) {
         var choices = document.getElementsByClassName('choice');
@@ -279,5 +228,8 @@
         choice.style.setProperty('--underline-width', underlineWidth + 'px');
     }
 </script>
+    </div>
+</div>
+</div>
 </body>
 </html>

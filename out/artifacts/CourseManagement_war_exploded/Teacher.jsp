@@ -82,6 +82,9 @@
       font-weight: bold;
       cursor: pointer;
     }
+    .logout-button:hover {
+      color: lightskyblue; /* 当鼠标悬停在超链接上时，改变超链接的文本颜色为蓝色 */
+    }
     <%-- horizontal-menu是设置左边侧边栏的两个选项条的布局样式 --%>
     .horizontal-menu {
       position: fixed;
@@ -150,8 +153,7 @@
       float: left;
       border-radius: 10px;
       overflow: hidden;
-      font-size: 16px;
-      font-weight: bold;
+      font-size-adjust: unset;
       color: black; /* 设置超链接的文本颜色为蓝色 */
       text-decoration: none; /* 去除超链接的下划线 */
     }

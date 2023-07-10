@@ -195,36 +195,62 @@
             <div class="content">
                 <div id="personal-info">
                     <%String classid = (String) request.getAttribute("classid");%>
-                    <a href="/CourseManagement_war_exploded/randomGroup?classid=<%=classid%>">
-                    <button class="logout-button" >实行分组</button></a>
-
+                    <%String newhwid = (String) request.getAttribute("newhwid");%>
+                    <br>
+                    <form action="randomGroup" method="post">
+                        选择组数：
+                    <select name="number">
+                        <% for (int i = 2; i <= 15; i++) { %>
+                        <option value="<%=i%>"><%=i%></option>
+                        <% } %>
+                    </select>
+                        <input type="hidden" name="classid" value="<%=classid%>">
+                        <input type="hidden" name="newhwid" value="<%=newhwid%>">
+                        <input type="submit" value="实行分组" >
+                    </form>
+                    <br>
                     <h1 style="font-size: 17px">已有分组情况>></h1>
                     <%--                    <jsp:getProperty name="userBean" property="courseRes"/>--%>
                 </div>
-                <br><br>
+                <br>
+                <%String backnews = "";
+                    if(request.getAttribute("backnews")!=null){
+                        backnews = (String) request.getAttribute("backnews");
+                }%>
+                <%=backnews%>
+                <br>
                 <%if(request.getAttribute("group")!=null){
                     ArrayList group=(ArrayList)request.getAttribute("group");}
                 %>
+
                 <table align="center" class="course-table">
                     <tr>
                         <th>小组ID</th>
                         <th>小组成员</th>
-                        <th>操作</th>
+                        <%--                        <th>操作</th>--%>
                     </tr>
-                    <%if(request.getAttribute("groups")!=null){
-                        ArrayList groups=(ArrayList)request.getAttribute("groups");
-                    %>
+                    <%ArrayList groups = new ArrayList<>();
+                        if(request.getAttribute("groups")!=null) {
+                         groups = (ArrayList) request.getAttribute("groups");
+                         }%>
                     <%for(int i=0;i<groups.size();i++){
                         Group group=(Group) groups.get(i);%>
 
                     <tr>
-<%--                        <td><%=i+1 %></td>   <!-- 修改这里，使用 i+1 来表示第几行 -->--%>
+                        <%--                        <td><%=i+1 %></td>   <!-- 修改这里，使用 i+1 来表示第几行 -->--%>
                         <td><%=group.getGroupid() %></td>
                         <td><%=group.getStuname() %></td>
-                        <%}
-                    }%>
+                        <%
+                            }
+                        %>
                     </tr>
                 </table>
+
+                <a href="/CourseManagement_war_exploded/submitGroup?classid=<%=classid%>&newhwid=<%=newhwid%>">
+                    <div class="header">
+                        <button class="logout-button">确认分组并返回</button>
+                    </div>
+                </a>
                 <br>
                 <br>
             </div>

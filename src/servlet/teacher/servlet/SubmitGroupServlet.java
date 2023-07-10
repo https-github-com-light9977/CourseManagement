@@ -1,21 +1,29 @@
-package servlet.teacher;
+package servlet.teacher.servlet;
+
+import bean.Group;
+import servlet.teacher.dao.GroupDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class GroupServlet extends HttpServlet {
+public class SubmitGroupServlet extends HttpServlet {
 
     public void service(HttpServletRequest request,
                         HttpServletResponse response)
             throws IOException, ServletException {
         String classid = request.getParameter("classid");
         request.setAttribute("classid",classid);
+        request.setAttribute("backnews","已分组");
         RequestDispatcher dispatcher =
-                request.getRequestDispatcher("TGroup.jsp");//转发
+                request.getRequestDispatcher("ReleaseHw.jsp");//转发
         dispatcher.forward(request, response);
+
     }
 }

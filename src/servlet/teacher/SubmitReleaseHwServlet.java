@@ -1,5 +1,7 @@
 package servlet.teacher;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,11 +17,12 @@ public class SubmitReleaseHwServlet extends HttpServlet {
     String deadline;
     String releaseTime;
     String grouped;
+    String backnews;
     String groupid;
     String submit;
     public void service(HttpServletRequest request,
                       HttpServletResponse response)
-            throws IOException {
+            throws IOException, ServletException {
         request.setCharacterEncoding("utf-8");
         Connection con = null;
         Statement statement;
@@ -28,6 +31,14 @@ public class SubmitReleaseHwServlet extends HttpServlet {
         deadline = request.getParameter("deadline");
         grouped = request.getParameter("group");
         hw_requirement = request.getParameter("content");
+        backnews = request.getParameter("backnews");
+        if(grouped.equals("y")&&backnews.length()==0){
+            request.setAttribute("hint","请先完成分组");
+            request.setAttribute("classid",class_id);
+            RequestDispatcher dispatcher =
+                    request.getRequestDispatcher("ReleaseHw.jsp");//转发
+            dispatcher.forward(request, response);
+        }
 
         try {
 //          //连接数据库
@@ -45,17 +56,22 @@ public class SubmitReleaseHwServlet extends HttpServlet {
             hwExist.next();
             System.out.println("res test");
             if("0".equals(hwExist.getString("cnt"))){
-                hwid = class_id + "1";
+                hwid = class_id + "01";
                 hwExist.close();
             }else{
                 ResultSet getLast = statement.executeQuery(condition2);
                 getLast.last();
-                String last_hwid;
-                last_hwid = getLast.getString(1);
-                hwid = class_id + ((Integer.parseInt(last_hwid.substring(8)))+1);
-                System.out.println(hwid);
+                String lasthwid;
+                lasthwid = getLast.getString(1);
+                String lastnum = lasthwid.substring(8);
+                    if(Integer.parseInt(lastnum)<9){
+                        hwid = class_id + "0" + (Integer.parseInt(lastnum)+1);
+                    }else {
+                        hwid = class_id + (Integer.parseInt(lastnum)+1);
+                    }
                 getLast.close();
             }
+
             System.out.println("insert");
             // 插入数据
             String insertsql = "insert into homework(Homework_id,Class_id,ReleaseTime,Homework_Deadline,Grouped,Request) values(?,?,?,?,?,?)";

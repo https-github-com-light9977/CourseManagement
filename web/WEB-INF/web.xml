@@ -51,7 +51,7 @@
 
     <servlet>
         <servlet-name>hwsubmitlist</servlet-name>
-        <servlet-class>servlet.teacher.HwSubmitListServlet</servlet-class>
+        <servlet-class>servlet.teacher.servlet.HwSubmitListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>hwsubmitlist</servlet-name>
@@ -249,7 +249,7 @@
 
     <servlet>
         <servlet-name>randomGroup</servlet-name>
-        <servlet-class>servlet.teacher.RandomGroupServlet</servlet-class>
+        <servlet-class>servlet.teacher.servlet.RandomGroupServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -259,7 +259,7 @@
 
     <servlet>
         <servlet-name>group</servlet-name>
-        <servlet-class>servlet.teacher.GroupServlet</servlet-class>
+        <servlet-class>servlet.teacher.servlet.GroupServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -267,4 +267,13 @@
         <url-pattern>/group</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>submitGroup</servlet-name>
+        <servlet-class>servlet.teacher.servlet.SubmitGroupServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>submitGroup</servlet-name>
+        <url-pattern>/submitGroup</url-pattern>
+    </servlet-mapping>
 </web-app>
