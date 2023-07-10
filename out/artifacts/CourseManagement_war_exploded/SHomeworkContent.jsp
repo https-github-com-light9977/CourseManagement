@@ -211,22 +211,23 @@
         <div class="choicecontent"></div>
         <div class="content" >
             <div class="logout-button" >作业内容详情>></div>
-                    <form action="hwsubmit" method="post">
                         <%ArrayList<String> hwContent = (ArrayList)request.getAttribute("hwContent");
                             String content = hwContent.get(1);%>
                         <label for="content">作业要求:<%=content%></label>
                         <br>
+                    <form action="hwsubmit" method="post">
                         <label for="content">我的答案:</label>
                         <textarea id="content" name="text" rows="5" cols="40"></textarea>
                         <br>
                         <label for="content">提交状态：<%=hwContent.get(2)%></label>
                         <br>
                         <label for="content">成绩：<%=hwContent.get(3)%></label>
-                        <form method="post" action="upload.jsp" enctype="multipart/form-data">
-                            <br/><br/>
-                            <input type="file" name="file" /><br/><br/>
-                            <input type="submit" value="上传已选文件" />
-                        </form>
+
+<%--                        <form method="post" action="upload.jsp" enctype="multipart/form-data">--%>
+<%--                            <br/><br/>--%>
+<%--                            <input type="file" name="file" /><br/><br/>--%>
+<%--                            <input type="submit" value="上传已选文件" />--%>
+<%--                        </form>--%>
                         <input type="hidden" name="hwid" value="<%=hwContent.get(0)%>">
                         <input type="hidden" name="stuid" value="<%=userBean.getLogid()%>">
                         <input type="hidden" name="classid" value="<%=classinfo.get(0)%>">

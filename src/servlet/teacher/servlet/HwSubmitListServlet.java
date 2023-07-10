@@ -52,7 +52,7 @@ import java.util.List;
                 ResultSet tyqeRes = statement.executeQuery(type_sql);
                 tyqeRes.next();
                 String grouped = tyqeRes.getString(1);
-                if (grouped.equals("n")) {
+//                if (grouped.equals("n")) {
 
                     //查询学生提交作业语句
                     String sql = "select student.Student_id,Student_name,Grade" +
@@ -109,41 +109,43 @@ import java.util.List;
                         }
 
                     }
-                }else {
-                    //班级信息
-                    String s = "select Class_id,Class_name,Course_time,Location from course where Class_id='" + class_id + "'";   //返回(班级id,班级名称,上课时间,地点)查询语句
-                    ResultSet classRes = statement.executeQuery(s);
-                    //解析classRes
-                    if (classRes.next()) {
+//                }
 
-                        String classname = classRes.getString(2);
-                        String classtime = classRes.getString(3);
-                        String location = classRes.getString(4);
-                        try {
-                            //将结果打包成list传入前端
-                            List<String> classinfo = new ArrayList<>();
-                            classinfo.add(class_id);
-                            classinfo.add(classname);
-                            classinfo.add(classtime);
-                            classinfo.add(location);
-                            request.setAttribute("classinfo", classinfo);
-
-                            //转发
-                            RequestDispatcher dispatcher =
-                                    request.getRequestDispatcher("TGroupHwSubmitList.jsp");//转发
-                            dispatcher.forward(request, response);
-                            con.close();
-                            statement.close();
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        } catch (ServletException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-
-                }
+//                else {
+//                    //班级信息
+//                    String s = "select Class_id,Class_name,Course_time,Location from course where Class_id='" + class_id + "'";   //返回(班级id,班级名称,上课时间,地点)查询语句
+//                    ResultSet classRes = statement.executeQuery(s);
+//                    //解析classRes
+//                    if (classRes.next()) {
+//
+//                        String classname = classRes.getString(2);
+//                        String classtime = classRes.getString(3);
+//                        String location = classRes.getString(4);
+//                        try {
+//                            //将结果打包成list传入前端
+//                            List<String> classinfo = new ArrayList<>();
+//                            classinfo.add(class_id);
+//                            classinfo.add(classname);
+//                            classinfo.add(classtime);
+//                            classinfo.add(location);
+//                            request.setAttribute("classinfo", classinfo);
+//
+//                            //转发
+//                            RequestDispatcher dispatcher =
+//                                    request.getRequestDispatcher("TGroupHwSubmitList.jsp");//转发
+//                            dispatcher.forward(request, response);
+//                            con.close();
+//                            statement.close();
+//
+//                        } catch (SQLException e) {
+//                            e.printStackTrace();
+//                        } catch (ServletException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//
+//                }
                 } catch(SQLException e){
                     e.printStackTrace();
                 } catch(ClassNotFoundException e){

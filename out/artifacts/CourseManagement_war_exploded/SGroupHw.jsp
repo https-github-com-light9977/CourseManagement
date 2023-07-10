@@ -214,21 +214,28 @@
             <form action="hwsubmit" method="post">
                 <%ArrayList<String> hwContent = (ArrayList)request.getAttribute("hwContent");
                     String content = hwContent.get(1);%>
+                <%ArrayList<String> groupMembers = (ArrayList)request.getAttribute("groupMembers");%>
                 <label for="content">作业要求:<%=content%></label>
                 <br>
-                <label for="content">小组名单:</label>
+                <label for="content">小组名单:
+                    <%for(int i=0;i<groupMembers.size();i++){%>
+                    <td><br><%=groupMembers.get(i)%></td>
+                    <%}%>
+
+                </label>
                 <br>
                 <label for="content">我的答案:</label>
                 <textarea id="content" name="text" rows="5" cols="40"></textarea>
                 <br>
+                <br>
                 <label for="content">提交状态：<%=hwContent.get(2)%></label>
                 <br>
                 <label for="content">成绩：<%=hwContent.get(3)%></label>
-                <form method="post" action="upload.jsp" enctype="multipart/form-data">
-                    <br/><br/>
-                    <input type="file" name="file" /><br/><br/>
-                    <input type="submit" value="上传已选文件" />
-                </form>
+<%--                <form method="post" action="upload.jsp" enctype="multipart/form-data">--%>
+<%--                    <br/><br/>--%>
+<%--                    <input type="file" name="file" /><br/><br/>--%>
+<%--                    <input type="submit" value="上传已选文件" />--%>
+<%--                </form>--%>
                 <input type="hidden" name="hwid" value="<%=hwContent.get(0)%>">
                 <input type="hidden" name="stuid" value="<%=userBean.getLogid()%>">
                 <input type="hidden" name="classid" value="<%=classinfo.get(0)%>">

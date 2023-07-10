@@ -16,6 +16,32 @@ public class HwContentDao {
     DB_Con_Util db = new DB_Con_Util();
     String submited="未完成"
             ,grade = "未批改";
+
+    public boolean isGroupHw(String hwid,String classid,String stuid) throws SQLException {
+        conn = db.getConnection();
+        String sql = "select Grouped from homework where Class_id=? and Homework_id =?";
+        try {
+            //	预编译sql
+            pstm = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+            //赋值占位符
+            pstm.setString(1, classid);
+            pstm.setString(2, hwid);
+            //更新结果集
+            rs = pstm.executeQuery();
+            rs.next();
+            if(rs.getString(1).equals("y")){
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            //释放资源
+        }
+
+        return false;
+    }
+
     public ArrayList<String> findHwContent(String hwid,String classid,String stuid) throws SQLException {
         ArrayList<String> hwContent = new ArrayList<>();
         Homework homework = new Homework();
@@ -30,7 +56,6 @@ public class HwContentDao {
             pstm.setString(2, hwid);
             //更新结果集
             rs = pstm.executeQuery();
-
             if(rs.next()) {
                 homework.setHwid(rs.getString(1));
                 homework.setHw_requirement(rs.getString(2));
@@ -81,6 +106,10 @@ public class HwContentDao {
 
 
     }
+
+
+
+
 
 
 }

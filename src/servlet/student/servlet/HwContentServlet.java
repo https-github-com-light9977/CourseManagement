@@ -5,6 +5,8 @@ import servlet.student.bean.CourseSel;
 import servlet.student.dao.ClassDao;
 import servlet.student.dao.CourseSelDao;
 import servlet.student.dao.HwContentDao;
+import servlet.student.dao.SGroupDao;
+import servlet.teacher.dao.GroupDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,14 +23,26 @@ public class HwContentServlet  extends HttpServlet {
         stuid = request.getParameter("stuid");
         classid = request.getParameter("classid");
         hwid =request.getParameter("hwid");
+        HwContentDao hwContentDao = new HwContentDao();
         try {
-            ArrayList<String> hwContent = new HwContentDao().findHwContent(hwid,classid,stuid);
-            request.setAttribute("hwContent",hwContent);
-            request.setAttribute("classinfo",new ClassDao().findClassInfo(stuid,classid));
-//            System.out.println((new ClassDao().findClassInfo(stuid,classid)).get(0));
-            RequestDispatcher dispatcher =
-                    request.getRequestDispatcher("SHomeworkContent.jsp");//转发
-            dispatcher.forward(request, response);
+            if(hwContentDao.isGroupHw(hwid,classid,stuid)){
+                ArrayList<String> groupMembers =new SGroupDao().findGroup(hwid,stuid);
+                ArrayList<String> hwContent = hwContentDao.findHwContent(hwid,classid,stuid);
+                request.setAttribute("groupMembers",groupMembers);
+                request.setAttribute("hwContent",hwContent);
+                request.setAttribute("classinfo",new ClassDao().findClassInfo(stuid,classid));
+                RequestDispatcher dispatcher =
+                        request.getRequestDispatcher("SGroupHw.jsp");//转发
+                dispatcher.forward(request, response);
+            }else {
+
+                ArrayList<String> hwContent = hwContentDao.findHwContent(hwid, classid, stuid);
+                request.setAttribute("hwContent", hwContent);
+                request.setAttribute("classinfo", new ClassDao().findClassInfo(stuid, classid));
+                RequestDispatcher dispatcher =
+                        request.getRequestDispatcher("SHomeworkContent.jsp");//转发
+                dispatcher.forward(request, response);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
