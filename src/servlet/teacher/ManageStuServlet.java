@@ -68,18 +68,20 @@ public class ManageStuServlet extends HttpServlet {
                 //通过班级ID 和 学生ID
                 stuid = stus.get(i).get(0);
                 stuname = stus.get(i).get(1);
+                System.out.println(stuid);
+                System.out.println(stuname);
 
                 //获得签到数据
-                String checksql = "select Student_name,student.Student_id,(count(checkinsituation.CheckIn_id)/(select count(CheckIn_id) from checkin where Class_id='" + class_id + "'))*100 as checkinGrade" +
+                String checksql = "select convert((count(checkinsituation.CheckIn_id)/(select count(CheckIn_id) from checkin where Class_id='" + class_id + "')*100),decimal(10,2))as checkinGrade" +
                         " from checkinsituation,checkin,student" +
                         " where checkinsituation.checkin_id=checkin.checkin_id and checkinsituation.student_id=student.student_id and Class_id='" + class_id + "'and checkinsituation.student_id='" + stuid + "'";
                 ResultSet checkRes = statement.executeQuery(checksql);
                 checkRes.next();
-                checkinGrade = checkRes.getString(3);
+                checkinGrade = checkRes.getString(1);
                 System.out.println(checkinGrade);
                 checkRes.close();
                 //获得作业分数
-                String hwsql = "select Student_name,student.Student_id,(sum(grade.grade)/(select count(homework_id) from homework where Class_id='" + class_id + "')) as homeworkGrade" +
+                String hwsql = "select Student_name,student.Student_id,convert((sum(grade.grade)/(select count(homework_id) from homework where Class_id='" + class_id + "')),decimal (10,2))as homeworkGrade" +
                         " from homework,grade,student" +
                         " where grade.homework_id=homework.homework_id and grade.student_id=student.student_id and Class_id='" + class_id + "'and student.student_id='" + stuid + "'";
                 ResultSet hwRes = statement.executeQuery(hwsql);
@@ -87,13 +89,16 @@ public class ManageStuServlet extends HttpServlet {
                 hwGrade = hwRes.getString(3);
                 System.out.println(hwGrade);
                 hwRes.close();
+                if(hwGrade==null){hwGrade = "0.00";}
 
                 manageStu = new ManageStu();
                 manageStu.setStuid(stuid);
                 manageStu.setStudent_name(stuname);
 //                manageStu.setCheckin(Res.getString(checkin));
-                manageStu.setCheckin(checkinGrade);
-                manageStu.setCheckin(hwGrade);
+                manageStu.setCheckinGrade(checkinGrade);
+                manageStu.setHwGrade(hwGrade);
+                System.out.println(manageStu.getCheckinGrade());
+                System.out.println(manageStu.getHwGrade());
                 manageStus.add(manageStu);
             }
 

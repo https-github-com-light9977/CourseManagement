@@ -215,9 +215,9 @@
         <div class="choicecontent"></div>
         <div class="content">
             <form action="submitNotice" method="post">
-                <label for="publishTime">发布时间:</label>
-                <input type="text" id="publishTime" name="publishTime" placeholder="点击选择发布时间">
-                <br><br>
+<%--                <label for="publishTime">发布时间:</label>--%>
+<%--                <input type="text" id="publishTime" name="publishTime" placeholder="点击选择发布时间">--%>
+<%--                <br><br>--%>
                 <label for="content">通知内容:</label>
                 <textarea id="content" name="content" rows="5" cols="40"></textarea>
                 <br>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class SubmitReleaseHwServlet extends HttpServlet {
             String db_password = "210470727czyCZY";
             con = DriverManager.getConnection(url, user, db_password);
             statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
+                    ResultSet.CONCUR_READ_ONLY,ResultSet.HOLD_CURSORS_OVER_COMMIT);
             //查询作业列表是否为空,设置hwid
             String condition1 = "select  count(*) as cnt from homework where Class_id='" + class_id + "'";
             String condition2 = "select Homework_id from homework where Class_id='" + class_id + "'";
@@ -78,6 +79,11 @@ public class SubmitReleaseHwServlet extends HttpServlet {
             PreparedStatement preparedStatement = con.prepareStatement(insertsql);
             preparedStatement.setString(1,hwid);
             preparedStatement.setString(2,class_id);
+            //获取发布时间
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            releaseTime = df.format(System.currentTimeMillis());
+            System.out.println(df.format(System.currentTimeMillis()));
+
             preparedStatement.setString(3,releaseTime);
             preparedStatement.setString(4,deadline);
             preparedStatement.setString(5,grouped);

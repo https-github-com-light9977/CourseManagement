@@ -17,6 +17,7 @@ public class ReleaseCheckInServlet extends HttpServlet {
         Connection con = null;
         Statement statement;
         class_id = request.getParameter("classid");
+        System.out.println("checkin");
         try {
 //          //连接数据库
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -25,26 +26,33 @@ public class ReleaseCheckInServlet extends HttpServlet {
             String db_password = "210470727czyCZY";
             con = DriverManager.getConnection(url, user, db_password);
             statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
+                    ResultSet.CONCUR_READ_ONLY,ResultSet.HOLD_CURSORS_OVER_COMMIT);
 
             //查询签到是否为空，设置通知ID
             String condition1 = "select  count(*) as cnt from checkin where Class_id='" + class_id + "'";
             String condition2 = "select Checkin_id from checkin where Class_id='" + class_id + "'";
             ResultSet noticeExist = statement.executeQuery(condition1);
             noticeExist.next();
+            System.out.println("checkin");
+            System.out.println(noticeExist.getString("cnt"));
             if("0".equals(noticeExist.getString("cnt"))){
                 checkin_id = class_id +"check"+ "01";
                 noticeExist.close();
             }else{
-
+                noticeExist.close();
+                System.out.println("checkin");
                 ResultSet getLast = statement.executeQuery(condition2);
+                System.out.println("checkin");
+                getLast.last();
                 String lastid;
                 lastid = getLast.getString(1);
+                System.out.println(lastid);
                 String lastnum = lastid.substring(13);
+                System.out.println(lastnum);
                 if(Integer.parseInt(lastnum)<9){
-                    checkin_id = class_id + "0" + (Integer.parseInt(lastnum)+1);
+                    checkin_id = class_id + "check0" + (Integer.parseInt(lastnum)+1);
                 }else {
-                    checkin_id = class_id + (Integer.parseInt(lastnum)+1);
+                    checkin_id = class_id +"check"+ (Integer.parseInt(lastnum)+1);
                 }
                 getLast.close();
             }

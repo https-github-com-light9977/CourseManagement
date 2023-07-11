@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 public class SubmitNoticeServlet extends HttpServlet {
     String no_id;
@@ -55,6 +56,13 @@ public class SubmitNoticeServlet extends HttpServlet {
             if(content.length()>20){content = content.substring(0,20);}
             preparedStatement.setString(2,content);
             preparedStatement.setString(3,no_id);
+
+            //获取发布时间
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            time = df.format(System.currentTimeMillis());
+            System.out.println(df.format(System.currentTimeMillis()));
+
+
             preparedStatement.setString(4,time);
             preparedStatement.executeUpdate();
             System.out.println("insert");

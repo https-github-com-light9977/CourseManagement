@@ -213,9 +213,9 @@
                     <label for="deadline">截止时间:</label>
                     <input type="text" id="deadline" name="deadline" placeholder="点击选择截止时间">
                     <br><br>
-                    <label for="publishTime">发布时间:</label>
-                    <input type="text" id="publishTime" name="publishTime" placeholder="点击选择发布时间">
-                    <br><br>
+<%--                    <label for="publishTime">发布时间:</label>--%>
+<%--                    <input type="text" id="publishTime" name="publishTime" placeholder="点击选择发布时间">--%>
+<%--                    <br><br>--%>
                     <label for="content">发布内容:</label>
                     <textarea id="content" name="content" rows="5" cols="40"></textarea>
                     <br>
