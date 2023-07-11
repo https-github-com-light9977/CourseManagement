@@ -223,7 +223,9 @@
   <div class="right">
     <div class="content-wrapper">
       <div class="header">
-        <button class="logout-button">退出空间</button>
+        <a href="/CourseManagement_war_exploded">
+          <button class="logout-button">退出空间</button>
+        </a>
       </div>
       <br>
       <div class="logout-button"
@@ -240,7 +242,7 @@
       <a id="choice2-link" class="choiceheader"  onclick="showContent('choice2'); setActiveLink('choice2-link')" href="/CourseManagement_war_exploded/checkin?classid=<%=classinfo.get(0)%>" >签到</a>
       <a id="choice3-link" class="choiceheader"  onclick="showContent('choice3'); setActiveLink('choice3-link')" href="/CourseManagement_war_exploded/notice?classid=<%=classinfo.get(0)%>">通知</a>
       <a id="choice4-link" class="choiceheader"  onclick="showContent('choice4'); setActiveLink('choice4-link')" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classinfo.get(0)%>">学生管理</a>
-      <a id="choice5-link" class="choiceheader"  onclick="showContent('choice5'); setActiveLink('choice5-link')" href="#" >分组</a>
+<%--      <a id="choice5-link" class="choiceheader"  onclick="showContent('choice5'); setActiveLink('choice5-link')" href="#" >分组</a>--%>
     </div>
     <br>
 

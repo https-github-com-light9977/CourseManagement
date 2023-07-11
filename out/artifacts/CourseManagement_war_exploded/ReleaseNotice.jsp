@@ -194,7 +194,9 @@
     </div>
     <div class="right">
         <div class="header">
-            <button class="logout-button">退出空间</button>
+            <a href="/CourseManagement_war_exploded">
+                <button class="logout-button">退出空间</button>
+            </a>
         </div>
         <br>
         <div class="logout-button">
@@ -209,7 +211,7 @@
             <a class="choiceheader" href="/CourseManagement_war_exploded/checkin?classid=<%=classid%>" >签到</a>
             <a class="choiceheader" href="/CourseManagement_war_exploded/notice?classid=<%=classid%>">通知</a>
             <a class="choiceheader" href="/CourseManagement_war_exploded/manageStudent?classid=<%=classid%>">学生管理</a>
-            <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>
+<%--            <a class="choiceheader" href="#" onclick="showContent('choice5')">分组</a>--%>
         </div>
         <br><br><br>
         <div class="choicecontent"></div>

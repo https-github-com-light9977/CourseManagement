@@ -194,7 +194,9 @@
     <div class="right">
         <div class="content-wrapper">
             <div class="header">
-                <button class="logout-button">退出空间</button>
+                <a href="/CourseManagement_war_exploded">
+                    <button class="logout-button">退出空间</button>
+                </a>
             </div>
             <div class="content">
                 <div id="personal-info">

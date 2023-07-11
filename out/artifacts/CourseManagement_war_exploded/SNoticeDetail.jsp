@@ -192,7 +192,9 @@
   <div class="right">
     <div class="content-wrapper">
       <div class="header">
-        <button class="logout-button">退出空间</button>
+        <a href="/CourseManagement_war_exploded">
+          <button class="logout-button">退出空间</button>
+        </a>
       </div>
 
       <br>
@@ -209,7 +211,7 @@
       <a class="choiceheader" href="/CourseManagement_war_exploded/shomework?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">作业</a>
       <a class="choiceheader" href="/CourseManagement_war_exploded/scheckin?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">签到</a>
       <a class="choiceheader" href="/CourseManagement_war_exploded/snotice?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">通知</a>
-      <a class="choiceheader" href="/CourseManagement_war_exploded/sgrade?classid=<%=classinfo.get(0)%>&stuid<%=userBean.getLogid()%>">查看成绩</a>
+<%--      <a class="choiceheader" href="/CourseManagement_war_exploded/sgrade?classid=<%=classinfo.get(0)%>&stuid<%=userBean.getLogid()%>">查看成绩</a>--%>
     </div>
     <br>
     <%

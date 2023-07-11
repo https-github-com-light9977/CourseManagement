@@ -70,7 +70,7 @@ public class ManageStuConServlet extends HttpServlet {
                 ResultSet checkedRes = statement.executeQuery(checked_sql);
                 if (checkedRes.next()) {
                     checked = "已签到";
-                }
+                }else checked="未签到";
                 checkedRes.close();
 
                 sCheckIn = new SCheckIn();
