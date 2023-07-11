@@ -1,10 +1,15 @@
 package servlet.teacher;
 
+import sun.util.calendar.BaseCalendar;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ReleaseCheckInServlet extends HttpServlet {
     String checkin_id;
@@ -62,7 +67,24 @@ public class ReleaseCheckInServlet extends HttpServlet {
             PreparedStatement preparedStatement = con.prepareStatement(insertsql);
             preparedStatement.setString(1,checkin_id);
             preparedStatement.setString(2,class_id);
-            preparedStatement.setString(3, "2020-10-10");
+
+
+            //签到截至时间，5分钟
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar instance = Calendar.getInstance();
+            instance.setTime(new Date());
+            instance.add(Calendar.MINUTE,5);
+            Date time = instance.getTime();
+            String checkinTime = df.format(time);
+
+//            String checkinTime = df.format(System.currentTimeMillis());
+            System.out.println(checkinTime);
+
+
+
+
+
+            preparedStatement.setString(3, checkinTime);
             preparedStatement.executeUpdate();
 
             //转发
