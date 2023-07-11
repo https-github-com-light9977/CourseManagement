@@ -79,6 +79,8 @@ public class CheckInDetailServlet extends HttpServlet {
                 if(checkRes.next()) {
                     System.out.println(checkRes.getString(1));
                     checked="已签到";
+                }else {
+                    checked ="未签到";
                 }
 
                 checkRes.close();

@@ -22,12 +22,11 @@ public class SubCheckInServlet extends HttpServlet {
         SubCheckInDao subCheckInDao = new SubCheckInDao();
         try {
             subCheckInDao.checkIn(stuid,checkin_id);
-//                request.setAttribute("backnews","已签到");
-
             System.out.println("转发");
             String redirect_url ="/CourseManagement_war_exploded/scheckin?" +
                         "classid="+class_id+"&stuid="+stuid;
             response.sendRedirect(redirect_url);
+
 
 
         } catch (SQLException e) {

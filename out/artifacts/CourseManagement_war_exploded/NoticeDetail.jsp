@@ -235,7 +235,7 @@
             <td><%= noDetail.get(2) %></td>
           </tr>
 
-          <%if (noDetail.get(3)!=null){%>
+          <%if (noDetail.get(3)!=""&&noDetail.get(3)!=null){%>
           <tr>
             <td>查看资料：</td>
             <td><a href = "/CourseManagement_war_exploded/downloadNoticeFile?classid=<%=classinfo.get(0)%>&noid=<%=noDetail.get(0)%>"><%=noDetail.get(3)%>

@@ -26,6 +26,10 @@ public class SubmitNoticeServlet extends HttpServlet {
         Connection con = null;
         Statement statement;
         content = request.getParameter("content");
+        content=content.replace("\r", "<br />");
+
+        System.out.println(content);
+
         time = request.getParameter("publishTime");
         class_id = request.getParameter("classid");
         InputStream fileInputStream=null;//文件输入流
@@ -52,7 +56,7 @@ public class SubmitNoticeServlet extends HttpServlet {
             ResultSet noticeExist = statement.executeQuery(condition1);
             noticeExist.next();
             if("0".equals(noticeExist.getString("cnt"))){
-                no_id = class_id +"-"+ "1";
+                no_id = class_id +"-"+ "01";
                 noticeExist.close();
             }else{
 
@@ -60,15 +64,17 @@ public class SubmitNoticeServlet extends HttpServlet {
                 System.out.println(getLast.last());
                 String last_noid;
                 last_noid = getLast.getString("Notice_id");
-                no_id = class_id + "-"+((Integer.parseInt(last_noid.substring(9)))+1);
+                if(Integer.parseInt(last_noid.substring(9))<9){
+                    no_id = class_id + "-0" +((Integer.parseInt(last_noid.substring(9)))+1);
+                }else {
+                    no_id = class_id + "-" + ((Integer.parseInt(last_noid.substring(9))) + 1);
+                }
                 getLast.close();
             }
             // 插入数据
             String insertsql = "insert into notice(Class_id,Content,Notice_id,NoticeTime,Notice_file,File_name) values(?,?,?,?,?,?)";
             PreparedStatement preparedStatement = con.prepareStatement(insertsql);
             preparedStatement.setString(1,class_id);
-
-            if(content.length()>20){content = content.substring(0,20);}
             preparedStatement.setString(2,content);
             preparedStatement.setString(3,no_id);
 

@@ -43,10 +43,9 @@ public class CheckInDao {
                 ResultSet checkedRes = statement.executeQuery(checked_sql);
                 if (checkedRes.next()) {
                     checked = "已签到";
-                    System.out.println("已签到");
                 }
                 checkedRes.close();
-                System.out.println(checked);
+
                 //查询签到ddl
                 String ddl_sql = "select CheckIn_deadline from checkin where CheckIn_id='" + checkin_id + "' ";
                 Statement statement1 = conn.createStatement();

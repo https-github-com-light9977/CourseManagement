@@ -35,7 +35,7 @@ public class NoticeDao {
                 notice =  new Notice();
                 notice.setNoticeid(rs.getString(1));
                 String content = rs.getString(2);
-                if (content.length()>15){content=content.substring(15)+"...";}
+                if (content.length()>15){content=content.substring(0,15)+"...";}
                 notice.setContent(content);
                 notice.setTime(rs.getString(3));
                 notice.setFilename(rs.getString(4));
@@ -77,6 +77,9 @@ public class NoticeDao {
                 notice =  new Notice();
                 notice.setNoticeid(rs.getString(1));
                 String content = rs.getString(2);
+
+                System.out.println(content);
+
                 notice.setContent(content);
                 notice.setTime(rs.getString(3));
                 noticeArrayList.add(notice.getNoticeid());

@@ -231,7 +231,7 @@
           </tr>
           <tr>
             <td>内容：</td>
-            <td><%= noDetail.get(2) %></td>
+            <td style="word-wrap:break-word;word-break:break-all;"><%= noDetail.get(2) %></td>
           </tr>
 
           <%if (noDetail.get(3)!=null){%>

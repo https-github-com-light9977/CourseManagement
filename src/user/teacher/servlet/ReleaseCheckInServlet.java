@@ -71,16 +71,12 @@ public class ReleaseCheckInServlet extends HttpServlet {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar instance = Calendar.getInstance();
             instance.setTime(new Date());
-            instance.add(Calendar.MINUTE,5);
+            instance.add(Calendar.MINUTE,1);
             Date time = instance.getTime();
             String checkinTime = df.format(time);
 
 //            String checkinTime = df.format(System.currentTimeMillis());
             System.out.println(checkinTime);
-
-
-
-
 
             preparedStatement.setString(3, checkinTime);
             preparedStatement.executeUpdate();

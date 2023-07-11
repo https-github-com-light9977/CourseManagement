@@ -41,7 +41,9 @@ public class TNoticeServlet extends HttpServlet {
             while(noticeRes.next()){
                 notice=new Notice();
                 notice.setNoticeid(noticeRes.getString("Notice_id"));
-                notice.setContent(noticeRes.getString("Content"));
+                String content = noticeRes.getString("Content");
+                if(content.length()>15){content=content.substring(0,15)+"...";}
+                notice.setContent(content);
                 notice.setTime(noticeRes.getString("NoticeTime"));
                 noticeArrayList.add(notice);
             }
