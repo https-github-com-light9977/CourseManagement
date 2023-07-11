@@ -33,7 +33,7 @@ public class TNoticeServlet extends HttpServlet {
                     ResultSet.CONCUR_READ_ONLY);
 
             //查询已发布通知列表
-            String sql = "select Notice_id,Content,NoticeTime from notice where Class_id='" + class_id + "'";
+            String sql = "select Notice_id,Content,NoticeTime,File_name from notice where Class_id='" + class_id + "'";
             ResultSet noticeRes = statement.executeQuery(sql);
             // 处理noticeRes数据，生成列表并储存
             ArrayList<Notice> noticeArrayList = new ArrayList<>();

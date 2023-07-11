@@ -4,7 +4,17 @@ public class Notice {
     String noticeid;
     String content;
     String time;
-    public void setNoticeid( String noticeid){
+    String filename;
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public void setNoticeid(String noticeid){
         this.noticeid = noticeid;
     }
     public String getNoticeid() {

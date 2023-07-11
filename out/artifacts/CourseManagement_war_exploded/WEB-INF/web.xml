@@ -276,4 +276,35 @@
         <servlet-name>submitGroup</servlet-name>
         <url-pattern>/submitGroup</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>downloadNoticeFile</servlet-name>
+        <servlet-class>user.student.servlet.DownloadNoticeFileServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>downloadNoticeFile</servlet-name>
+        <url-pattern>/downloadNoticeFile</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>downloadHwFile</servlet-name>
+        <servlet-class>user.student.servlet.DownloadHwFileServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>downloadHwFile</servlet-name>
+        <url-pattern>/downloadHwFile</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>downloadStudentFile</servlet-name>
+        <servlet-class>user.teacher.servlet.DownloadStudentFileServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>downloadStudentFile</servlet-name>
+        <url-pattern>/downloadStudentFile</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -2,7 +2,13 @@
 <%@ page import="user.teacher.bean.THomework" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page language="java" pageEncoding="UTF-8"%>
+
+<%
+    request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+%><html>
 <head>
     <title>教师发布作业！</title>
     <!-- 引入日期选择器的CSS文件 -->
@@ -193,7 +199,7 @@
             <br>
             <div class="choicecontent"></div>
             <div class="content">
-                <form action="submitreleaseHw" method="post">
+                <form action="submitreleaseHw" method="post" enctype="multipart/form-data">
                     <%
                         String backnews ="";
                         if(request.getAttribute("backnews")!=null){
@@ -221,11 +227,8 @@
                     <label for="content">发布内容:</label>
                     <textarea id="content" name="content" rows="5" cols="40"></textarea>
                     <br>
-                    <%--          <form method="post" action="upload.jsp" enctype="multipart/form-data">--%>
-                    <%--            <br/><br/>--%>
-                    <%--            <input type="file" name="file" /><br/><br/>--%>
-                    <%--            <input type="submit" value="上传已选文件" />--%>
-                    <%--          </form>--%>
+
+                                <input type="file" name="file" /><br/><br/>
                     <br>
 
                     <input type="hidden" name="classid" value="<%=classid%>">

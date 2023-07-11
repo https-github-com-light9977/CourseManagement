@@ -9,6 +9,15 @@ public class Homework {
     String groupid;
     String submited;
     String grade;
+    String file_name;
+
+    public String getFile_name() {
+        return file_name;
+    }
+
+    public void setFile_name(String file_name) {
+        this.file_name = file_name;
+    }
 
     public String getSubmited() {
         return submited;

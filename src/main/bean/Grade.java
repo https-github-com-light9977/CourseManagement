@@ -1,11 +1,22 @@
 package main.bean;
 
+import javax.servlet.http.Part;
+
 public class Grade {
     String stuid;
     String stuname;
     String hwid;
     String grade;
     String text;
+    Part part;
+
+    public Part getPart() {
+        return part;
+    }
+
+    public void setPart(Part part) {
+        this.part = part;
+    }
 
     public String getText() {
         return text;

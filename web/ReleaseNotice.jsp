@@ -1,6 +1,13 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="user.teacher.bean.THomework" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" pageEncoding="UTF-8"%>
+
+<%
+    request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+%>
 <html>
 <head>
     <title>教师发布通知！</title>
@@ -216,18 +223,12 @@
         <br><br><br>
         <div class="choicecontent"></div>
         <div class="content">
-            <form action="submitNotice" method="post">
-<%--                <label for="publishTime">发布时间:</label>--%>
-<%--                <input type="text" id="publishTime" name="publishTime" placeholder="点击选择发布时间">--%>
-<%--                <br><br>--%>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <form action="submitNotice" method="post" enctype="multipart/form-data">
                 <label for="content">通知内容:</label>
                 <textarea id="content" name="content" rows="5" cols="40"></textarea>
                 <br>
-                <%--          <form method="post" action="upload.jsp" enctype="multipart/form-data">--%>
-                <%--            <br/><br/>--%>
-                <%--            <input type="file" name="file" /><br/><br/>--%>
-                <%--            <input type="submit" value="上传已选文件" />--%>
-                <%--          </form>--%>
+                <input type="file" name="file" /><br/><br/>
                 <br>
                 <input type="hidden" name="classid" value=<%=classid%>>
                 <input class="logout-button" type="submit" id="submit-button"value="确认发布"></input>

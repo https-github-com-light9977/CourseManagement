@@ -3,6 +3,7 @@ package user.student.dao;
 import main.bean.Notice;
 import util.DB_Con_Util;
 
+import javax.servlet.ServletOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class NoticeDao {
+
     PreparedStatement pstm = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -19,7 +21,7 @@ public class NoticeDao {
         ArrayList<Notice> noticeArrayList = new ArrayList<>();
         Notice notice ;
         conn = db.getConnection();
-        String sql =  " select Notice_id,Content,NoticeTime from notice where Class_id=?";
+        String sql =  " select Notice_id,Content,NoticeTime,File_name from notice where Class_id=?";
         try {
             //	预编译sql
             pstm = conn.prepareStatement(sql);
@@ -36,6 +38,7 @@ public class NoticeDao {
                 if (content.length()>15){content=content.substring(15)+"...";}
                 notice.setContent(content);
                 notice.setTime(rs.getString(3));
+                notice.setFilename(rs.getString(4));
                 noticeArrayList.add(notice);
             }
             return noticeArrayList;
@@ -58,7 +61,8 @@ public class NoticeDao {
         ArrayList<String> noticeArrayList = new ArrayList<>();
         Notice notice ;
         conn = db.getConnection();
-        String sql =  " select Notice_id,Content,NoticeTime from notice where Class_id=? and Notice_id =?";
+
+        String sql =  " select Notice_id,Content,NoticeTime,File_name from notice where Class_id=? and Notice_id =?";
         try {
             //	预编译sql
             pstm = conn.prepareStatement(sql);
@@ -78,6 +82,10 @@ public class NoticeDao {
                 noticeArrayList.add(notice.getNoticeid());
                 noticeArrayList.add(notice.getTime());
                 noticeArrayList.add(notice.getContent());
+                notice.setFilename(rs.getString(4));
+                noticeArrayList.add(notice.getFilename());
+                System.out.println(notice.getFilename());
+
             }
             return noticeArrayList;
 

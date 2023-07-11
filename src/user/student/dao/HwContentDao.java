@@ -15,25 +15,28 @@ public class HwContentDao {
     String submited="未完成"
             ,grade = "未批改";
 
-    public boolean isGroupHw(String hwid,String classid,String stuid) throws SQLException {
+    public boolean isGroupHw(String hwid) throws SQLException {
         conn = db.getConnection();
-        String sql = "select Grouped from homework where Class_id=? and Homework_id =?";
+        System.out.println(hwid);
+        String sql = "select Grouped from homework where Homework_id =?";
         try {
             //	预编译sql
             pstm = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
             //赋值占位符
-            pstm.setString(1, classid);
-            pstm.setString(2, hwid);
+            pstm.setString(1, hwid);
             //更新结果集
             rs = pstm.executeQuery();
             rs.next();
-            if(rs.getString(1).equals("y")){
-                return true;
-            }
+                if ("y".equals(rs.getString(1))) {
+                    return true;
+                }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            rs.close();
+            pstm.close();
+            conn.close();
             //释放资源
         }
 
@@ -44,7 +47,7 @@ public class HwContentDao {
         ArrayList<String> hwContent = new ArrayList<>();
         Homework homework = new Homework();
         conn = db.getConnection();
-        String sql = "select Homework_id,Request,Grouped from homework where Class_id=? and Homework_id =?";
+        String sql = "select Homework_id,Request,Grouped,File_name from homework where Class_id=? and Homework_id =?";
         try {
             //	预编译sql
             pstm = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -58,9 +61,10 @@ public class HwContentDao {
                 homework.setHwid(rs.getString(1));
                 homework.setHw_requirement(rs.getString(2));
                 homework.setGrouped(rs.getString(3));
-
+                homework.setFile_name(rs.getString(4));
                 hwContent.add(homework.getHwid());
                 hwContent.add(homework.getHw_requirement());
+                hwContent.add(homework.getFile_name());
 
             }
             rs.close();

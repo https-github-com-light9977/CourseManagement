@@ -2,15 +2,18 @@ package user.teacher.servlet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
+@MultipartConfig
 public class SubmitReleaseHwServlet extends HttpServlet {
     String class_id;
     String hwid;
@@ -21,12 +24,19 @@ public class SubmitReleaseHwServlet extends HttpServlet {
     String backnews;
     String groupid;
     String submit;
+    InputStream fileInputStream=null;
     public void service(HttpServletRequest request,
                       HttpServletResponse response)
             throws IOException, ServletException {
         request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         Connection con = null;
         Statement statement;
+        //文件输入流
+        Part part=request.getPart("file");//获取表单提交的文件
+        String filename = part.getSubmittedFileName();
+
         class_id = request.getParameter("classid");
         releaseTime = request.getParameter("publishTime");
         deadline = request.getParameter("deadline");
@@ -42,6 +52,10 @@ public class SubmitReleaseHwServlet extends HttpServlet {
         }
 
         try {
+            System.out.println(part.getContentType());
+            if (part!=null){
+                System.out.println(part.getContentType());
+                fileInputStream= part.getInputStream(); }
 //          //连接数据库
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://rm-cn-pe33aabsn000o2io.rwlb.cn-chengdu.rds.aliyuncs.com:3306/course_management-2023?allowMultiQueries=true";
@@ -75,7 +89,7 @@ public class SubmitReleaseHwServlet extends HttpServlet {
 
             System.out.println("insert");
             // 插入数据
-            String insertsql = "insert into homework(Homework_id,Class_id,ReleaseTime,Homework_Deadline,Grouped,Request) values(?,?,?,?,?,?)";
+            String insertsql = "insert into homework(Homework_id,Class_id,ReleaseTime,Homework_Deadline,Grouped,Request,Hw_file,File_name) values(?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = con.prepareStatement(insertsql);
             preparedStatement.setString(1,hwid);
             preparedStatement.setString(2,class_id);
@@ -88,6 +102,8 @@ public class SubmitReleaseHwServlet extends HttpServlet {
             preparedStatement.setString(4,deadline);
             preparedStatement.setString(5,grouped);
             preparedStatement.setString(6,hw_requirement);
+            preparedStatement.setBinaryStream(7,fileInputStream);
+            preparedStatement.setString(8,filename);
             preparedStatement.executeUpdate();
             System.out.println("insert");
 

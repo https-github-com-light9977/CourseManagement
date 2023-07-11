@@ -90,7 +90,7 @@
                     out.println(backnews);
                 }
             %>
-            <a href="http://localhost:8080/CourseManagement_war_exploded/checkin?classid=FEG40901">test</a>
+            <a href="http://localhost:8080/CourseManagement_war_exploded/releaseNotice?classid=FEG40901">test</a>
         </div>
     </div>
 </div>

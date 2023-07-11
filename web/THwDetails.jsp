@@ -224,6 +224,15 @@
                 <td>详情：</td>
                 <td><%= hwDetail.get(2) %></td>
               </tr>
+
+              <%if (hwDetail.get(5)!=null){%>
+              <tr>
+                <td>查看文件：</td>
+                <td><a href = "/CourseManagement_war_exploded/downloadStudentFile?classid=<%=classinfo.get(0)%>&hwid=<%=hwDetail.get(4)%>&stuid=<%=hwDetail.get(0)%>"><%=hwDetail.get(5)%>
+                </a></td>
+              </tr>
+              <%}%>
+
               <tr>
                 <td>输入成绩：</td>
                 <td><input type="number" name="grade" ></td>

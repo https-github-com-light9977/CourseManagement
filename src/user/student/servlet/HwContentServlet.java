@@ -22,7 +22,7 @@ public class HwContentServlet  extends HttpServlet {
         hwid =request.getParameter("hwid");
         HwContentDao hwContentDao = new HwContentDao();
         try {
-            if(hwContentDao.isGroupHw(hwid,classid,stuid)){
+            if(hwContentDao.isGroupHw(hwid)){
                 ArrayList<String> groupMembers =new SGroupDao().findGroup(hwid,stuid);
                 ArrayList<String> hwContent = hwContentDao.findHwContent(hwid,classid,stuid);
                 request.setAttribute("groupMembers",groupMembers);

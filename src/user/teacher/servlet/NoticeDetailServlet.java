@@ -32,7 +32,7 @@ public class NoticeDetailServlet extends HttpServlet {
             String db_password = "210470727czyCZY";
             con = DriverManager.getConnection(url, user, db_password);
             statement = con.createStatement();
-            String sql = "select Notice_id,Content,NoticeTime from notice where Notice_id = '" + no_id + "'";
+            String sql = "select Notice_id,Content,NoticeTime,File_name from notice where Notice_id = '" + no_id + "'";
             ResultSet noDetailsRes = statement.executeQuery(sql);
 
             //解析ResultSet
@@ -41,12 +41,14 @@ public class NoticeDetailServlet extends HttpServlet {
 
                 content = noDetailsRes.getString(2);
                 time = noDetailsRes.getString(3);
+                String filename = noDetailsRes.getString(4);
 
                 //将结果打包成list传入前端
                 List<String> noDetail = new ArrayList<>();
                 noDetail.add(no_id);
                 noDetail.add(time);
                 noDetail.add(content);
+                noDetail.add(filename);
 
                 request.setAttribute("noDetail", noDetail);
                 noDetailsRes.close();

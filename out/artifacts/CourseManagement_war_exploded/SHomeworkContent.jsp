@@ -2,7 +2,15 @@
 <%@ page import="user.teacher.bean.THomework" %>
 <%@ page import="user.student.bean.Homework" %>
 <%@ page import="java.util.List" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" pageEncoding="UTF-8"%>
+
+<%
+    request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+%>
 <html>
 <head>
     <title>作业</title>
@@ -217,19 +225,26 @@
                             String content = hwContent.get(1);%>
                         <label for="content">作业要求:<%=content%></label>
                         <br>
-                    <form action="hwsubmit" method="post">
+
+                        <%if (hwContent.get(2)!=null){%>
+                        <label>查看资料：</label>
+                        <br>
+                            <a href = "/CourseManagement_war_exploded/downloadHwFile?classid=<%=classinfo.get(0)%>&hwid=<%=hwContent.get(0)%>"><%=hwContent.get(2)%>
+                            </a>
+                        <br>
+                        <%}%>
+
+                    <br>
+                    <form action="hwsubmit" method="post" enctype="multipart/form-data">
                         <label for="content">我的答案:</label>
                         <textarea id="content" name="text" rows="5" cols="40"></textarea>
                         <br>
-                        <label for="content">提交状态：<%=hwContent.get(2)%></label>
+                        <label for="content">提交状态：<%=hwContent.get(3)%></label>
                         <br>
-                        <label for="content">成绩：<%=hwContent.get(3)%></label>
+                        <label for="content">成绩：<%=hwContent.get(4)%></label>
 
-<%--                        <form method="post" action="upload.jsp" enctype="multipart/form-data">--%>
-<%--                            <br/><br/>--%>
-<%--                            <input type="file" name="file" /><br/><br/>--%>
-<%--                            <input type="submit" value="上传已选文件" />--%>
-<%--                        </form>--%>
+                            <input type="file" name="file" /><br/><br/>
+
                         <input type="hidden" name="hwid" value="<%=hwContent.get(0)%>">
                         <input type="hidden" name="stuid" value="<%=userBean.getLogid()%>">
                         <input type="hidden" name="classid" value="<%=classinfo.get(0)%>">
