@@ -150,7 +150,7 @@
         }
     </style>
 </head>
-<jsp:useBean id="userBean" class="bean.User" scope="session"/>
+<jsp:useBean id="userBean" class="main.bean.User" scope="session"/>
 <div class="container">
     <div class="left">
         <div class="horizontal-menu">
@@ -172,7 +172,9 @@
     <div class="right">
         <div class="content-wrapper">
             <div class="header">
-                <button class="logout-button">退出空间</button>
+                <a href="/CourseManagement_war_exploded">
+                    <button class="logout-button">退出空间</button>
+                </a>
             </div>
             <div class="content">
                 <!-- 个人信息界面 -->

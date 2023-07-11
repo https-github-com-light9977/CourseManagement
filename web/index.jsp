@@ -1,6 +1,6 @@
 <%@ page import="java.sql.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="userBean" class="bean.User" scope="session"/>
+<jsp:useBean id="userBean" class="main.bean.User" scope="session"/>
 <html>
 <title>欢迎使用课程活动管理系统!请登录</title>
 <style>

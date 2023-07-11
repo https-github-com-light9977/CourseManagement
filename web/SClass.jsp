@@ -166,7 +166,7 @@
         }
     </style>
 </head>
-<jsp:useBean id="userBean" class="bean.User" scope="session"/>
+<jsp:useBean id="userBean" class="main.bean.User" scope="session"/>
 <div class="container">
     <div class="left">
         <div class="horizontal-menu">
@@ -189,7 +189,9 @@
     <div class="right">
         <div class="content-wrapper">
             <div class="header">
-                <button class="logout-button">退出空间</button>
+                <a href="/CourseManagement_war_exploded">
+                    <button class="logout-button">退出空间</button>
+                </a>
             </div>
             <br>
                 <div class="logout-button"
@@ -205,7 +207,7 @@
                 <a id="choice1-link" class="choiceheader" href="/CourseManagement_war_exploded/shomework?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">作业</a>
                 <a id="choice2-link" class="choiceheader" href="/CourseManagement_war_exploded/scheckin?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">签到</a>
                 <a id="choice3-link" class="choiceheader" href="/CourseManagement_war_exploded/snotice?classid=<%=classinfo.get(0)%>&stuid=<%=userBean.getLogid()%>">通知</a>
-                <a id="choice4-link" class="choiceheader" href="/CourseManagement_war_exploded/sgrade?classid=<%=classinfo.get(0)%>&stuid<%=userBean.getLogid()%>">成绩</a>
+<%--                <a id="choice4-link" class="choiceheader" href="/CourseManagement_war_exploded/sgrade?classid=<%=classinfo.get(0)%>&stuid<%=userBean.getLogid()%>">成绩</a>--%>
             </div>
 <script>
     function showContent(id) {

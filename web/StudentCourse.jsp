@@ -1,6 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="bean.TCourse" %>
-<%@ page import="servlet.student.bean.CourseSel" %>
+<%@ page import="user.teacher.bean.TCourse" %>
+<%@ page import="user.student.bean.CourseSel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -173,7 +173,7 @@
         }
     </style>
 </head>
-<jsp:useBean id="userBean" class="bean.User" scope="session"/>
+<jsp:useBean id="userBean" class="main.bean.User" scope="session"/>
 <div class="container">
     <div class="left">
         <div class="horizontal-menu">
@@ -194,7 +194,9 @@
     <div class="right">
         <div class="content-wrapper">
             <div class="header">
-                <button class="logout-button">退出空间</button>
+                <a href="/CourseManagement_war_exploded">
+                    <button class="logout-button">退出空间</button>
+                </a>
             </div>
             <div class="content">
                 <div id="personal-info">

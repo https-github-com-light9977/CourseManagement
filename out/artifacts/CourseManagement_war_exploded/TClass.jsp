@@ -167,7 +167,7 @@
     </style>
 </head>
 <body>
-<jsp:useBean id="userBean" class="bean.User" scope="session"/>
+<jsp:useBean id="userBean" class="main.bean.User" scope="session"/>
 <div class="container">
     <div class="left">
         <div class="horizontal-menu">

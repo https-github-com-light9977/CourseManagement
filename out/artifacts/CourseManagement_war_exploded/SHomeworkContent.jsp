@@ -1,6 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="bean.THomework" %>
-<%@ page import="servlet.student.bean.Homework" %>
+<%@ page import="user.teacher.bean.THomework" %>
+<%@ page import="user.student.bean.Homework" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -169,7 +169,7 @@
     </style>
 </head>
 <body>
-<jsp:useBean id="userBean" class="bean.User" scope="session"/>
+<jsp:useBean id="userBean" class="main.bean.User" scope="session"/>
 <div class="container">
     <div class="left">
         <div class="horizontal-menu">
