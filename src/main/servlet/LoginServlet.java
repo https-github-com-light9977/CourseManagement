@@ -49,8 +49,9 @@ public class LoginServlet extends HttpServlet{
                         ResultSet rs_2 = sql.executeQuery(condition_2);
                         boolean m2 = rs_2.next();
                         if (m2 == true) { //判断密码是否正确
-                            success1(request, response, logid,password);
+                            success1(request, response, logid,identity);
                             rs_2.close();
+                            request.setAttribute("role",identity);
                             RequestDispatcher dispatcher =
                                     request.getRequestDispatcher("Teacher.jsp");//转发
                             dispatcher.forward(request, response);
@@ -90,7 +91,7 @@ public class LoginServlet extends HttpServlet{
                         boolean m2 = rs_2.next();
 
                         if (m2 == true) { //判断密码是否正确
-                            success2(request, response, logid,password);
+                            success2(request, response, logid,identity);
                             RequestDispatcher dispatcher =
                                     request.getRequestDispatcher("Student.jsp");//转发
                             dispatcher.forward(request, response);
@@ -130,7 +131,7 @@ public class LoginServlet extends HttpServlet{
 
     public void success1(HttpServletRequest request,
                         HttpServletResponse response,
-                        String logid,String password) {
+                        String logid,String role) {
         User loginBean=null;
         HttpSession session=request.getSession(true);
         try{
@@ -164,6 +165,7 @@ public class LoginServlet extends HttpServlet{
             if(n){
                 String name = nameSet.getString("Teacher_name");
                 loginBean.setName(name);
+                loginBean.setRole(role);
             }else{
                 //报错处理
             }
@@ -179,7 +181,7 @@ public class LoginServlet extends HttpServlet{
 
     public void success2(HttpServletRequest request,
                          HttpServletResponse response,
-                         String logid,String password) {
+                         String logid,String role) {
         User loginBean=null;
         HttpSession session=request.getSession(true);
         try{  loginBean=(User)session.getAttribute("userBean");
@@ -211,6 +213,7 @@ public class LoginServlet extends HttpServlet{
             if(n){
                 String name = nameSet.getString("Student_name");
                 loginBean.setName(name);
+                loginBean.setRole(role);
             }else{
                 //报错处理
             }

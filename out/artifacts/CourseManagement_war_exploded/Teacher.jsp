@@ -1,3 +1,4 @@
+<%@ page import="main.bean.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -215,6 +216,7 @@
                 <label for="confirm-password">确认新密码:</label><input type="password" id="confirm-password" name="confirm_password">
                 <br>
                 <input type="submit" id="submit-button" class="logout-button" value="提交">
+                <input type="hidden" name="role" value=<%=request.getAttribute("role")%>>
                   <%
                 String backnews = (String) request.getAttribute("back");
                 if (backnews != null){

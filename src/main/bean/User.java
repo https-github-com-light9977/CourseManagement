@@ -3,10 +3,20 @@ package main.bean;
 import java.sql.ResultSet;
 
 public class User {
-    String logid="",
-            password = "",
-            name ="",
-            backNews="";
+    String logid="";
+    String password = "";
+    String name ="";
+    String backNews="";
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    String role;
     ResultSet courseRes = null;
 
     public User(){}

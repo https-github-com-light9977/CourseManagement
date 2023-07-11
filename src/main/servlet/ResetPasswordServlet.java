@@ -31,12 +31,14 @@ public class ResetPasswordServlet extends HttpServlet {
 
         String id = loginBean.getLogid();
         String role = request.getParameter("role");
+        System.out.println(role);
         String old_password = request.getParameter("old_password");
         String new_password = request.getParameter("new_password");
         String confirm_password = request.getParameter("confirm_password");
         boolean boo = (new_password.length() > 0) && confirm_password.length() > 0;
-        if (role.equals("t")) {
+        if (role.equals("teacher")) {
         if (boo) {
+            System.out.println(role);
             //连接数据库
 //            conn = JdbcUtil.getConnection();
             try {
@@ -86,11 +88,14 @@ public class ResetPasswordServlet extends HttpServlet {
 
                 if (success == 1) {
                     request.setAttribute("back", backnews);
+                    request.setAttribute("role",role);
                     RequestDispatcher view = request.getRequestDispatcher("index.jsp");
                     view.forward(request, response);
 
                 } else {
                     request.setAttribute("back", backnews);
+                    request.setAttribute("role",role);
+                    System.out.println(role);
                     RequestDispatcher view = request.getRequestDispatcher("Teacher.jsp");
                     view.forward(request, response);
 
@@ -102,6 +107,8 @@ public class ResetPasswordServlet extends HttpServlet {
         }else {
                 backnews = "请输入新密码";
                 request.setAttribute("back", backnews);
+                request.setAttribute("role",role);
+                System.out.println(role);
                 RequestDispatcher view = request.getRequestDispatcher("Teacher.jsp");
                 view.forward(request, response);
             }
@@ -138,7 +145,7 @@ public class ResetPasswordServlet extends HttpServlet {
                             } else {
                                 stmt.close();
                                 rs.close();
-                                // 更新teacher表
+                                // 更新student表
                                 String updateSql = "update student set Student_password = ? where Student_id = ?";
                                 PreparedStatement stmt = conn.prepareStatement(updateSql);
                                 stmt.setString(1, new_password);
@@ -159,11 +166,13 @@ public class ResetPasswordServlet extends HttpServlet {
 
                     if (success == 1) {
                         request.setAttribute("back", backnews);
+                        request.setAttribute("role",role);
                         RequestDispatcher view = request.getRequestDispatcher("index.jsp");
                         view.forward(request, response);
 
                     } else {
                         request.setAttribute("back", backnews);
+                        request.setAttribute("role",role);
                         RequestDispatcher view = request.getRequestDispatcher("Student.jsp");
                         view.forward(request, response);
 
@@ -175,6 +184,7 @@ public class ResetPasswordServlet extends HttpServlet {
             }else {
                 backnews = "请输入新密码";
                 request.setAttribute("back", backnews);
+                request.setAttribute("role",role);
                 RequestDispatcher view = request.getRequestDispatcher("Student.jsp");
                 view.forward(request, response);
             }

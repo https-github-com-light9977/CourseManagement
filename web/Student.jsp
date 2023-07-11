@@ -203,7 +203,7 @@
                                 <br>
                                 <label for="confirm-password">确认新密码:</label><input type="password" id="confirm-password" name="confirm_password">
                                 <br>
-                                <input type="hidden" value="s" name="role">
+                                <input type="hidden" name="role" value=<%=request.getAttribute("role")%>>
                                 <input type="submit" id="submit-button" class="logout-button" value="提交">
                                     <%
                 String backnews = (String) request.getAttribute("back");

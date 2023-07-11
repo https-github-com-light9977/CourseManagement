@@ -95,6 +95,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>checkInDetail</servlet-name>
+        <servlet-class>user.teacher.servlet.CheckInDetailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkInDetail</servlet-name>
+        <url-pattern>/checkInDetail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>releaseHw</servlet-name>
         <servlet-class>user.teacher.servlet.ReleaseHwServlet</servlet-class>
     </servlet>
