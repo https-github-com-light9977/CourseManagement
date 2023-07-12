@@ -2,7 +2,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="userBean" class="main.bean.User" scope="session"/>
 <html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>欢迎使用课程活动管理系统!请登录</title>
+    <!-- 引入Bootstrap样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- 自定义样式 -->
 <style>
     <%-- body是全部背景的样式--%>
     body {
@@ -94,5 +99,8 @@
         </div>
     </div>
 </div>
+<!-- 引入Bootstrap脚本 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
