@@ -2,6 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="userBean" class="main.bean.User" scope="session"/>
 <html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>欢迎使用课程活动管理系统!请登录</title>
 <style>
     <%-- body是全部背景的样式--%>

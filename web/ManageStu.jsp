@@ -270,8 +270,8 @@
                     <th>学生ID</th>
                     <th>学生名字</th>
                     <%--                        <th>签到情况</th>--%>
-                    <th>签到分数</th>
-                    <th>作业分数</th>
+                    <th>签到分数（签到次数/发布次数）</th>
+                    <th>作业均分</th>
                     <th>操作</th>
                 </tr>
                 <%for(int i=0;i<manageStus.size();i++){
