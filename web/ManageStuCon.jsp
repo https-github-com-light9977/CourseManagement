@@ -258,9 +258,10 @@
     %>
     <div class="choicecontent"></div>
     <div class="content" >
-      <label>学生ID：<%=sCheckIns.get(0).getStuid()%></label>
+
+      <label>学生ID：<%=request.getAttribute("stuid")%></label>
       <br>
-      <label>学生名字：<%=sCheckIns.get(0).getStuname()%></label>
+      <label>学生名字：<%=request.getAttribute("stuname")%></label>
       <br>
       <label>签到情况：</label><br>
       <table align="center" class="table">

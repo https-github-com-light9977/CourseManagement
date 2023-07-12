@@ -263,7 +263,7 @@
       <table align="center" class="checkin-table">
         <tr>
           <th>序号</th>
-          <th>签到ID</th>
+<%--          <th>签到ID</th>--%>
           <th>截止时间</th>
           <th>操作</th>
 
@@ -275,7 +275,7 @@
           CheckIn checkIn=(CheckIn) checkInArrayList.get(i);%>
         <tr>
           <td><%=i+1 %></td>   <%-- 修改这里，使用 i+1 来表示第几行 --%>
-          <td><%=checkIn.getCheckinid() %></td>
+<%--          <td><%=checkIn.getCheckinid() %></td>--%>
           <td><%=checkIn.getDeadline() %></td>
           <td><a class="logout-button" href="/CourseManagement_war_exploded/checkInDetail?classid=<%=classinfo.get(0)%>&checkin_id=<%=checkIn.getCheckinid()%>" >
             查看详情</a></td>

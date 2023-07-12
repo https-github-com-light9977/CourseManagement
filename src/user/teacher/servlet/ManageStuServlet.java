@@ -65,8 +65,8 @@ public class ManageStuServlet extends HttpServlet {
                 //通过班级ID 和 学生ID
                 stuid = stus.get(i).get(0);
                 stuname = stus.get(i).get(1);
-                System.out.println(stuid);
-                System.out.println(stuname);
+//                System.out.println(stuid);
+//                System.out.println(stuname);
 
                 //获得签到数据
                 String checksql = "select convert((count(checkinsituation.CheckIn_id)/(select count(CheckIn_id) from checkin where Class_id='" + class_id + "')*100),decimal(10,2))as checkinGrade" +
@@ -74,7 +74,9 @@ public class ManageStuServlet extends HttpServlet {
                         " where checkinsituation.checkin_id=checkin.checkin_id and checkinsituation.student_id=student.student_id and Class_id='" + class_id + "'and checkinsituation.student_id='" + stuid + "'";
                 ResultSet checkRes = statement.executeQuery(checksql);
                 checkRes.next();
-                checkinGrade = checkRes.getString(1);
+                if(checkRes.getString(1)!=null){
+                checkinGrade = checkRes.getString(1);}
+                else {checkinGrade = "0.00";}
                 System.out.println(checkinGrade);
                 checkRes.close();
                 //获得作业分数
@@ -83,8 +85,9 @@ public class ManageStuServlet extends HttpServlet {
                         " where grade.homework_id=homework.homework_id and grade.student_id=student.student_id and Class_id='" + class_id + "'and student.student_id='" + stuid + "'";
                 ResultSet hwRes = statement.executeQuery(hwsql);
                 hwRes.next();
+
                 hwGrade = hwRes.getString(3);
-                System.out.println(hwGrade);
+//                System.out.println(hwGrade);
                 hwRes.close();
                 if(hwGrade==null){hwGrade = "0.00";}
 
@@ -94,8 +97,8 @@ public class ManageStuServlet extends HttpServlet {
 //                manageStu.setCheckin(Res.getString(checkin));
                 manageStu.setCheckinGrade(checkinGrade);
                 manageStu.setHwGrade(hwGrade);
-                System.out.println(manageStu.getCheckinGrade());
-                System.out.println(manageStu.getHwGrade());
+//                System.out.println(manageStu.getCheckinGrade());
+//                System.out.println(manageStu.getHwGrade());
                 manageStus.add(manageStu);
             }
 

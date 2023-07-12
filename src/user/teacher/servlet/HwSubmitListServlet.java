@@ -1,5 +1,6 @@
 package user.teacher.servlet;
 
+import user.student.dao.HwContentDao;
 import user.teacher.bean.HwSubmitList;
 
 import javax.servlet.RequestDispatcher;
@@ -63,6 +64,14 @@ public class HwSubmitListServlet extends HttpServlet {
                     }
                     request.setAttribute("submitLists", submitLists);
                     hwsubmitRes.close();
+
+                    ResultSet hwRes = statement.executeQuery("select Request,Homework_Deadline from homework where Homework_id = '"+hw_id+"'");
+                    hwRes.next();
+                    String hwrequest = hwRes.getString(1);
+                    String ddl = hwRes.getString(2);
+                    if(hwrequest==null){hwrequest = "";}
+                    request.setAttribute("hwrequest",hwrequest);
+                    request.setAttribute("ddl",ddl);
                     //班级信息
                     String s = "select Class_id,Class_name,Course_time,Location from course where Class_id='" + class_id + "'";   //返回(班级id,班级名称,上课时间,地点)查询语句
                     ResultSet classRes = statement.executeQuery(s);

@@ -262,7 +262,7 @@
       <table align="center" class="notice-table">
         <tr>
           <th>序号</th>
-          <th>通知ID</th>
+<%--          <th>通知ID</th>--%>
           <th>通知详情</th>
           <th>通知发布时间</th>
           <th>操作</th>
@@ -275,9 +275,11 @@
             Notice notice=(Notice) noticeArrayList.get(i);%>
         <tr>
           <td><%=i+1 %></td>   <%-- 修改这里，使用 i+1 来表示第几行 --%>
-          <td><%=notice.getNoticeid() %></td>
+<%--          <td><%=notice.getNoticeid() %></td>--%>
           <td><%=notice.getContent() %></td>
-          <td><%=notice.getTime() %></td>
+          <%String time;
+            if(notice.getTime()==null){time = "";}else{time = notice.getTime();}%>
+          <td><%=time %></td>
           <td><a class="logout-button" href="/CourseManagement_war_exploded/noticeDetail?classid=<%=classinfo.get(0)%>&no_id=<%=notice.getNoticeid()%>" >
             查看详情
           </a>

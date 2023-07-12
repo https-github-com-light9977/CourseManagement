@@ -39,7 +39,8 @@ public class HwSubmitServlet extends HttpServlet {
         grade.setStuid(request.getParameter("stuid"));
         grade.setHwid(request.getParameter("hwid"));
         text = request.getParameter("text");
-        grade.setText(request.getParameter("text"));
+        text = text.replace("\r","<br /");
+        grade.setText(text);
         part =request.getPart("file");//获取表单提交的文件
         grade.setPart(part);
 
@@ -54,6 +55,8 @@ public class HwSubmitServlet extends HttpServlet {
                 System.out.println("ghwsubmit");
                 hwSubmitDao.groupHwSubmit(grade);
             }
+            request.setAttribute("text",text);
+            System.out.println(text);
             request.setAttribute("classinfo", new ClassDao().findClassInfo(stuid, classid));
             String redirect_url = "/CourseManagement_war_exploded/hwcontent?" +
                     "classid=" + classid + "&stuid=" + stuid + "&hwid=" + hwid;

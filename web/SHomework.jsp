@@ -272,7 +272,7 @@
                     <tr>
                         <td><%=i+1 %></td>
                         <td><%=homework.getHwid() %></td>
-                        <td><%=homework.getHw_requirement() %></td>
+                        <td ><%=homework.getHw_requirement() %></td>
                         <td><%=homework.getReleaseTime() %></td>
                         <td><%=homework.getDeadline() %></td>
 

@@ -261,6 +261,11 @@
       </div>
       <br><br>
       <table align="center" class="homework-table">
+        作业要求:<br>
+        <%=request.getAttribute("hwrequest")%><br>
+
+        截止时间:<br>
+        <%=request.getAttribute("ddl")%>
         <tr>
           <th>序号</th>
           <th>学生ID</th>

@@ -233,12 +233,12 @@
                     <td style="word-wrap:break-word;word-break:break-all;"><%=content%></td>
 
                 </tr>
-
-                        <%if (hwContent.get(5)!=null){%>
                 <tr>
+                        <%if (hwContent.get(5)!=null){%>
+
                         <td style="word-wrap:break-word;word-break:break-all;"><label>查看资料:</label></td>
                         <br>
-                            <td><a href = "/CourseManagement_war_exploded/downloadHwFile?classid=<%=classinfo.get(0)%>&hwid=<%=hwContent.get(0)%>"><%=hwContent.get(2)%>
+                            <td><a href = "/CourseManagement_war_exploded/downloadHwFile?classid=<%=classinfo.get(0)%>&hwid=<%=hwContent.get(0)%>"><%=hwContent.get(5)%>
                             </a></td>
 
                         <br>
@@ -251,9 +251,15 @@
                         <label for="content">我的答案:</label>
                         <textarea id="content" name="text" rows="5" cols="40"></textarea>
                         <br>
-                        <label for="content">提交状态：<%=hwContent.get(3)%></label>
+
+                        <% if (request.getAttribute("text")!=null){%>
+                            <label for="content">提交详情:</label>
+                        <%=request.getAttribute("text")%>
+                        <%}%>
+
+                        <label for="content">提交状态：<%=hwContent.get(2)%></label>
                         <br>
-                        <label for="content">成绩：<%=hwContent.get(4)%></label>
+                        <label for="content">成绩：<%=hwContent.get(3)%></label>
 
                             <input type="file" name="file" /><br/><br/>
 

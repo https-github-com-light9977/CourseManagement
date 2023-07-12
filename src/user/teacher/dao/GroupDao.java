@@ -130,18 +130,19 @@ public class GroupDao {
             pstm.setString(1, classid);
             //更新结果集
             rs = pstm.executeQuery();
-            rs.next();
-            System.out.println(hwid);
-            System.out.println(rs.getString(1));
-            if (hwid.equals(rs.getString(1))) {//当重复进行多次分组时,更新group表。
-                rs.close();
-                System.out.println("更新");
-                String sql_group = "delete from  `group` where Homework_id = ?";
+            if(rs.next()) {
+                System.out.println(hwid);
+                if (hwid.equals(rs.getString(1))) {//当重复进行多次分组时,更新group表。
+                    rs.close();
+                    System.out.println("更新");
+                    String sql_group = "delete from  `group` where Homework_id = ?";
                     pstm = conn.prepareStatement(sql_group, ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
                     pstm.setString(1, hwid);
                     pstm.executeUpdate();
+                }
             }
+
                 for (int i = 0; i < groups.size(); i++) {
                     String sql_group = "insert into `group` values(?,?,?,?)";
                     pstm = conn.prepareStatement(sql_group, ResultSet.TYPE_SCROLL_INSENSITIVE,
