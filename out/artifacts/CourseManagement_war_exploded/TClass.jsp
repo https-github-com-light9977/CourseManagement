@@ -190,7 +190,9 @@
     <div class="right">
         <div class="content-wrapper">
             <div class="header">
-                <button class="logout-button">退出空间</button>
+                <a class="logout-button" href="/CourseManagement_war_exploded">
+                    退出空间
+                </a>
             </div>
             <br>
 

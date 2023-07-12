@@ -3,6 +3,14 @@
 <%@ page import="user.student.bean.Homework" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" pageEncoding="UTF-8"%>
+
+<%
+    request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+%>
 <html>
 <head>
     <title>作业</title>
@@ -192,8 +200,8 @@
     <div class="right">
         <div class="content-wrapper">
             <div class="header">
-                <a href="/CourseManagement_war_exploded">
-                    <button class="logout-button">退出空间</button>
+                <a class="logout-button" href="/CourseManagement_war_exploded">
+                    退出空间
                 </a>
             </div>
             <%
@@ -213,11 +221,28 @@
         <div class="choicecontent"></div>
         <div class="content" >
             <div class="logout-button" >作业内容详情>></div>
-            <form action="hwsubmit" method="post">
+            <form action="hwsubmit" method="post" enctype="multipart/form-data">
                 <%ArrayList<String> hwContent = (ArrayList)request.getAttribute("hwContent");
                     String content = hwContent.get(1);%>
                 <%ArrayList<String> groupMembers = (ArrayList)request.getAttribute("groupMembers");%>
-                <label for="content">作业要求:<%=content%></label>
+                <table width="70%" >
+                    <tr>
+                        <td style="word-wrap:break-word;word-break:break-all;"><label for="content">作业要求:</label></td>
+                        <td style="word-wrap:break-word;word-break:break-all;"><%=content%></td>
+
+                    </tr>
+
+                    <%if (hwContent.get(5)!=null&&hwContent.get(5).length()>0){%>
+                    <tr>
+                        <td style="word-wrap:break-word;word-break:break-all;"><label>查看资料:</label></td>
+                        <br>
+                        <td><a href = "/CourseManagement_war_exploded/downloadHwFile?classid=<%=classinfo.get(0)%>&hwid=<%=hwContent.get(0)%>"><%=hwContent.get(5)%>
+                        </a></td>
+
+                        <br>
+                    </tr>
+                    <%}%>
+                </table>
                 <br>
                 <label for="content">小组名单:
                     <%for(int i=0;i<groupMembers.size();i++){%>
@@ -233,11 +258,7 @@
                 <label for="content">提交状态：<%=hwContent.get(2)%></label>
                 <br>
                 <label for="content">成绩：<%=hwContent.get(3)%></label>
-<%--                <form method="post" action="upload.jsp" enctype="multipart/form-data">--%>
-<%--                    <br/><br/>--%>
-<%--                    <input type="file" name="file" /><br/><br/>--%>
-<%--                    <input type="submit" value="上传已选文件" />--%>
-<%--                </form>--%>
+                    <input type="file" name="file" /><br/><br/>
                 <input type="hidden" name="hwid" value="<%=hwContent.get(0)%>">
                 <input type="hidden" name="stuid" value="<%=userBean.getLogid()%>">
                 <input type="hidden" name="classid" value="<%=classinfo.get(0)%>">
