@@ -18,11 +18,10 @@ public class GroupServlet extends HttpServlet {
                         HttpServletResponse response)
             throws IOException, ServletException {
         String classid = request.getParameter("classid");
-
-
         ArrayList<Group> groupArrayList = null;
         try {
             String newhwid = new GroupDao().getNewHwid(classid);
+            System.out.println(newhwid);
             groupArrayList = new GroupDao().findGroups(classid,newhwid);
             System.out.println(groupArrayList);
         if (groupArrayList.size()>0){
@@ -33,6 +32,7 @@ public class GroupServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         String newhwid = null;
         try {
             newhwid = new GroupDao().getNewHwid(classid);

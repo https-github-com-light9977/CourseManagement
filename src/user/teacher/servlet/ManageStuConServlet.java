@@ -46,6 +46,9 @@ public class ManageStuConServlet extends HttpServlet {
             stuRes.next();
             stuname = stuRes.getString(1);
             stuRes.close();
+            request.setAttribute("stuid",stuid);
+            request.setAttribute("stuname",stuname);
+
 
             //签到情况
             ArrayList<SCheckIn> sCheckIns = new ArrayList<>();
@@ -59,14 +62,14 @@ public class ManageStuConServlet extends HttpServlet {
             while (checkRes.next()) {
                 checks.add(checkRes.getString(1));
             }
-            checkRes.next();
+            checkRes.close();
 
             for (Integer i = 0; i < checks.size(); i++) {
                 checkin_id = checks.get(i);
                 //在每一次签到中查询学生id，查询到将checked赋值为已签到
                 String checked_sql = "select * from checkinsituation where CheckIn_id='" + checkin_id + "' " +
                         "and Student_id = '" + stuid + "'";
-
+                System.out.println(stuid);
                 ResultSet checkedRes = statement.executeQuery(checked_sql);
                 if (checkedRes.next()) {
                     checked = "已签到";
@@ -79,6 +82,7 @@ public class ManageStuConServlet extends HttpServlet {
                 sCheckIn.setCheckin_id(checkin_id.substring(13));
                 sCheckIn.setChecked(checked);
                 sCheckIns.add(sCheckIn);
+                System.out.println(sCheckIns.get(0));
 
             }
 
@@ -105,20 +109,17 @@ public class ManageStuConServlet extends HttpServlet {
 
                 ResultSet hwgradeRes = statement.executeQuery(hw_sql);
                 if (!hwgradeRes.next()) {
-                    this.grade = "0";
+                    this.grade = "未完成";
                 }else{
                     this.grade = hwgradeRes.getString(3);
                 }
                 hwgradeRes.close();
-
-
                 grade =new Grade();
                 grade.setHwid(hwid.substring(8));
                 grade.setGrade(this.grade);
                 grades.add(grade);
             }
             request.setAttribute("sHwGrades", grades);
-
 
             //班级信息
             String s = "select Class_id,Class_name,Course_time,Location from course where Class_id='" + class_id + "'";   //返回(班级id,班级名称,上课时间,地点)查询语句
@@ -137,16 +138,15 @@ public class ManageStuConServlet extends HttpServlet {
                     classinfo.add(classtime);
                     classinfo.add(location);
                     request.setAttribute("classinfo", classinfo);
+                    statement.close();
+                    con.close();
 
                     //转发
                     RequestDispatcher dispatcher =
                             request.getRequestDispatcher("ManageStuCon.jsp");//转发
                     dispatcher.forward(request, response);
-                    con.close();
-                    statement.close();
 
-                } catch (SQLException e) {
-                    e.printStackTrace();
+
                 } catch (ServletException e) {
                     e.printStackTrace();
                 }

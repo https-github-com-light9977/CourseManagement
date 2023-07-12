@@ -13,7 +13,11 @@
 %>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>作业</title>
+    <!-- 引入Bootstrap样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- 自定义样式 -->
     <style>
         body {
             font-family:sans-serif;
@@ -229,12 +233,12 @@
                     <td style="word-wrap:break-word;word-break:break-all;"><%=content%></td>
 
                 </tr>
-
-                        <%if (hwContent.get(5)!=null){%>
                 <tr>
+                        <%if (hwContent.get(5)!=null){%>
+
                         <td style="word-wrap:break-word;word-break:break-all;"><label>查看资料:</label></td>
                         <br>
-                            <td><a href = "/CourseManagement_war_exploded/downloadHwFile?classid=<%=classinfo.get(0)%>&hwid=<%=hwContent.get(0)%>"><%=hwContent.get(2)%>
+                            <td><a href = "/CourseManagement_war_exploded/downloadHwFile?classid=<%=classinfo.get(0)%>&hwid=<%=hwContent.get(0)%>"><%=hwContent.get(5)%>
                             </a></td>
 
                         <br>
@@ -247,9 +251,15 @@
                         <label for="content">我的答案:</label>
                         <textarea id="content" name="text" rows="5" cols="40"></textarea>
                         <br>
-                        <label for="content">提交状态：<%=hwContent.get(3)%></label>
+
+                        <% if (request.getAttribute("text")!=null){%>
+                            <label for="content">提交详情:</label>
+                        <%=request.getAttribute("text")%>
+                        <%}%>
+
+                        <label for="content">提交状态：<%=hwContent.get(2)%></label>
                         <br>
-                        <label for="content">成绩：<%=hwContent.get(4)%></label>
+                        <label for="content">成绩：<%=hwContent.get(3)%></label>
 
                             <input type="file" name="file" /><br/><br/>
 
@@ -265,5 +275,8 @@
         </table>
             </div>
         </div>
+<!-- 引入Bootstrap脚本 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

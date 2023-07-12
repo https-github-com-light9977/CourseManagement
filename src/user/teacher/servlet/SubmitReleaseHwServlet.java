@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 @MultipartConfig
 public class SubmitReleaseHwServlet extends HttpServlet {
@@ -40,8 +41,10 @@ public class SubmitReleaseHwServlet extends HttpServlet {
         class_id = request.getParameter("classid");
         releaseTime = request.getParameter("publishTime");
         deadline = request.getParameter("deadline");
+        System.out.println(deadline);
         grouped = request.getParameter("group");
         hw_requirement = request.getParameter("content");
+        if(hw_requirement ==null){hw_requirement = "";}
         backnews = request.getParameter("backnews");
         if(grouped.equals("y")&&backnews.length()==0){
             request.setAttribute("hint","请先完成分组");
@@ -78,6 +81,7 @@ public class SubmitReleaseHwServlet extends HttpServlet {
                 getLast.last();
                 String lasthwid;
                 lasthwid = getLast.getString(1);
+                System.out.println(lasthwid);
                 String lastnum = lasthwid.substring(8);
                     if(Integer.parseInt(lastnum)<9){
                         hwid = class_id + "0" + (Integer.parseInt(lastnum)+1);
@@ -93,6 +97,7 @@ public class SubmitReleaseHwServlet extends HttpServlet {
             PreparedStatement preparedStatement = con.prepareStatement(insertsql);
             preparedStatement.setString(1,hwid);
             preparedStatement.setString(2,class_id);
+
             //获取发布时间
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             releaseTime = df.format(System.currentTimeMillis());

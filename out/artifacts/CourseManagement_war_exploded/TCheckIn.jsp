@@ -5,7 +5,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>签到</title>
+  <!-- 引入Bootstrap样式 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- 自定义样式 -->
   <style>
     body {
       font-family:sans-serif;
@@ -259,7 +263,7 @@
       <table align="center" class="checkin-table">
         <tr>
           <th>序号</th>
-          <th>签到ID</th>
+<%--          <th>签到ID</th>--%>
           <th>截止时间</th>
           <th>操作</th>
 
@@ -271,7 +275,7 @@
           CheckIn checkIn=(CheckIn) checkInArrayList.get(i);%>
         <tr>
           <td><%=i+1 %></td>   <%-- 修改这里，使用 i+1 来表示第几行 --%>
-          <td><%=checkIn.getCheckinid() %></td>
+<%--          <td><%=checkIn.getCheckinid() %></td>--%>
           <td><%=checkIn.getDeadline() %></td>
           <td><a class="logout-button" href="/CourseManagement_war_exploded/checkInDetail?classid=<%=classinfo.get(0)%>&checkin_id=<%=checkIn.getCheckinid()%>" >
             查看详情</a></td>
@@ -285,5 +289,8 @@
   </div>
 </div>
 </div>
+<!-- 引入Bootstrap脚本 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

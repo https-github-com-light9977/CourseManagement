@@ -84,9 +84,7 @@ public class HwSubmitDao {
         String sql = " select * from grade where Homework_id=? and Student_id = ? ";
         try {
             System.out.println(part.getContentType());
-            if (part!=null){
-                System.out.println(part.getContentType());
-                fileInputStream= part.getInputStream(); }
+
 
             System.out.println("hwsubmit");
             //	预编译sql
@@ -103,9 +101,12 @@ public class HwSubmitDao {
                     String insertsql ="insert into grade(Student_id,Homework_id,Text,Student_file,File_name) values (?,?,?,?,?)";
                     pstm = conn.prepareStatement(insertsql);
                     //赋值占位符
-                    pstm.setString(1, stuid);
+                    pstm.setString(1, groupMember.get(i));
                     pstm.setString(2, hwid);
                     pstm.setString(3, text);
+                    if (part!=null){
+                        System.out.println(part.getContentType());
+                        fileInputStream= part.getInputStream(); }
                     pstm.setBinaryStream(4, fileInputStream);
                     pstm.setString(5, filename);
                     System.out.println(text);

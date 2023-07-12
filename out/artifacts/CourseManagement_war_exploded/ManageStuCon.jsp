@@ -6,7 +6,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>学生具体情况！</title>
+  <!-- 引入Bootstrap样式 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- 自定义样式 -->
   <style>
     body {
       font-family:sans-serif;
@@ -254,9 +258,10 @@
     %>
     <div class="choicecontent"></div>
     <div class="content" >
-      <label>学生ID：<%=sCheckIns.get(0).getStuid()%></label>
+
+      <label>学生ID：<%=request.getAttribute("stuid")%></label>
       <br>
-      <label>学生名字：<%=sCheckIns.get(0).getStuname()%></label>
+      <label>学生名字：<%=request.getAttribute("stuname")%></label>
       <br>
       <label>签到情况：</label><br>
       <table align="center" class="table">
@@ -299,5 +304,8 @@
     </div>
   </div>
 </div>
+<!-- 引入Bootstrap脚本 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
