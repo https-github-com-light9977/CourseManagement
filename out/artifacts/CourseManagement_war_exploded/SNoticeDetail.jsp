@@ -192,8 +192,8 @@
   <div class="right">
     <div class="content-wrapper">
       <div class="header">
-        <a href="/CourseManagement_war_exploded">
-          <button class="logout-button">退出空间</button>
+        <a class="logout-button" href="/CourseManagement_war_exploded">
+          退出空间
         </a>
       </div>
 
@@ -231,7 +231,7 @@
           </tr>
           <tr>
             <td>内容：</td>
-            <td style="word-wrap:break-word;word-break:break-all;"><%= noDetail.get(2) %></td>
+            <td style="word-wrap:break-word;word-break:break-all;"><pre><%= noDetail.get(2) %></pre></td>
           </tr>
 
           <%if (noDetail.get(3)!=null){%>

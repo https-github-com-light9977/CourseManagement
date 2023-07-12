@@ -200,8 +200,8 @@
     <div class="right">
         <div class="content-wrapper">
             <div class="header">
-                <a href="/CourseManagement_war_exploded">
-                    <button class="logout-button">退出空间</button>
+                <a class="logout-button" href="/CourseManagement_war_exploded">
+                    退出空间
                 </a>
             </div>
             <%
@@ -221,18 +221,26 @@
         <div class="choicecontent"></div>
         <div class="content" >
             <div class="logout-button" >作业内容详情>></div>
-                        <%ArrayList<String> hwContent = (ArrayList)request.getAttribute("hwContent");
+            <table width="70%" >
+                <%ArrayList<String> hwContent = (ArrayList)request.getAttribute("hwContent");
                             String content = hwContent.get(1);%>
-                        <label for="content">作业要求:<%=content%></label>
-                        <br>
+                <tr>
+                    <td style="word-wrap:break-word;word-break:break-all;"><label for="content">作业要求:</label></td>
+                    <td style="word-wrap:break-word;word-break:break-all;"><%=content%></td>
 
-                        <%if (hwContent.get(2)!=null){%>
-                        <label>查看资料：</label>
+                </tr>
+
+                        <%if (hwContent.get(5)!=null){%>
+                <tr>
+                        <td style="word-wrap:break-word;word-break:break-all;"><label>查看资料:</label></td>
                         <br>
-                            <a href = "/CourseManagement_war_exploded/downloadHwFile?classid=<%=classinfo.get(0)%>&hwid=<%=hwContent.get(0)%>"><%=hwContent.get(2)%>
-                            </a>
+                            <td><a href = "/CourseManagement_war_exploded/downloadHwFile?classid=<%=classinfo.get(0)%>&hwid=<%=hwContent.get(0)%>"><%=hwContent.get(2)%>
+                            </a></td>
+
                         <br>
+                </tr>
                         <%}%>
+            </table>
 
                     <br>
                     <form action="hwsubmit" method="post" enctype="multipart/form-data">
@@ -254,7 +262,7 @@
                 <%
                 ArrayList homeworks=(ArrayList)request.getAttribute("homeworks");
                 %>
-
+        </table>
             </div>
         </div>
 </body>

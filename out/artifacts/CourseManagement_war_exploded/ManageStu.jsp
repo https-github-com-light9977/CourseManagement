@@ -215,8 +215,8 @@
     <div class="right">
         <div class="content-wrapper">
             <div class="header">
-                <a href="/CourseManagement_war_exploded">
-                    <button class="logout-button">退出空间</button>
+                <a class="logout-button" href="/CourseManagement_war_exploded">
+                    退出空间
                 </a>
             </div>
             <br>
@@ -244,21 +244,21 @@
                 <%--                    <jsp:getProperty name="userBean" property="courseRes"/>--%>
             </div>
 
-            <label >设置成绩占比：</label>
-            <form action="finalGrade" method="post">
-                <br>签到：
-                <br>
-                <select name="checkin">
-                    <% for (int i = 5; i <= 100; i=i+5) { %>
-                    <option value="<%=i%>"><%=i%></option>
-                    <% } %>%
-                </select>
-                <select name="hw">
-                    <% for (int i = 5; i <= 100; i=i+5) { %>
-                    <option value="<%=i%>"><%=i%></option>
-                    <% } %>%
-                </select>
-                <input >
+<%--            <label >设置成绩占比：</label>--%>
+<%--            <form action="finalGrade" method="post">--%>
+<%--                <br>签到：--%>
+<%--                <br>--%>
+<%--                <select name="checkin">--%>
+<%--                    <% for (int i = 5; i <= 100; i=i+5) { %>--%>
+<%--                    <option value="<%=i%>"><%=i%></option>--%>
+<%--                    <% } %>%--%>
+<%--                </select>--%>
+<%--                <select name="hw">--%>
+<%--                    <% for (int i = 5; i <= 100; i=i+5) { %>--%>
+<%--                    <option value="<%=i%>"><%=i%></option>--%>
+<%--                    <% } %>%--%>
+<%--                </select>--%>
+<%--                <input >--%>
 
             <br><br>
             <%

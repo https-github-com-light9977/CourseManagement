@@ -201,8 +201,8 @@
     </div>
     <div class="right">
         <div class="header">
-            <a href="/CourseManagement_war_exploded">
-                <button class="logout-button">退出空间</button>
+            <a class="logout-button" href="/CourseManagement_war_exploded">
+                退出空间
             </a>
         </div>
         <br>

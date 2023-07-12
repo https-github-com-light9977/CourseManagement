@@ -64,7 +64,6 @@ public class HwContentDao {
                 homework.setFile_name(rs.getString(4));
                 hwContent.add(homework.getHwid());
                 hwContent.add(homework.getHw_requirement());
-                hwContent.add(homework.getFile_name());
 
             }
             rs.close();
@@ -79,12 +78,12 @@ public class HwContentDao {
             if(submitRes.next()){
                 System.out.println("hwcontent");
                     submited = "已提交";
-                    System.out.println("hwcontent");
+                    System.out.println(submited);
                 if(submitRes.getString(2) != null){
                     grade = submitRes.getString(2);
                     System.out.println("hwcontent");
                 }
-            }
+            }else {submited = "未提交";}
             System.out.println("hwcontent");
             submitRes.close();
             statement.close();
@@ -95,6 +94,8 @@ public class HwContentDao {
             hwContent.add(homework.getSubmited());
             hwContent.add(homework.getGrade());
             hwContent.add(homework.getGrouped());
+
+            hwContent.add(homework.getFile_name());
             System.out.println(hwContent.size());
             return hwContent;
 

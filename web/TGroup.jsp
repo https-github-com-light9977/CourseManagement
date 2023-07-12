@@ -189,9 +189,9 @@
     </div>
     <div class="right">
         <div class="content-wrapper">
-            <div class="header">
-                <button class="logout-button">退出空间</button>
-            </div>
+            <a class="logout-button" href="/CourseManagement_war_exploded">
+                退出空间
+            </a>
             <div class="content">
                 <div id="personal-info">
                     <%String classid = (String) request.getAttribute("classid");%>
