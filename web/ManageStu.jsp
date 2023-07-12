@@ -244,6 +244,22 @@
                 <%--                    <jsp:getProperty name="userBean" property="courseRes"/>--%>
             </div>
 
+            <label >设置成绩占比：</label>
+            <form action="finalGrade" method="post">
+                <br>签到：
+                <br>
+                <select name="checkin">
+                    <% for (int i = 5; i <= 100; i=i+5) { %>
+                    <option value="<%=i%>"><%=i%></option>
+                    <% } %>%
+                </select>
+                <select name="hw">
+                    <% for (int i = 5; i <= 100; i=i+5) { %>
+                    <option value="<%=i%>"><%=i%></option>
+                    <% } %>%
+                </select>
+                <input >
+
             <br><br>
             <%
                 ArrayList manageStus=(ArrayList)request.getAttribute("manageStus");

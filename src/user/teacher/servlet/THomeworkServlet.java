@@ -40,7 +40,13 @@ public class THomeworkServlet extends HttpServlet {
 
                 hw=new THomework();
                 hw.setHwid(hwRes.getString("Homework_id"));
-                hw.setHw_requirement(hwRes.getString("Request"));
+                String hw_requirement = hwRes.getString(2);
+                if (hw_requirement!=null&&hw_requirement.length()>15){
+                hw_requirement = hw_requirement.substring(0,15);}
+                System.out.println(hw_requirement);
+
+                hw.setHw_requirement(hw_requirement);
+                System.out.println(hw.getHw_requirement());
                 hw.setDeadline(hwRes.getString("Homework_Deadline"));
                 homeworks.add(hw);
             }

@@ -101,6 +101,7 @@ public class SubmitReleaseHwServlet extends HttpServlet {
             preparedStatement.setString(3,releaseTime);
             preparedStatement.setString(4,deadline);
             preparedStatement.setString(5,grouped);
+            hw_requirement =hw_requirement.replace("\r","<br />");
             preparedStatement.setString(6,hw_requirement);
             preparedStatement.setBinaryStream(7,fileInputStream);
             preparedStatement.setString(8,filename);
