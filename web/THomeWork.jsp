@@ -266,10 +266,11 @@
         %>
         <%for(int i=0;i<homeworks.size();i++){
           THomework tHomework=homeworks.get(i);%>
+
         <tr>
           <td><%=i+1 %></td>   <%-- 修改这里，使用 i+1 来表示第几行 --%>
           <td><%=tHomework.getHwid() %></td>
-          <td><%=tHomework.getHw_requirement() %></td>
+          <td><%=tHomework.getHw_requirement()%></td>
           <td><%=tHomework.getDeadline() %></td>
           <td><a class="logout-button" href="/CourseManagement_war_exploded/hw_submit_list?classid=<%=classinfo.get(0)%>&hwid=<%=tHomework.getHwid()%>" >
             查看详情</a></td>

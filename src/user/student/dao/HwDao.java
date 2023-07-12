@@ -32,7 +32,12 @@ public class HwDao {
             while(rs.next()) {
                 homework =  new Homework();
                 homework.setHwid(rs.getString(1));
-                homework.setHw_requirement(rs.getString(2));
+                String hw_requirement = rs.getString(2);
+                if (hw_requirement!=null&&hw_requirement.length()>15){
+                    hw_requirement = hw_requirement.substring(0,15);}
+                System.out.println(hw_requirement);
+
+                homework.setHw_requirement(hw_requirement);
                 homework.setReleaseTime(rs.getString(3));
                 homework.setDeadline(rs.getString(4));
                 homeworkArrayList.add(homework);
