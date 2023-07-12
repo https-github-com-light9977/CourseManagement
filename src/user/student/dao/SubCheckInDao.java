@@ -20,7 +20,7 @@ public class SubCheckInDao {
 
     public boolean checkIn(String stuid, String checkin_id) throws SQLException {
         conn = db.getConnection();
-        String sql = " select * from checkinsituation where CheckIn_id=?";
+        String sql = " select * from checkinsituation where CheckIn_id=? and Student_id=?";
         String sql2 = " select CheckIn_deadline from checkin where CheckIn_id=?";
         try {
             pstm = conn.prepareStatement(sql2);
@@ -29,23 +29,28 @@ public class SubCheckInDao {
             if(resultSet.next()){
                 ddl = resultSet.getString(1);
             }
+            resultSet.close();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date ddl_time = sdf.parse(ddl) ;
             Date cur_time = sdf.parse(sdf.format(System.currentTimeMillis()));
 
             //	预编译sql
-            pstm = conn.prepareStatement(sql);
+            PreparedStatement pstm = conn.prepareStatement(sql);
             //赋值占位符
             pstm.setString(1, checkin_id);
+            pstm.setString(2, stuid);
+
             //更新结果集
             rs = pstm.executeQuery();
             System.out.println(ddl_time);
             System.out.println(cur_time);
             System.out.println(ddl_time.before(cur_time));
         if(!ddl_time.before(cur_time)) {
-            if (rs.next()) {
+            boolean m = rs.next();
+            if (m) {
+                System.out.println(m);
                 return false;
-            } else {
+            }
                 rs.close();
                 String insertsql = "insert into checkinsituation values (?,?)";
                 pstm = conn.prepareStatement(insertsql);
@@ -56,7 +61,7 @@ public class SubCheckInDao {
                 pstm.executeUpdate();
                 System.out.println("插入成功");
                 return true;
-            }
+
         }else {return false;}
 
         } catch (SQLException e) {
